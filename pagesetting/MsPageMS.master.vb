@@ -401,8 +401,8 @@ Partial Class pagesetting_MsPageMS
         wulnow = Month(Now.AddMonths(1))  ' BULAN CURRENT OMZET TUTUP POINT GANTI PARAMETER INI TIAP BULAN MAJU TIAP BULAN +1 -----------
         nahunnow = Year(dino) ' GANTI PARAMETER INI TIAP TAHUN
 
-        tutup1 = CDate(CStr(strDays) + "/" + Convert.ToString(bln) + "/" + Convert.ToString(thn) + " " + "23:59:59")
-        tutup2 = CDate(CStr(strDays1) + "/" + Convert.ToString(bln1) + "/" + CStr(thn1) + " " + "00:00:00")
+        tutup1 = CStr(strDays) + "/" + Convert.ToString(bln) + "/" + Convert.ToString(thn) + " " + "23:59:59"
+        tutup2 = CStr(strDays1) + "/" + Convert.ToString(bln1) + "/" + CStr(thn1) + " " + "00:00:00"
 
         '''''''''''''''''''''''''''''''
         ' alokbulan session

@@ -286,3 +286,13 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+EntityFramework.SqlServer.xml
+EntityFramework.xml
+HWI.DistributionCenter.xml
+IAS_System/IASSYS.ini
+IAS_System/IASSYS.ini
+IASClass.xml
+IAS_System/IASSYS.ini
+*.ini
+IASClass_TestCon.xml
+*.xml
