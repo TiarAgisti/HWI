@@ -1,0 +1,26 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPageBlank.master.vb" Inherits="pagesetting_MasterPageBlank" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+  <title>HWI</title>
+  <link rel="stylesheet" href="../Scripts/Bootstrap/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../Scripts/Bootstrap/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="../Scripts/Bootstrap/css/ionicons.min.css" />
+  <link rel="stylesheet" href="../Scripts/Bootstrap/plugins/jvectormap/jquery-jvectormap-1.2.2.css" />
+  <link rel="stylesheet" href="../Scripts/Bootstrap/dist/css/AdminLTE.min.css" />
+  <link rel="stylesheet" href="../Scripts/Bootstrap/dist/css/skins/_all-skins.min.css" />
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder id="mpCONTENT" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

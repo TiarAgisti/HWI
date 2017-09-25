@@ -1,0 +1,302 @@
+﻿<%@ Master Language="VB" CodeFile="MsPageMainMenu.master.vb" Inherits="pagesetting_MsPageMainMenu" %>
+
+<html xmlns="">
+<head runat="server">
+<title>HWI</title>
+     <link rel="shortcut icon" href="../Scripts/Bootstrap/dist/img/icon.png" />
+ 	<link rel="stylesheet" href="../Scripts/Bootstrap/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../Scripts/Bootstrap/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../Scripts/Bootstrap/dist/css/AdminLTE.min.css">
+	<link rel="stylesheet" href="../Scripts/Bootstrap/dist/css/skins/_all-skins.min.css">
+ <asp:ContentPlaceHolder id="head" runat="server" >
+    </asp:ContentPlaceHolder>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+	<header class="main-header">
+		<a href="index2.html" class="logo">
+			<span class="logo-mini">
+				<b>HWI</b>
+			</span>
+			<span class="logo-lg">
+			<b>Health Wealth Int</b>
+			</span>
+		</a>
+		<nav class="navbar navbar-static-top">
+			<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+				<span class="sr-only">Toggle navigation</span>
+			</a>
+			<div class="navbar-custom-menu">
+				<ul class="nav navbar-nav">
+					<li class="dropdown messages-menu">
+						<li class="dropdown user user-menu">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img src="../Scripts/Bootstrap/dist/img/icon.png" class="user-image" alt="User Image" />
+								<span class="hidden-xs">adang sutisna</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="user-header">
+									<img src="../Scripts/Bootstrap/dist/img/icon.png" class="img-circle" alt="User Image" />
+									<p>
+									</p>
+								</li>
+								<li class="user-footer">
+									<div class="pull-left">
+										<a href="gpass.aspx" class="btn btn-default btn-flat">
+												  Ganti Pasword
+										</a>
+									</div>
+									<div class="pull-right">
+										<a href="logout.aspx" class="btn btn-default btn-flat">
+												   Sign out
+												</a>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</li>
+					<li>
+						<a href="#" data-toggle="control-sidebar"><i class="glyphicon glyphicon-cog"></i></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <div class="user-panel">
+                    <div class="pull-left image">
+                      <img src="Scripts/Bootstrap/dist/img/icon.png" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                      <p><%--<?= $dtuser['nama_user'] ?>--%></p>
+                      <a href="#"><i class="glyphicon glyphicon-dashboard"></i> Online</a>
+                    </div>
+                </div>
+    
+                 <%-- <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                      <input type="text" name="q" class="form-control" placeholder="Search...">
+                          <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                            </button>
+                          </span>
+                    </div>
+                  </form>--%>
+               <div id="TreeMenu" runat="server">
+                   <ul class="sidebar-menu">
+                        <li class="header">MAIN MENU
+                        </li>
+                        <li class="active treeview">
+                           <ul class="treeview-menu">
+                               <a href="../HWINew/pj_DistributionCenter/cp_home.aspx">cp_home</a>
+		                    </ul>
+                         </li>
+                    </ul>
+               </div>
+            </section>  
+        </aside>    
+        <div class="content-wrapper">
+                <%--<?php include "tengah.html";?>--%>
+                <form id="form1" runat="server">
+                   <div>
+                      <asp:ContentPlaceHolder id="mpCONTENT" runat="server">
+
+                      </asp:ContentPlaceHolder>
+                    </div>
+                </form>
+        </div>
+       <footer class="main-footer">
+        <strong>
+            Copyright &copy; 2016 PT Health Wealth Int
+        </strong> 
+            All rights reserved.
+		</footer>
+        <aside class="control-sidebar control-sidebar-dark">
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                 <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i>
+                    </a>
+                 </li>
+                 <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                    <h3 class="control-sidebar-heading">Recent Activity
+                    </h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:void(0)" >
+                                <i class="menu-icon fa fa-birthday-cake bg-red">
+                                </i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Langdon's Birthday
+                                    </h4>
+                                    <p>Will be 23 on April 24th
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-user bg-yellow">
+                                </i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile
+                                    </h4>
+                                    <p>New phone +1(800)555-1234
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                 <i class="menu-icon fa fa-envelope-o bg-light-blue">
+                                 </i>
+                                 <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List
+                                    </h4>
+                                    <p>nora@example.com
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-file-code-o bg-green">
+                                </i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed
+                                    </h4>
+                                    <p>Execution time 5 seconds
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <h3 class="control-sidebar-heading">Tasks Progress
+                    </h3>
+                    <ul class="control-sidebar-menu">
+                      <li>
+                        <a href="javascript:void(0)">
+                          <h4 class="control-sidebar-subheading">
+                            Custom Template Design
+                            <span class="label label-danger pull-right">70%</span>
+                          </h4>
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%">
+                                </div>
+                            </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">
+                          <h4 class="control-sidebar-subheading">
+                            Update Resume
+                            <span class="label label-success pull-right">95%</span>
+                          </h4>
+                          <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-success" style="width: 95%">
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">
+                          <h4 class="control-sidebar-subheading">
+                            Laravel Integration
+                            <span class="label label-warning pull-right">50%</span>
+                          </h4>
+                          <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-warning" style="width: 50%">
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">
+                          <h4 class="control-sidebar-subheading">
+                            Back End Framework
+                            <span class="label label-primary pull-right">68%</span>
+                          </h4>
+                          <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                 </div>
+                 <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <form method="post">
+                        <h3 class="control-sidebar-heading">General Settings
+                        </h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Report panel usage
+                                <input type="checkbox" class="pull-right" checked />
+                            </label>
+                            <p>
+                              Some information about this general settings option
+                            </p>
+                         </div>
+                         <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                              Allow mail redirect
+                              <input type="checkbox" class="pull-right" checked />
+                            </label>
+                            <p>
+                              Other sets of options are available
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                             Expose author name in posts
+                                <input type="checkbox" class="pull-right" checked />
+                            </label>
+                            <p>
+                              Allow the user to show his name in blog posts
+                            </p>
+                        </div>
+                        <h3 class="control-sidebar-heading">Chat Settings
+                        </h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                              Show me as online
+                              <input type="checkbox" class="pull-right" checked />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                              Turn off notifications
+                              <input type="checkbox" class="pull-right" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                              Delete chat history
+                              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                            </label>
+                        </div>
+                    </form>
+                 </div>
+             </div>
+         </aside>
+        <div class="control-sidebar-bg"></div>
+    </div>
+	<script src="../Scripts/Bootstrap/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+	<script src="../Scripts/Bootstrap/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../Scripts/Bootstrap/dist/js/app.min.js"></script>
+	<script type="text/javascript">
+			$('#infodcModal').modal('show');
+	</script>
+    <!-- Visual Studio Browser Link -->
+<script type="application/json" id="__browserLink_initializationData">
+    {"appName":"Chrome","requestId":"b7d5d3f3b02c443bb100e99e4bb8f937"}
+</script>
+<script type="text/javascript" src="http://localhost:1627/fdea9c1b3e0c430d8d0e6e38fa2b388d/browserLink" async="async"></script>
+<!-- End Browser Link -->
+
+
+</body>
+</html>

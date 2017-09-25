@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+
+<coffeecupvideoplayer version="5.3">
+
+  <videobox
+   x="0"
+   y="0"
+   w="260"
+   h="215"
+   playonstartup="f"
+   loop="f"
+   shuffle="f"
+   dir="myvideoplayer_files/"
+   showplayonstartup="f"
+disableclicktoactiveprompt="false"
+   skinname="Mama Tried Skin"
+   skinsize="m"
+   bkdobk="f"
+   bkdogradient="f"
+   bkfillclr="0x000000"
+   bkfillalpha="100"
+   bkgradclr="0xFFFFFF"
+   bkgradalpha="100"
+   bkgradangle="70"
+   bkdoimg="t"
+   bkimg="myvideoplayer_files/bd.jpg"
+   bkdobdr="f"
+   bkbdrsolid="t"
+   bkbdrcolor="0x808080"
+   bkdomask="t"
+  >
+
+  <rewindbutton
+   x="13"
+   y="197"
+   w="13"
+   h="12"
+   toggle="f"
+   btnupimg="myvideoplayer_files/rr.jpg"
+   action="rr"
+   visible="t"
+  ></rewindbutton>
+
+  <ffbutton
+   x="41"
+   y="197"
+   w="12"
+   h="12"
+   toggle="f"
+   btnupimg="myvideoplayer_files/ff.jpg"
+   action="ff"
+   visible="t"
+  ></ffbutton>
+
+  <playbutton
+   x="26"
+   y="197"
+   w="14"
+   h="13"
+   toggle="t"
+   btnupimg="myvideoplayer_files/play.jpg"
+   btndownimg="myvideoplayer_files/play.jpg"
+   action="playpause"
+   visible="t"
+  ></playbutton>
+
+  <shufbutton
+   x="111"
+   y="68"
+   w="35"
+   h="14"
+   toggle="t"
+   action="shuf"
+   visible="f"
+  ></shufbutton>
+
+  <loopbutton
+   x="100"
+   y="0"
+   w="20"
+   h="20"
+   toggle="t"
+   action="loop"
+   visible="f"
+  ></loopbutton>
+
+  <volume
+   x="163"
+   y="199"
+   w="39"
+   h="7"
+   visible="t"
+  ></volume>
+
+  <progress
+   x="69"
+   y="199"
+   w="76"
+   visible="t"
+  ></progress>
+
+  <tree
+   x="17"
+   y="68"
+   w="264"
+   h="62"
+   visible="f"
+  >
+  <node label="">
+    <node name="" file="myvideoplayer_files/3rd_Anniversary.flv" artist="3rd Anniversary" label="3rd Anniversary"/>
+  </node>
+
+  </tree>
+
+  <label
+   x="615"
+   y="312"
+   w="53"
+   h="15"
+   bkdobk="f"
+   bkdogradient="f"
+   bkdoimg="f"
+   fntalpha="100"
+   fntsize="10"
+   fntclr="0xFFFFFF"
+   fntbold="f"
+   fntitalic="f"
+   fnt="Arial"
+   visible="t"
+  ></label>
+
+  <scrolllabel
+   x="611"
+   y="375"
+   w="273"
+   h="16"
+   bkdobk="f"
+   bkdogradient="f"
+   bkdoimg="f"
+   fntalpha="100"
+   fntsize="10"
+   fntclr="0x000000"
+   fntbold="f"
+   fntitalic="f"
+   fnt="Arial"
+   visible="t"
+  ></scrolllabel>
+
+  <treebutton
+   x="209"
+   y="198"
+   w="47"
+   h="10"
+   toggle="t"
+   btnupimg="myvideoplayer_files/pl.jpg"
+   btndownimg="myvideoplayer_files/pl.jpg"
+   action="tree"
+   visible="t"
+  ></treebutton>
+
+  <video
+   x="4"
+   y="5"
+   h="189"
+   w="252"
+   visible="t"
+  ></video>
+
+  </videobox>
+
+</coffeecupvideoplayer>
