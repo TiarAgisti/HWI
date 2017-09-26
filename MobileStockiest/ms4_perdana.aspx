@@ -291,7 +291,7 @@
                                     <div class="col-lg-12">
                                         Dibawah ini adalah order yang sudah dimasukan saat ini. Anda dapat menghapus / membatalkan item order dibawah ini. Pembatalan item order hanya dapat dilakukan sebelum sesi ini ditutup, sesi ditutup dengan menekan tombol check out.
                                         <div class="table-responsive">
-                                            <table class="table table-bordered">
+                                            <table class="table table-bordered" id="table1">
                                                 <thead>
                                                     <tr>
                                                         <th>Kode
