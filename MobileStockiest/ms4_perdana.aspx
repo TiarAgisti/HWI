@@ -273,9 +273,14 @@
 
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <h3>Silahkan Pilih Paket Upgrade (cukup 1 saja) :
+                                        <h3>
+                                            Silahkan Pilih Paket Upgrade (cukup 1 saja) :
                                         </h3>
-                                        <h4 class="text-center alert-warning text-bold text-black">SESSION BELANJAAN INI AKAN EXPIRED APABILA ANDA TIDAK MEMPROSESNYA DALAM WAKTU 10 MENIT
+                                        <div class="row" id="paketUpgrade" runat="server">
+
+                                        </div>
+                                        <h4 class="text-center alert-warning text-bold text-black">
+                                            SESSION BELANJAAN INI AKAN EXPIRED APABILA ANDA TIDAK MEMPROSESNYA DALAM WAKTU 10 MENIT
                                         </h4>
                                     </div>
                                 </div>
@@ -310,16 +315,7 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>1</td>
-                                                        <td>1</td>
-                                                        <td>1</td>
-                                                        <td>1</td>
-                                                        <td>1</td>
-                                                        <td>1</td>
-                                                    </tr>
+                                                <tbody id="tbMsUpdgrade" runat="server">
                                                 </tbody>
                                             </table>
                                         </div>
