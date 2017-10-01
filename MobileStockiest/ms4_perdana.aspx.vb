@@ -1,5 +1,4 @@
-﻿
-Imports System
+﻿Imports System
 Imports System.Data
 Imports System.Data.OleDb
 Partial Class MobileStockiest_ms4_perdana
@@ -45,10 +44,11 @@ Partial Class MobileStockiest_ms4_perdana
             Session("menu_id") = Request("menu_id")
         End If
 
-        'PrepareDisplay()
-        'ClearNonRealizedBooked()
-        'OnlineBooked()
-        'PaketUpgradeFunction()
+        PrepareDisplay()
+        ClearNonRealizedBooked()
+        OnlineBooked()
+        PaketUpgradeFunction()
+        PopulateData()
     End Sub
 
     Protected Sub PrepareDisplay()
@@ -108,16 +108,6 @@ Partial Class MobileStockiest_ms4_perdana
         'mlREADER.Read()
 
         If mlREADER.HasRows <> True Then
-
-            If goneqSS <> 0 Then
-                For aaeeqSS = 1 To goneqSS
-                    If mlREADER.HasRows = True Then
-                        Exit For
-                    End If
-                Next
-            Else
-            End If
-
             mlDATATABLE = New DataTable()
             mlDATATABLE.Load(mlREADER)
 
