@@ -55,7 +55,7 @@
     </script>
 
 
-    <script language="JavaScript">
+    <script type="text/javascript">
 <!--
         function formCheck(form) {
             if (form.kode.value == "") {
@@ -89,7 +89,7 @@
     </script>
 
 
-    <script language="JavaScript">
+    <script type="text/javascript">
 <!--
         function formCheck1(form) {
 
@@ -134,7 +134,7 @@
     </script>
 
 
-    <script language="JavaScript">
+    <script type="text/javascript">
         function quadratic1(form1) {
             var harga = eval(form1.harga.value);
             var jumlah = eval(form1.jumlah.value);
@@ -147,7 +147,7 @@
 
 
 
-    <script language="JavaScript">
+    <script type="text/javascript">
         function quadratic2(form1) {
             var tunai = eval(form1.jumbayarcash.value);
             var cc = eval(form1.jumbayarcc.value);
@@ -162,7 +162,7 @@
         }
     </script>
 
-    <script language="JavaScript">
+    <script type="text/javascript">
 
 <!-- This script and many more are available free online at -->
 <!--The JavaScript Source!! http://javascript.internet.com -->
@@ -217,7 +217,7 @@
 //  End -->
     </script>
 
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript">
         function Navigate(drop_down_list) {
             var number = drop_down_list.selectedIndex;
             location.href = drop_down_list.options[number].value;
@@ -317,6 +317,8 @@
                                                 </thead>
                                                 <tbody id="tbMsUpdgrade" runat="server">
                                                 </tbody>
+                                                <tfoot id="tfootMsUpgrade" runat="server">
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>

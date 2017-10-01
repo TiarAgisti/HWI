@@ -12,10 +12,12 @@ Partial Class MobileStockiest_ms4_perdana
     Dim mlSQL2 As String
     Dim mpMODULEID As String = "PB"
     Dim mlCOMPANYID As String = "ALL"
+    Dim mlDATATABLE As DataTable
 
     Public mesej, asal, kti, sort, pos_area, mypos, loguser, kelasdc, indukdc, sutepe, namatabel, namatabel2, zona_id, area_id, nosesifaxmc_pdn As String
     Dim dcHO As String = ""
-    Dim sds, ss1, ss2, satu, goneqSS, lama, aaaqsK As Integer
+    Dim sds, ss1, ss2, satu, lama, aaaqsK As Integer
+    Dim goneqSS As Integer = 0
     Dim totpv, totbv, gtot, pot, neto, newsubtot, newtotpv, gtotnet, jumdisk, jumtotdis, brapadis, disk_mcla, disk_mc, disk_mclama, pvmin As Integer
     Dim wkt, skr As Date
     Dim noses As String
@@ -103,23 +105,25 @@ Partial Class MobileStockiest_ms4_perdana
 
         mlSQL = "SELECT * FROM fx_order_mc_det where ((status = '" & ss1 & "') or (status = '" & ss2 & "')) and dcinduk like '" & indukdc & "' and nopos like '" & mypos & "' order by id"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
-        mlREADER.Read()
+        'mlREADER.Read()
 
         If mlREADER.HasRows <> True Then
 
             If goneqSS <> 0 Then
                 For aaeeqSS = 1 To goneqSS
-                    If mlREADER.HasRows = True Then Exit For
+                    If mlREADER.HasRows = True Then
+                        Exit For
+                    End If
                 Next
             Else
             End If
 
-            For aaaeqSSS = 1 To 70
-                If mlREADER.HasRows = True Then
-                    Exit For
-                End If
-                mlREADER.Read()
-                skr = mlREADER("tglorder")
+            mlDATATABLE = New DataTable()
+            mlDATATABLE.Load(mlREADER)
+
+            For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
+
+                skr = mlDATATABLE.Rows(aaaeqSSS)("tglorder")
                 lama = DateDiff("n", skr, Now())
 
                 If lama >= 10 Then
@@ -134,8 +138,7 @@ Partial Class MobileStockiest_ms4_perdana
                     mlREADER2 = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
                     mlREADER2.Read()
 
-                    If Not mlREADER2.HasRows Then
-                    Else
+                    If mlREADER2.HasRows Then
                         mlSQL = "update fax_order_mc_head" & vbCrLf
                         mlSQL += "Set status = -9," & vbCrLf 'canceled
                         mlSQL += "    nosesi = 0, " & vbCrLf
@@ -145,11 +148,9 @@ Partial Class MobileStockiest_ms4_perdana
                     mlREADER2.Close()
                 End If
             Next
-
         End If
-        'If mlREADER.HasRows = True Then
-        'End If
         mlREADER.Close()
+        mlDATATABLE.Dispose()
     End Sub
     Protected Sub OnlineBooked()
         Dim nosesifaxmc_pdn, nodc, nofax, namadc, namadis_mc, nokode_mc As String
@@ -203,6 +204,9 @@ Partial Class MobileStockiest_ms4_perdana
             mlREADER.Close()
         Else
             mlSQL = "SELECT namadc FROM tabdesc_stockist where nopos like '" & mypos & "'"
+            mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+            mlREADER.Read()
+
             If Not mlREADER.HasRows Then
                 namadc = ""
             Else
@@ -222,21 +226,22 @@ Partial Class MobileStockiest_ms4_perdana
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
 
         Dim strHtml As String = ""
-        For aaaeqsK = 1 To 30
-            If mlREADER.HasRows = True Then
-                Exit For
-            End If
-            strHtml = "<br><a href = 'ms4_perdana_add.aspx?kode=" & UCase(mlREADER("kode")) & "&jumlah=1'<font size = '2'> -Upgrade Paket=" & UCase(mlREADER("kode")) & "</font></a>"
-        Next
-
-        paketUpgrade.InnerHtml = strHtml
-
-        If mlREADER.HasRows = True Then
-            aaaqsK = 1
+        If mlREADER.HasRows Then
+            mlDATATABLE = New DataTable()
+            mlDATATABLE.Load(mlREADER)
+            For aaaeqsK = 1 To mlDATATABLE.Rows.Count - 1
+                strHtml = "<br><a href = 'ms4_perdana_add.aspx?kode=" & UCase(mlREADER("kode")) & "&jumlah=1'<font size = '2'> -Upgrade Paket=" & UCase(mlREADER("kode")) & "</font></a>"
+            Next
         End If
+        paketUpgrade.InnerHtml = strHtml
         mlREADER.Close()
     End Sub
     Protected Sub PopulateData()
+        Dim kurangi, jumdis, jumdivc As Integer
+        Dim strTableHtml As String = ""
+        Dim kode, jums, harga1, kusus1, harga2, kusus2, harga3, kusus3, harga4, kusus4, harga5, kusus5, PV, bv, nama As String
+        Dim harga As Integer = 0
+
         totpv = 0
         totbv = 0
         gtot = 0
@@ -255,7 +260,7 @@ Partial Class MobileStockiest_ms4_perdana
         mlSQL = "SELECT * FROM fx_order_mc_det where nopos like '" & mypos & "' and nosesi like '" & nosesifaxmc_pdn & "' and status like '" & sds & "' and kat like '" & kti & "' order by id"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
-        Dim strTableHtml As String = ""
+
         strTableHtml = "<tbody>" & vbCrLf
         If Not mlREADER.HasRows Then
             strTableHtml += "<tr>" & vbCrLf
@@ -263,35 +268,21 @@ Partial Class MobileStockiest_ms4_perdana
             strTableHtml += "<u>Sesi ini belum ada belanjaan</u>" & vbCrLf
             strTableHtml += "</td>" & vbCrLf
             strTableHtml += "</tr>" & vbCrLf
-        Else
         End If
 
-        If mlREADER.HasRows <> True Then
+        If mlREADER.HasRows = True Then
+            mlDATATABLE = New DataTable()
+            mlDATATABLE.Load(mlREADER)
 
-            If goneqSS <> 0 Then
-                For aaeeqSS = 1 To goneqSS
-                    If mlREADER.HasRows = True Then
-                        Exit For
-                    End If
-                Next
-            Else
-            End If
+            For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
 
-            For aaaeqSSS = 1 To 28
-                If mlREADER.HasRows = True Then
-                    Exit For
-                End If
-
-                Dim kode, jums, harga1, kusus1, harga2, kusus2, harga3, kusus3, harga4, kusus4, harga5, kusus5, PV, bv, nama As String
-                Dim harga As String = 0
-                kode = mlREADER("kode")
-                jums = mlREADER("jumlah")
+                kode = mlDATATABLE.Rows(aaaeqSSS)("kode")
+                jums = mlDATATABLE.Rows(aaaeqSSS)("jumlah")
 
                 mlSQL2 = "SELECT * FROM st_barang where kode like '" & kode & "'"
                 mlREADER2 = mlOBJGS.DbRecordset(mlSQL2, mpMODULEID, mlCOMPANYID)
                 mlREADER2.Read()
-                If Not mlREADER2.HasRows Then
-                Else
+                If mlREADER2.HasRows Then
                     harga1 = mlREADER2("hd1")
                     kusus1 = mlREADER2("khususmc1")
                     harga2 = mlREADER2("hd2")
@@ -305,8 +296,6 @@ Partial Class MobileStockiest_ms4_perdana
                     PV = mlREADER2("pv")
                     bv = mlREADER2("bv")
                     nama = mlREADER2("nama")
-
-
                     If area_id = 1 Then
                         If kusus1 <> 0 Then
                             harga = harga1
@@ -372,8 +361,8 @@ Partial Class MobileStockiest_ms4_perdana
                 mlSQL += "nopos like '" & mypos & "' and nosesi like '" & nosesifaxmc_pdn & "' and status like '" & sds & "' and kat like '" & kti & "'" & vbCrLf
                 mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
 
-                newsubtot = newsubtot + mlREADER("subtot")
-                newtotpv = newtotpv + (mlREADER("pv") * mlREADER("jumlah"))
+                newsubtot = newsubtot + mlDATATABLE.Rows(aaaeqSSS)("subtot")
+                newtotpv = newtotpv + (mlDATATABLE.Rows(aaaeqSSS)("pv") * mlDATATABLE.Rows(aaaeqSSS)("jumlah"))
 
                 Session.LCID = 2057 ' setting desimal & local setting untuk indonesia 2057 = uk
                 'intLocale = SetLocale(2057) ' setting desimal & local setting untuk indonesia => buat apa???
@@ -392,23 +381,129 @@ Partial Class MobileStockiest_ms4_perdana
                 'end if
 
                 If area_id <> 0 Then
-                    gtot = gtot + mlREADER("subtot")
-                    totpv = totpv + (mlREADER("pv") * mlREADER("jumlah"))
+                    gtot = gtot + mlDATATABLE.Rows(aaaeqSSS)("subtot")
+                    totpv = totpv + (mlDATATABLE.Rows(aaaeqSSS)("pv") * mlDATATABLE.Rows(aaaeqSSS)("jumlah"))
                     totbv = 0
                 Else
                     gtot = 0
-                    totpv = totpv + (mlREADER("pv") * mlREADER("jumlah"))
+                    totpv = totpv + (mlDATATABLE.Rows(aaaeqSSS)("pv") * mlDATATABLE.Rows(aaaeqSSS)("jumlah"))
                     totbv = 0
                 End If
 
+                If Left(UCase(mlDATATABLE.Rows(aaaeqSSS)("kode")), 4) = "YVCD" Then
+                    jumtotdis = jumtotdis + mlDATATABLE.Rows(aaaeqSSS)("jumlah")
+                Else
+                    jumtotdis = jumtotdis
+                End If
 
+
+                If UCase(mlDATATABLE.Rows(aaaeqSSS)("kode")) = "YBKBPRO" Then
+                    If mlDATATABLE.Rows(aaaeqSSS)("jumlah") >= 25 Then
+                        kurangi = harga - 6500
+                        jumdis = kurangi * mlDATATABLE.Rows(aaaeqSSS)("jumlah")
+                    Else
+                        kurangi = 0
+                        jumdis = 0
+                    End If
+                End If
+
+                strTableHtml += "<tr>" & vbCrLf
+                strTableHtml += "<td>" & UCase(mlDATATABLE.Rows(aaaeqSSS)("kode")) & "</td>" & vbCrLf
+                strTableHtml += "<td>" & mlDATATABLE.Rows(aaaeqSSS)("nama") & "</td>" & vbCrLf
+                strTableHtml += "<td align='right'>" & FormatNumber(mlDATATABLE.Rows(aaaeqSSS)("pv"), 2) & "</td>" & vbCrLf
+                strTableHtml += "<td align='right'>" & FormatNumber(mlDATATABLE.Rows(aaaeqSSS)("jumlah"), 0) & "</td>" & vbCrLf
+                strTableHtml += "<td align='right'>" & FormatNumber(mlDATATABLE.Rows(aaaeqSSS)("harga"), 0) & "</td>" & vbCrLf
+                strTableHtml += "<td align='right'>" & FormatNumber(mlDATATABLE.Rows(aaaeqSSS)("subtot"), 0) & "</td>" & vbCrLf
+                strTableHtml += "<td align='center'>" & vbCrLf
+                strTableHtml += "<a href='ms4_perdana_clear.aspx?grp=PRD'>DEL</a>" & vbCrLf
+                strTableHtml += "</td>" & vbCrLf
             Next
-
-
         End If
+        mlREADER.Close()
 
         strTableHtml += "</tbody>" & vbCrLf
 
         tbMsUpdgrade.InnerHtml = strTableHtml
+
+        If area_id <> 0 Then
+            pot = (((totpv * disk_mc) / 100) * 2000)
+            'neto = gtot-pot
+        Else
+            pot = 0
+            neto = 0
+        End If
+
+        ''''''''''''''''''''''''''''''''''''
+        ' diskon untuk produk vcd yess
+        ''''''''''''''''''''''''''''''''''''
+
+        jumdisk = 0
+        If jumtotdis > 0 Then
+            brapadis = jumtotdis \ 2
+            jumdivc = brapadis * 3000
+            jumdisk = jumdis + jumdivc
+        Else
+            jumdivc = 0
+            jumdisk = jumdis + jumdivc
+        End If
+
+        neto = gtot - jumdisk
+
+        mlSQL = "SELECT * FROM fax_order_mc_head where nosesi like '" & nosesifaxmc_pdn & "' and nopos like '" & mypos & "' and dcinduk like '" & indukdc & "'"
+        mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+        mlREADER.Read()
+
+        Dim sbt As Double
+        If mlREADER.HasRows Then
+            sbt = mlREADER("subtot")
+
+            mlSQL2 = "update fax_order_mc_head" & vbCrLf
+            mlSQL2 += "Set diskonamt = '" & jumdisk & "'" & vbCrLf
+            mlSQL2 += ",totbruto = '" & sbt & "'" & vbCrLf
+            mlSQL2 += " where nosesi like '" & nosesifaxmc_pdn & "' and nopos like '" & mypos & "' and dcinduk like '" & indukdc & "'" & vbCrLf
+            mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
+        End If
+        mlREADER.Close()
+
+        Dim strHtml As String = ""
+
+        strHtml = "<tfoot>" & vbCrLf
+        strHtml += "<tr>" & vbCrLf
+
+        strHtml += "<td>" & vbCrLf
+        strHtml += "<p align='right'><b>GRAND TOTAL&nbsp;&nbsp;</b>" & vbCrLf
+        strHtml += "</td>" & vbCrLf
+
+        strHtml += "<td>" & vbCrLf
+        strHtml += "<p align='right'>" & FormatNumber(neto, 0) & "&nbsp;" & vbCrLf
+        strHtml += "</td>" & vbCrLf
+
+        strHtml += "<td>" & vbCrLf
+        strHtml += "&nbsp;" & vbCrLf
+        strHtml += "</td>" & vbCrLf
+
+        strHtml += "</tr>" & vbCrLf
+
+
+        If gtot > 0 Then
+            strHtml += "<tr>" & vbCrLf
+            strHtml += "<td valign='bottom'>" & vbCrLf
+            strHtml += "<p align='center'><span style='font-weight: 700'; background-color: '#FFFF00'>" & vbCrLf
+            strHtml += "<a target='_top' href='ms4_perdana_clear.aspx?grp=PRD'><font color='#FF0000'>BATALKAN SESI ORDER ONLINE INI &amp; BIKIN SESI BARU</font></a>" & vbCrLf
+            strHtml += "</span></p>" & vbCrLf
+            strHtml += "<td>" & vbCrLf
+            strHtml += "</tr>" & vbCrLf
+        Else
+            strHtml += "<tr>" & vbCrLf
+            strHtml += "<td>&nbsp;</td>" & vbCrLf
+            strHtml += "</tr>" & vbCrLf
+        End If
+
+
+
+        strHtml += "</tfoot>" & vbCrLf
+        tfootMsUpgrade.InnerHtml = strHtml
+
+
     End Sub
 End Class
