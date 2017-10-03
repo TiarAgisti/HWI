@@ -64,8 +64,8 @@
                                         <th>Voucher </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
+                                <tbody id="tbListStarter" runat="server">
+                                    <%--<tr>
                                         <td>1</td>
                                         <td>1</td>
                                         <td>1</td>
@@ -77,16 +77,16 @@
                                         <td>1</td>
                                         <td>1</td>
                                         <td>1</td>
-                                    </tr>
+                                    </tr>--%>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
+                                <tfoot id="tfootListStarter" runat="server">
+                                    <%--<tr>
                                         <th colspan="7" class="text-right">Grand Total</th>
                                         <th>0</th>
                                         <th>0</th>
                                         <th>0</th>
                                         <th>0</th>
-                                    </tr>
+                                    </tr>--%>
                                 </tfoot>
                             </table>
                         </div>
