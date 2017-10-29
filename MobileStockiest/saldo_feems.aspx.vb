@@ -251,7 +251,8 @@ Partial Class MobileStockiest_saldo_feems
             totaktms = 0
         Else
             mlREADER.Read()
-            totaktms = mlREADER("sum(fee_amt)")
+            'totaktms = mlREADER("sum(fee_amt)")
+            totaktms = 0
         End If
         mlREADER.Close()
 

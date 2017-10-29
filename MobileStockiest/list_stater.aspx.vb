@@ -131,7 +131,7 @@ Partial Class MobileStockiest_list_stater
                 mlSQL = "SELECT sum(tunai),sum(debit),sum(cc),sum(bg),sum(harga),sum(kembalian) FROM st_sale_daftar" & vbCrLf
                 mlSQL += "where nopos Like '" & mypos & "' and kta like '" & kasir & "' and ((date(tgl) >= '" & tg1 & "') and (date(tgl) <= '" & tg2 & "')) and pakai like '" & pak & "'"
             Else
-                mlSQL = "SELECT sum(tunai),sum(debit),sum(cc),sum(bg),sum(harga),sum(kembalian) FROM st_sale_daftar where nopos like '" & mypos&"' and pakai like '"&pak&"'"   
+                mlSQL = "SELECT sum(tunai),sum(debit),sum(cc),sum(bg),sum(harga),sum(kembalian) FROM st_sale_daftar where nopos like '" & mypos & "' and pakai like '" & pak & "'"
             End If
         End If
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
