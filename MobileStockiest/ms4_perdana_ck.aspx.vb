@@ -11,11 +11,28 @@ Partial Class MobileStockiest_ms4_perdana_ck
     Dim mlCOMPANYID As String = "ALL"
     Dim mlDATATABLE As DataTable
 
-    Dim menu_id, redir, jumtot As Integer
     Dim kemana, kdposna, namamu, alamat, kota, propinsi, kodepos, notelp, nofax, nohape, emel, diskon, zona, tunai, debit, kkredit, bgcek, duite, kembalinye As String
     Dim mypos, loguser, kelasdc, indukdc, kti, piyesetuju, pos_area, nosesifaxmc_pdn, nodc, asale, bulanfee, tahunfee, dc_asal, kdpos, namadis, dcpusat As String
-    Dim l3a, l1, l5 As String
-    Dim dino As Date
+    Dim dino, tglku, tglbayar, bulan As Date
+    Dim pvnow, nilaibv, tglini, bulanini, bulanikis, tauniki, levnya, pvreg As Integer
+    Dim produpkurang, pvnow2, pvnow3, prodada, nahun_promo, wulan_promo, wulan_pajak, nahun_pajak, perik_promo, nilaipv, produp As Integer
+    Dim awal, sisastok, nilaipv1, nilaipv2, nilaipv3, tambahan, postingup As Double
+    Dim nosesi, namadist, lanjutke, nopos As String
+    Dim menu_id, redir, jumtot, PV, pvnya, poinms, ulan, ahun, tanggalnateh, taundari As Integer
+    Dim wulan, wulpos, nahun, nuhun, sponsor, kedua, paket As String
+    Dim piro, mutere, levke, pred, tatanggalan, wulandari, nilairp, jumdir_ft, bonrefreg, jumdir_reg As Integer
+    Dim bonft1, bonft2, bonft3, bonft4, bonft5, bonft6, bonft7, bonft8, bonft9, bonft10, bonft11, bonft12, bonft88, bonft13, bonft14, bonft15 As String
+    Dim bonft16, bonft17, bonft18, bonft19, bonft20, bonftnpr, bonft99, bonft100, bonft101, bonft102, bonft103, bonft104, bonft105, bonft106, bonft107 As String
+    Dim l3a, l1, l5, noid, ket, modepost, bonft108, bonft109, bonft110, bonms500u, direk As String
+
+    Dim tahskr, belek, tauk, belekan, tauge As Integer
+    Dim kel, masterdc, k1, k2, nopajak, nopakhir, nourutpjk, nokode As String
+    Dim sgg, bv, nama, hd1, hk1, hd2, hk2, hd3, hk3, kop, jumbc, grp, kus1, kus2, kus3, kusrd1, kusrd2, kusrd3, kussd1, kussd2, kussd3, kusmc1, kusmc2, kusmc3 As String
+    Dim promo1, promo2, promo3, kgrp, hk4, hd4, kus4, kusrd4, kussd4, kusmc4, promo4, hk5, hd5, kus5, kusrd5, kussd5, kusmc5, promo5 As String
+    Dim sisakembalian, jume, jumakhir, dk, sbt, jumdisk, totpv, pot, gtot As Double
+    Dim nodce, tamb, blne, taun, nipe, noinvo, noinvomc As String
+    Dim bulanskr, tahunskr, noakhir, bulsks, jk, nourmc, stses As Integer
+    Dim lanjutgo, l2, nodcs, boleh, area, dcHO, namatabel, namatabel2, ggg, l3, l4, l6, l7, l8, l9, l10, l11, l12, eml As String
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Session("tema") = "home"
@@ -243,8 +260,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
             Response.Redirect(kemana)
         End If
 
-
-        Dim sisakembalian As Double
         If duite = "" Then
             l5 = "Mbuh"
             Session("errorfax") = "Anda belum mengisikan jumlah pembayaran"
@@ -310,7 +325,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         End If
 
         '''''''' lihat sudah beli ms400
-        Dim lanjutgo, l2 As String
         mlSQL = "SELECT * FROM healthwealthint_com_hwi.st_sale_daftar  WHERE noseri LIKE '" & kdpos & "' and paket like 'MS%' and pakai like 'T'"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
@@ -438,7 +452,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
             End If
         End If
 
-        Dim l3, l4, l6, l7, l8, l9, l10, l11, l12, eml As String
         If namadis = "" Then
             l3 = "Mbuh"
             Session("errorfax") = "Anda belum mengisikan nama distributor yang menjadi mobile center"
@@ -594,8 +607,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
                 End If
             End If
 
-            Dim ggg As String
-            Dim area As Integer
             If zona = "" Then
                 l12 = "Mbuh"
                 Session("errorfax") = "Silahkan pilih zona Mobile Center"
@@ -626,8 +637,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
             End If
         End If
 
-        Dim dcHO, namatabel, namatabel2 As String
-        Dim stses As Integer
         dcHO = ""
         If mypos = dcHO Then
             namatabel = "st_kartustock"
@@ -643,11 +652,7 @@ Partial Class MobileStockiest_ms4_perdana_ck
             Response.Redirect(kemana)
         End If
 
-        Dim nodcs, boleh, area As String
-        Dim nourmc As Integer
-
         nodcs = "MS-" + CStr(kdpos)
-
         If asale <> "normal" Then
             mlSQL = "SELECT id,indukmc FROM tabdesc_stockist where ucase(nopos) like '" & nodcs & "' and nama like 'PT. HEALTH WEALTH INTERNATIONAL MS'"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
@@ -717,7 +722,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
             mlREADER.Close()
         End If
 
-        Dim bulanskr, tahunskr, noakhir, bulsks As Integer
         bulanskr = CInt(Month(dino))
         tahunskr = CInt(Year(dino))
         mlSQL = "SELECT TOP 1 id,urut,tgl FROM fax_order_mc_head where nopos like '" & mypos & "' AND month(tgl)='" & bulanskr & "' AND year(tgl) = '" & tahunskr & "' order by urut DESC"
@@ -740,8 +744,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
             End If
         End If
 
-        Dim jk As Integer
-        Dim tamb, blne, taun, nipe, noinvo, noinvomc As String
         jk = Len(noakhir)
         If jk = 1 Or jk = 0 Then
             tamb = "000"
@@ -767,8 +769,7 @@ Partial Class MobileStockiest_ms4_perdana_ck
         ''''''''''''''''''''''''''''''
         ' bikin nomor invoice pajak
         ''''''''''''''''''''''''''''''
-        Dim tahskr, belek, tauk, belekan, tauge As Integer
-        Dim kel, masterdc, k1, k2, nopajak, nopakhir, nourutpjk As String
+
         tahskr = CInt(Year(dino))
         kel = "RET"
         If UCase(mypos) = "B-000" Then
@@ -864,8 +865,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         mlSQL += ",'" & dino & "','PMC','RET','" & indukdc & "','" & nourutpjk & "')"
         mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
 
-        Dim dk, sbt, jumdisk, totpv, pot, gtot As Double
-        Dim nodce As String
         mlSQL = "SELECT * FROM fax_order_mc_head where nosesi like '" & nosesifaxmc_pdn & "' and nopos like '" & mypos & "' and dcinduk like '" & indukdc & "'"
         If mlREADER.HasRows Then
             dk = mlREADER("diskon")
@@ -894,8 +893,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         End If
         mlREADER.Close()
 
-        Dim nokode As String
-        Dim jume, jumakhir As Double
         mlSQL = "SELECT * FROM fx_order_mc_det where nosesi like '" & nosesifaxmc_pdn & "' and nopos like '" & mypos & "' and dcinduk like '" & indukdc & "'"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         If mlREADER.HasRows Then
@@ -931,8 +928,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
                     End If
                     mlOBJGS.ExecuteQuery(mlSQL3, mpMODULEID, mlCOMPANYID)
 
-                    Dim sgg, pv, bv, nama, hd1, hk1, hd2, hk2, hd3, hk3, kop, jumbc, grp, kus1, kus2, kus3, kusrd1, kusrd2, kusrd3, kussd1, kussd2, kussd3, kusmc1, kusmc2, kusmc3 As String
-                    Dim promo1, promo2, promo3, kgrp, hk4, hd4, kus4, kusrd4, kussd4, kusmc4, promo4, hk5, hd5, kus5, kusrd5, kussd5, kusmc5, promo5 As String
                     sgg = mlREADER2("sta")
                     PV = mlREADER2("pv")
                     bv = mlREADER2("bv")
@@ -999,8 +994,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
                     mlSQL3 += ",'" & dino & "','" & jumakhir & "',0,'" & jume & "','" & jumakhir - jume & "','" & noinvo & "', '" & ket & "')"
                     mlOBJGS.ExecuteQuery(mlSQL3, mpMODULEID, mlCOMPANYID)
                 Else
-                    Dim awal, sisastok As Double
-                    Dim ket As String
                     If asale = "perdana" Then
                         ket = "Penjualan Perdana MC : " & nodcs
                     Else
@@ -1021,13 +1014,11 @@ Partial Class MobileStockiest_ms4_perdana_ck
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ''''''''FASTRACK 7 Generasi
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        Dim tglku, tglini, bulanini, bulanikis, tauniki, tglbayar, perik_promo, nahun_promo, wulan_promo, wulan_pajak, nahun_pajak As Date
         tglku = Now()
-        ' mesti cari tau portingnya
-        'tglini = Day(tglku) 
-        'bulanini = Month(tglku)
-        'bulanikis = Month(tglku)
-        'tauniki = Year(tglku)
+        tglini = Day(tglku)
+        bulanini = Month(tglku)
+        bulanikis = Month(tglku)
+        tauniki = Year(tglku)
         'end
 
         mlSQL = "SELECT * FROM kapan where (((day(awal) = '" & tglini & "') and (month(awal) = '" & bulanini & "')" & vbCrLf
@@ -1040,23 +1031,22 @@ Partial Class MobileStockiest_ms4_perdana_ck
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
         If Not mlREADER.HasRows Then
-            tglbayar = Date() + 4
-            perik_promo = DatePart("ww", Date())
+            tglbayar = Now.AddDays(4)
+            perik_promo = DatePart("ww", Now.Date)
             nahun_promo = Year(tglku)
             wulan_promo = Month(tglku)
             wulan_pajak = Month(tglbayar)
             nahun_pajak = Year(tglbayar) ' untuk menentukan masuk pembayaran pajak pada bulan / tahun apa	
         Else
-            tglbayar = CDate(rs("akhir")) + 4
-            perik_promo = rs("minggu")
-            nahun_promo = Year(rs("awal"))
-            wulan_promo = Month(rs("awal"))
+            tglbayar = CDate(mlREADER("akhir")).AddDays(4)
+            perik_promo = mlREADER("minggu")
+            nahun_promo = Year(mlREADER("awal"))
+            wulan_promo = Month(mlREADER("awal"))
             wulan_pajak = Month(tglbayar)
             nahun_pajak = Year(tglbayar) ' untuk menentukan masuk pembayaran pajak pada bulan / tahun apa
         End If
         mlREADER.Close()
 
-        Dim direk As String
         mlSQL = "SELECT kta,direk FROM member where kta LIKE '" & kdposna & "'"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
@@ -1067,9 +1057,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         End If
         mlREADER.Close()
 
-        Dim bonft1, bonft2, bonft3, bonft4, bonft5, bonft6, bonft7, bonft8, bonft9, bonft10, bonft11, bonft12, bonft88, bonft13, bonft14, bonft15 As String
-        Dim bonft16, bonft17, bonft18, bonft19, bonft20, bonftnpr, bonft99, bonft100, bonft101, bonft102, bonft103, bonft104, bonft105, bonft106, bonft107 As String
-        Dim bonft108, bonft109, bonft110, bonms500u As String
         mlSQL = "SELECT * FROM bns_kurs"
         If Not mlREADER.HasRows Then
             bonft1 = 0
@@ -1112,8 +1099,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         End If
         mlREADER.Close()
 
-        Dim jumdir_ft, bonrefreg, jumdir_reg As Integer
-        Dim paket As String
         jumdir_ft = 1
         bonrefreg = 0
         jumdir_reg = 0
@@ -1153,7 +1138,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         ' redempetion point
         ' tambah paket bila ada paket baru yang memberikan point redempetion
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        Dim nilairp As Integer
         nilairp = 8
         If nilairp > 0 Then
             mlSQL = "Insert into tab_rp_sponsor(kta,direk,paket,point,tgl)Values('" & direk & "','" & kdposna & "','" & paket & "','" & nilairp & "', '" & Now & "')"
@@ -1165,10 +1149,7 @@ Partial Class MobileStockiest_ms4_perdana_ck
         ' START HERE FOR LOOPING UPLINE POINT REWARDS
         ' BIKIN TABEL SASARAN UPDATE PARA UPLINENYA
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        Dim wulan, wulpos, nahun, nuhun, sponsor, kedua As String
-        Dim piro, mutere, levke, pred, tatanggalan, wulandari As Integer
-        Dim postingup As Double
-        Dim bulan As Date
+
         wulpos = ""
         nuhun = ""
         wulan = wulpos
@@ -1210,14 +1191,11 @@ Partial Class MobileStockiest_ms4_perdana_ck
             wulandari = wulandari
         End If
 
-        Dim taundari As Integer
         taundari = Year(Now.Date())
 
-        Dim tanggalnateh As Integer
         tanggalnateh = CStr(taundari) + CStr(wulandari) + CStr(tatanggalan)
         tanggalnateh = CLng(tanggalnateh)
 
-        Dim poinms, ulan, ahun As Integer
         poinms = 0
         'if tanggalnateh >= 20150701 and tanggalnateh <= 20150732 then
         If paket = "MS200MU-14" Or paket = "MS200KU-14" Then
@@ -1241,8 +1219,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         End If
         mlREADER.Close()
 
-        Dim lanjutke, nopos As String
-        Dim PV, pvnya As Integer
         lanjutke = "T"
         dino = Now()
         wulan = wulpos
@@ -1263,8 +1239,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         End If
         mlREADER.Close()
 
-        Dim noid As String
-        Dim pvnow, nilaibv As Integer
         noid = kdposna
         mlSQL = "SELECT pvpribadi,produp FROM bns_mypv_current where ((kta like '" & noid & "')" & vbCrLf
         mlSQL += "And (bulan = '" & wulan & "') and (tahun = '" & nahun & "'))"
@@ -1278,12 +1252,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
             nilaibv = 0
         End If
         mlREADER.Close()
-
-        Dim modepost As String
-        Dim levnya As Integer
-        Dim produpkurang, pvnow2, pvnow3, prodada As Integer
-        Dim nilaipv, produp As Integer
-        Dim nilaipv1, nilaipv2, nilaipv3, tambahan As Double
 
         indukdc = "B-000"
         modepost = "Q" '' QUADRO atau NORMAL
@@ -1325,7 +1293,7 @@ Partial Class MobileStockiest_ms4_perdana_ck
             '   = 400 = QP SEMUA + VOUCHER 100.000
             '   > 400 = SPLIT 50% : 50%
             '''''''''''''''''''''''''''''''''''''''''''''
-            Dim pvreg As Integer
+
             If levnya = 1 Or levnya = 2 Or levnya = 3 Then
                 mlSQL2 = "SELECT sum(pvpri) FROM st_sale_daftar where ((noseri like '" & noid & "') and (alokbulan = '" & wulan & "') and (aloktahun = '" & nahun & "'))"
                 mlREADER2 = mlOBJGS.DbRecordset(mlSQL2, mpMODULEID, mlCOMPANYID)
@@ -1461,8 +1429,8 @@ Partial Class MobileStockiest_ms4_perdana_ck
         End If '' MODE
 
         '''''buat nopajak
-        bulanskr = CInt(Month(Of Date)())
-        tahunskr = CInt(year(Of Date)())
+        bulanskr = CInt(Month(Now))
+        tahunskr = CInt(Year(Now))
 
         noakhir = 1
         bulsks = CInt(Month(dino))
@@ -1565,7 +1533,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         mlSQL = "SELECT TOP 1 nosesi FROM st_sale_prd_head where nopos Like '" & nopos & "' order by nosesi desc"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
-        Dim nosesi As String
         If Not mlREADER.HasRows Then
             nosesi = 1
         Else
@@ -1576,7 +1543,6 @@ Partial Class MobileStockiest_ms4_perdana_ck
         mlSQL = "SELECT TOP 1 uid FROM member where kta like '" & noid & "'"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
-        Dim namadist As String
         If Not mlREADER.HasRows Then
             namadist = "-"
         Else
