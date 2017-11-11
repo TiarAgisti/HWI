@@ -80,38 +80,39 @@ Partial Class MobileStockiest_mb4_perdana
         ''''''''''''''''''''''''''''''''''''''''''
         ' clear non realized booked
         ''''''''''''''''''''''''''''''''''''''''''
-        ss1 = 0
-        ss2 = 1
-        satu = 2
-        wkt = Now()
-        'rs.Open "SELECT * FROM fx_order_mc_det where ((status = '"&ss1&"') or (status = '"&ss2&"')) and hour(timediff(now(),tglorder) >= "&satu&") order by id",conn,3,3
-        mlSQL = "SELECT * FROM fx_order_mc_det where ((status = '" & ss1 & "') or (status = '" & ss2 & "'))" & vbCrLf
-        mlSQL += "And dcinduk Like '" & indukdc & "' and nopos like '" & mypos & "' order by id"
-        mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+        'ss1 = 0
+        'ss2 = 1
+        'satu = 2
+        'wkt = Now()
+        ''rs.Open "SELECT * FROM fx_order_mc_det where ((status = '"&ss1&"') or (status = '"&ss2&"')) and hour(timediff(now(),tglorder) >= "&satu&") order by id",conn,3,3
+        'mlSQL = "SELECT * FROM fx_order_mc_det where ((status = '" & ss1 & "') or (status = '" & ss2 & "'))" & vbCrLf
+        'mlSQL += "And dcinduk Like '" & indukdc & "' and nopos like '" & mypos & "' order by id"
+        'mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
 
-        If mlREADER.HasRows Then
-            mlDATATABLE = New DataTable()
-            mlDATATABLE.Load(mlREADER)
+        'If mlREADER.HasRows Then
+        '    mlDATATABLE = New DataTable()
+        '    mlDATATABLE.Load(mlREADER)
 
-            For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
-                skr = mlDATATABLE.Rows(aaaeqSSS)("tglorder")
-                lama = DateDiff("n", skr, Now())
-                If lama >= 10 Then
-                    mlSQL2 = "Update fx_order_mc_det set status = -9,nosesi = 0 Where where ((status = '" & ss1 & "') or (status = '" & ss2 & "'))"
-                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
+        '    For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
+        '        skr = mlDATATABLE.Rows(aaaeqSSS)("tglorder")
+        '        lama = DateDiff("n", skr, Now())
+        '        If lama >= 10 Then
+        '            mlSQL2 = "Update fx_order_mc_det set status = -9,nosesi = 0 Where where ((status = '" & ss1 & "') or (status = '" & ss2 & "'))"
+        '            mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
 
-                    noses = mlDATATABLE.Rows(aaaeqSSS)("nosesi")
-                    mlSQL2 = "SELECT * FROM fax_order_mc_head where nosesi like '" & noses & "' and nopos like '" & mypos & "' and dcinduk like '" & indukdc & "'"
-                    mlREADER2 = mlOBJGS.DbRecordset(mlSQL2, mpMODULEID, mlCOMPANYID)
-                    mlREADER2.Read()
-                    If mlREADER2.HasRows Then
-                        mlSQL3 = "Update fax_order_mc_head set status = -9,nosesi = 0 Where nosesi like '" & noses & "' and nopos like '" & mypos & "' and dcinduk like '" & indukdc & "'"
-                        mlOBJGS.ExecuteQuery(mlSQL3, mpMODULEID, mlCOMPANYID)
-                    End If
-                    mlREADER2.Close()
-                End If
-            Next
-        End If
+        '            noses = mlDATATABLE.Rows(aaaeqSSS)("nosesi")
+        '            mlSQL2 = "SELECT * FROM fax_order_mc_head where nosesi like '" & noses & "' and nopos like '" & mypos & "' and dcinduk like '" & indukdc & "'"
+        '            mlREADER2 = mlOBJGS.DbRecordset(mlSQL2, mpMODULEID, mlCOMPANYID)
+        '            mlREADER2.Read()
+        '            If mlREADER2.HasRows Then
+        '                mlSQL3 = "Update fax_order_mc_head set status = -9,nosesi = 0 Where nosesi like '" & noses & "' and nopos like '" & mypos & "' and dcinduk like '" & indukdc & "'"
+        '                mlOBJGS.ExecuteQuery(mlSQL3, mpMODULEID, mlCOMPANYID)
+        '            End If
+        '            mlREADER2.Close()
+        '        End If
+        '    Next
+        'End If
+        'OnlineBooked
     End Sub
 
     Protected Sub OnlineBooked()

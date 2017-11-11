@@ -9,6 +9,8 @@
 	<link rel="stylesheet" href="../Scripts/Bootstrap/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../Scripts/Bootstrap/dist/css/AdminLTE.min.css">
 	<link rel="stylesheet" href="../Scripts/Bootstrap/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
  <asp:ContentPlaceHolder id="head" runat="server" >
     </asp:ContentPlaceHolder>
 </head>
@@ -307,6 +309,8 @@
 	<script src="../Scripts/Bootstrap/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 	<script src="../Scripts/Bootstrap/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../Scripts/Bootstrap/dist/js/app.min.js"></script>
+    <%--<script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>--%>
 	<script type="text/javascript">
 	    $('#infodcModal').modal('show');
 	</script>
