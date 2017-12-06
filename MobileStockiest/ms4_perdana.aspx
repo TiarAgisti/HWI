@@ -163,11 +163,6 @@
     </script>
 
     <script type="text/javascript">
-
-<!-- This script and many more are available free online at -->
-<!--The JavaScript Source!! http://javascript.internet.com -->
-
-<!--Begin
         var submitcount = 0;
 
         function reset() {

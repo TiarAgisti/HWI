@@ -309,6 +309,8 @@
 	<script src="../Scripts/Bootstrap/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 	<script src="../Scripts/Bootstrap/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../Scripts/Bootstrap/dist/js/app.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <%--<script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>--%>
 	<script type="text/javascript">

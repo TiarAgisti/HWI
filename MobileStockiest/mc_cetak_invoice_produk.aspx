@@ -73,7 +73,7 @@
 				            <table class="table table-condensed">
 					            <thead class="table table-bordered">
 						            <tr>
-							            <td width="5%" rowspan="2" class="table-bordered text-center"><strong>No.</strong></td>
+							            <td style="width:5%;" rowspan="2" class="table-bordered text-center"><strong>No.</strong></td>
 							            <td width="24%" rowspan="2" class="table-bordered text-left"><strong>Item Produk</strong></td>
 							            <td width="5%" rowspan="2" class="table-bordered text-center"><strong>Qty.</strong></td>
 							            <td colspan="2" class="table-bordered text-center"><strong>PV</strong></td>
