@@ -218,7 +218,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mpCONTENT" Runat="Server">
-    <section class="content-header">
+    <section class="content-header" style="background-color:white;">
         <div style="background-color: grey">
             <h3 style="text-align:center;color:white;font-family:Arial;">
                 PENDAFTARAN MOBILE STOCKIEST MS400
