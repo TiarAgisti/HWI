@@ -269,7 +269,7 @@
                             </div>
                             <div class="col-md-7">
                                 <label>
-                                    Print Report<label>
+                                    Print Report</label>
                             </div>
                             <div class="col-md-12">
                                 <label>Total Penjualan Selama ini</label>

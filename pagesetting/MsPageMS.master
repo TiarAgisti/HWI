@@ -315,7 +315,7 @@
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>--%>
 	<script type="text/javascript">
 	    $('#infodcModal').modal('show');
-	</script>
+	</script>   
     <!-- Visual Studio Browser Link -->
 <script type="application/json" id="__browserLink_initializationData">
     {"appName":"Chrome","requestId":"b7d5d3f3b02c443bb100e99e4bb8f937"}
