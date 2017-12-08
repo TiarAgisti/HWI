@@ -3,138 +3,254 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mpCONTENT" runat="Server">
-
-    <section class="content-header">
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">DAFTAR INVOICE PENJUALAN PAKET PENDAFTARAN</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                        <i class="fa fa-times"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <label>Tanggal</label>
-                                <input type="date" class="form-control" name="tgl1">
-                            </div>
-                            <div class="form-group">
-                                <label>s/d</label>
-                                <input type="date" class="form-control" name="tgl2">
-                            </div>
-                            <div class="form-group">
-                                <label>Kasir</label>
-                                <select class="form-control" name="kasir" id="kasirDropdownList" runat="server">
-                                    <option value="semua">--ALL--</option>
-                                </select>
-                                <%--onserverclick="Logout_Click"--%>
-                                <button type="submit" name="btsb3" class="btn btn-primary" runat="server">Tampilkan</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th rowspan='2' style="text-align: center; vertical-align: middle">Tanggal</th>
-                                        <th rowspan='2' style="text-align: center; vertical-align: middle">Nomor Referensi</th>
-                                        <th rowspan='2' style="text-align: center; vertical-align: middle">Nomor Invoice</th>
-                                        <th rowspan='2' style="text-align: center; vertical-align: middle">No. Seri</th>
-                                        <th rowspan='2' style="text-align: center; vertical-align: middle">Nama Konsumen</th>
-                                        <th rowspan='2' style="text-align: center; vertical-align: middle">Paket</th>
-                                        <th rowspan='2' style="text-align: center; vertical-align: middle">Nominal</th>
-                                        <th colspan='4' style="text-align: center; vertical-align: middle">Pembayaran</th>
-
-                                    </tr>
-                                    <tr>
-                                        <th>Tunai</th>
-                                        <th>Debit Card </th>
-                                        <th>Credit Card</th>
-                                        <th>Voucher </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbListStarter" runat="server">
-                                    <%--<tr>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                    </tr>--%>
-                                </tbody>
-                                <tfoot id="tfootListStarter" runat="server">
-                                    <%--<tr>
-                                        <th colspan="7" class="text-right">Grand Total</th>
-                                        <th>0</th>
-                                        <th>0</th>
-                                        <th>0</th>
-                                        <th>0</th>
-                                    </tr>--%>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12  form-horizontal">
-                        GRAND TOTAL DARI TANGGAL 22 Agustus 2017 s/d 21 September 2017
-                        <br />
-                        <div class="form-group">
-                            <label class="col-lg-2 col-form-label">Tunai</label>
-                            <div class="col-lg-10">
-                                Rp <%=FormatNumber(gtottunai, 0)%>,-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-2 col-form-label">Debit Card</label>
-                            <div class="col-lg-10">
-                                Rp <%=FormatNumber(gtotdebit, 0)%>,-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-2 col-form-label">Credit Card</label>
-                            <div class="col-lg-10">
-                                Rp <%=FormatNumber(gtotkartu, 0)%>,-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-2 col-form-label">Voucher</label>
-                            <div class="col-lg-10">
-                                Rp <%=formatnumber(gtotbg,0)%>,-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-2 col-form-label">TOTAL</label>
-                            <div class="col-lg-10">
-                                Rp <%=formatnumber(gtottunai+gtotdebit+gtotkartu+gtotbg,0)%>,-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+    <section class="content-header" style="background-color:white;">
+        <div style="background-color: grey">
+            <h3 style="text-align:center;color:white;font-family:Arial;">DAFTAR INVOICE PENJUALAN PAKET PENDAFTARAN</h3>
         </div>
+
+        <table border="0" style="border-spacing:0;border-collapse:collapse;padding:0;width:100%;">
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="text-align:center;">
+                        <table border="0" style="border-spacing:0;border-collapse:collapse;padding:0;width:98%;">
+                            <tr>
+                                <td style="vertical-align:top;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="text-align:center;">
+                        <table border="0" style="border-spacing:0;border-collapse:collapse;padding:0;width:99%;">
+                            <tr>
+                                <td>
+                                    <table border="0" style="border-spacing:0;border-collapse:collapse;padding:0;width:100%;">
+                                        <tr>
+                                            <td>
+                                                <table border="0" style="border-spacing:0;border-collapse:collapse;padding:0;width:100%;">
+                                                    <tr>
+                                                        <td style="width:75px;text-align:left;">Tanggal</td>
+                                                        <td style="width:170px;">
+                                                            <input class="form-control" type="text">
+                                                        <td style="width:25px;">
+                                                            <div style="text-align:center;">s/d</div>
+                                                        </td>
+                                                        <td style="width:170px;">
+                                                            <input class="form-control" type="text">
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table border="0" style="border-spacing:0;border-collapse:collapse;padding:0;width:100%;">
+                                                    <tr>
+                                                        <td style="width:75px;text-align:left;">Kasir</td>
+                                                        <td style="width:170px;">
+                                                            <select class="form-control">
+                                                                <optgroup label="This is a group">
+                                                                    <option value="12" selected="">This is item 1</option>
+                                                                    <option value="13">This is item 2</option>
+                                                                    <option value="14">This is item 3</option>
+                                                                </optgroup>
+                                                            </select>
+                                                        </td>
+                                                        <%--<td style="width:25px;">&nbsp;</td>--%>
+                                                        <td style="width:190px;">
+                                                            <button class="btn btn-default" type="button">Tampilkan</button>
+                                                        </td>
+                                                         <td>&nbsp;</td>     													
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table border="0" style="border-spacing:0;border-collapse:collapse;padding:0;width:100%;">
+                        <tr>
+                            <td>
+                                <table border="0" style="border-spacing:0;border-collapse:collapse;padding:0;width:100%;">
+                                    <tr>
+                                        <td style="width:245px;">
+                                            <table border="0" style="border-spacing:0;border-collapse:collapse;padding:0;width:100%;">
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-md-12 col-md-offset-0">
+                                                            <p></p>
+                                                        </div>
+                                                        <div class="col-lg-offset-8 col-md-2">
+                                                            <label>Aksi : </label><%--<img>--%>
+                                                            <label>Simpan Ke Excel</label>
+                                                        </div>
+                                                        <div class="col-lg-offset-0 col-md-2">
+                                                            <%--<img>--%>
+                                                            <label>Print Report</label>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-12">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-condensed">
+                                                                        <thead class="table table-bordered">
+                                                                            <tr class="table-bordered">
+                                                                                <th rowspan="2" style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Tanggal</div>
+                                                                                </th>
+                                                                                <th rowspan="2" style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Nomor Referensi</div>
+                                                                                </th>
+                                                                                <th rowspan="2" style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Nomor Invoice</div>
+                                                                                </th>
+                                                                                <th rowspan="2" style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">No. Seri</div>
+                                                                                </th>
+                                                                                <th rowspan="2" style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Nama Konsumen</div>
+                                                                                </th>
+                                                                                <th rowspan="2" style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Paket</div>
+                                                                                </th>
+                                                                                <th rowspan="2" style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Nominal</div>
+                                                                                </th>
+                                                                                <th colspan="4" style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Pembayaran</div>
+                                                                                </th>
+                                                                            </tr>
+                                                                            <tr class="table-bordered">
+                                                                                <th style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Tunai</div>
+                                                                                </th>
+                                                                                <th style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Debit Card</div>
+                                                                                </th>
+                                                                                <th style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Credit Card</div>
+                                                                                </th>
+                                                                                <th style="background-color:#CCCCCC;" class="table-bordered">
+                                                                                    <div style="text-align:center;">Voucher</div>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody class="table table-bordered">
+                                                                            <tr>
+                                                                                <td colspan="11" class="table-bordered">&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr class="table-bordered">
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">A</td>
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">B</td>
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">C</td>
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">D</td>
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">E</td>
+                                                                                <td style="background-color:green;text-align:center;" class="table-bordered">F</td>
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">G</td>
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">H</td>
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">I</td>
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">J</td>
+                                                                                <td style="background-color:green;text-align:right;" class="table-bordered">K</td>
+                                                                            </tr>
+                                                                            <tr class="table-bordered">
+                                                                                <td colspan="6" style="text-align:right;" class="table-bordered"><strong>Grand Total</strong></td>
+                                                                                <td style="text-align:right;" class="table-bordered">0</td>
+                                                                                <td style="text-align:right;" class="table-bordered">0</td>
+                                                                                <td style="text-align:right;" class="table-bordered">0</td>
+                                                                                <td style="text-align:right;" class="table-bordered">0</td>
+                                                                                <td style="text-align:right;" class="table-bordered">0</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <div class="col-md-4">
+                                                                <div>
+                                                                    <div class="table-responsive">
+                                                                        <table border="0" class="table">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <table border="0">
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td colspan="3"><strong>GRAND TOTAL DARI TANGGAL s/d</strong></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="width:20%;"><span class="style3">Tunai</span></td>
+                                                                                                <td style="width:5%;"><span class="style3">:</span></td>
+                                                                                                <td style="width:75%;"><span class="style3">Rp,-</span></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td><span class="style3">Debit Card</span></td>
+                                                                                                <td><span class="style3">:</span></td>
+                                                                                                <td><span class="style3">Rp,-</span></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td><span class="style3">Kredi Card</span></td>
+                                                                                                <td><span class="style3">:</span></td>
+                                                                                                <td><span class="style3">Rp,-</span></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td><span class="style3">Voucher</span></td>
+                                                                                                <td><span class="style3">:</span></td>
+                                                                                                <td><span class="style3">Rp,-</span></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td><span class="style3"><strong>TOTAL</strong></span></td>
+                                                                                                <td><span class="style3"><strong>:</strong></span></td>
+                                                                                                <td><span class="style3"><strong>Rp,-</strong></span></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    <span class="style3"><label></label></span>
+                                                                                                </td>
+                                                                                                <td><span class="style3"></span></td>
+                                                                                                <td><span class="style3"></span></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="background-color:grey;"></td>
+                                                                                                <td><span class="style3">:</span></td>
+                                                                                                <td><span class="style3">Indikator invoice belanja sistem topup</span></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="background-color:green;"></td>
+                                                                                                <td><span class="style3">:</span></td>
+                                                                                                <td><span class="style3">Indikator invoice belanja sistem quadroplan (split point)</span></td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </section>
 </asp:Content>
 
