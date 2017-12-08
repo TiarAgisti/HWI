@@ -23,19 +23,19 @@
                     <div class="table-responsive">
                         <table class="table table-condensed table-bordered">
                             <tr>
-                                <td bgcolor="grey" width="14%" rowspan="2" class="text-center"><strong>Kasir</strong></td>
-                                <td colspan="3" class="text-center" bgcolor="orange"><strong>Penjualan</strong></td>
-                                <td colspan="5" class="text-center" bgcolor="aqua"><strong>Pembayaran</strong></td>
+                                <td style="background-color:grey;width:14%;" rowspan="2" class="text-center"><strong>Kasir</strong></td>
+                                <td colspan="3" class="text-center"style="background-color:orange;"><strong>Penjualan</strong></td>
+                                <td colspan="5" class="text-center" style="background-color:aqua;"><strong>Pembayaran</strong></td>
                             </tr>
                             <tr>
-                                <td width="9%" class="text-center" bgcolor="orange"><strong>Pendaftaran</strong></td>
-                                <td width="8%" class="text-center" bgcolor="orange"><strong>Produk</strong></td>
-                                <td width="10%" class="text-center" bgcolor="orange"><strong>Total</strong></td>
-                                <td width="10%" class="text-center" bgcolor="aqua"><strong>Tunai</strong></td>
-                                <td width="11%" class="text-center" bgcolor="aqua"><strong>Debit Card</strong></td>
-                                <td width="11%" class="text-center" bgcolor="aqua"><strong>Credit Card</strong></td>
-                                <td width="14%" class="text-center" bgcolor="aqua"><strong>Voucher</strong></td>
-                                <td width="13%" class="text-center" bgcolor="aqua"><strong>Total</strong></td>
+                                <td class="text-center" style="background-color:orange;width:9%;" "><strong>Pendaftaran</strong></td>
+                                <td class="text-center" style="background-color:orange;width:8%;" "><strong>Produk</strong></td>
+                                <td class="text-center" style="background-color:orange;width:10%;" "><strong>Total</strong></td>
+                                <td class="text-center" style="background-color:aqua;width:10%;" "><strong>Tunai</strong></td>
+                                <td class="text-center" style="background-color:aqua;width:11%;"><strong>Debit Card</strong></td>
+                                <td class="text-center" style="background-color:aqua;width:11%;"><strong>Credit Card</strong></td>
+                                <td class="text-center" style="background-color:aqua;width:14%;"><strong>Voucher</strong></td>
+                                <td class="text-center" style="background-color:aqua;width:13%;"><strong>Total</strong></td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
@@ -65,8 +65,7 @@
                         <label>Aksi: Simpan Ke Excel</label>
                     </div>
                     <div class="col-md-7">
-                        <label>
-                            Print Report<label>
+                        <label>Print Report</label>
                     </div>
                 </div>
                 <div class="col-md-12" style="padding-top: 20px">
@@ -244,13 +243,13 @@
                                 <div class="table-responsive">
                                     <table class="table table-condensed table-bordered">
                                         <tr>
-                                            <td width="22%" rowspan="2" class="text-center" bgcolor="grey"><strong>Tanggal</strong></td>
-                                            <td colspan="2" class="text-center" bgcolor="orange"><strong>Penjualan</strong></td>
-                                            <td width="25%" rowspan="2" class="text-center" bgcolor="aqua"><strong>Total</strong></td>
+                                            <td style="width:22%;background-color:grey;" rowspan="2" class="text-center"><strong>Tanggal</strong></td>
+                                            <td colspan="2" class="text-center" style="background-color:orange;"><strong>Penjualan</strong></td>
+                                            <td style="width:25%;background-color:aqua;" rowspan="2" class="text-center"><strong>Total</strong></td>
                                         </tr>
                                         <tr>
-                                            <td width="28%" class="text-center" bgcolor="orange"><strong>Pendaftaran</strong></td>
-                                            <td width="25%" class="text-center" bgcolor="orange"><strong>Produk</strong></td>
+                                            <td style="width:28%;background-color:orange;" class="text-center"><strong>Pendaftaran</strong></td>
+                                            <td style="width:25%;background-color:orange;" class="text-center"><strong>Produk</strong></td>
                                         </tr>
                                         <tr>
                                             <td colspan="4" class="text-center"><u>Tidak Ada Transaksi</u></td>
