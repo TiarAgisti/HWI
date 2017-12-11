@@ -166,6 +166,7 @@
                         </h4>               
                     </div>
 	            </div>
+                <%--<form name="form1"></form>--%>
                 <div style="padding: 0px 20px 20px 20px">
                     <div class="col-md-3">
                         <label>Tanggal Transaksi</label>
