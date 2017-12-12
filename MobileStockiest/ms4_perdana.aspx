@@ -321,6 +321,18 @@
                             </div>
                         </div>
                     </div>
+                     <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">(#2) KERANJANG BELANJAAN</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        Dibawah ini adalah order yang sudah dimasukan saat ini. Anda dapat menghapus / membatalkan item order dibawah ini. Pembatalan item order hanya dapat dilakukan sebelum sesi ini ditutup, sesi ditutup dengan menekan tombol check .
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
