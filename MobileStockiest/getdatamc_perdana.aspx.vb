@@ -23,6 +23,8 @@ Partial Class MobileStockiest_getdatamc_perdana
         sss = "T"
         mlSQL = "SELECT kta,uid,telp,hp,alamat,emel,kota,propinsi,negara,kodepos FROM member WHERE kta like '" & kodedr & "' and sta like '" & sss & "'"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+        mlREADER.Read()
+
         If Not mlREADER.HasRows Then
             namab = "NOT FOUND"
             Session("namadis_mc") = ""

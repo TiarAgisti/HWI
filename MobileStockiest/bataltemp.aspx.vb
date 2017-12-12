@@ -50,6 +50,8 @@ Partial Class MobileStockiest_bataltemp
             lanjut = "T"
             mlSQL = "SELECT * FROM st_sale_daftar WHERE noseri like '" & noid & "' and nopos like '" & mypos & "'"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+            mlREADER.Read()
+
             If Not mlREADER.HasRows Then
                 mbuh = "T"
             Else
@@ -68,6 +70,8 @@ Partial Class MobileStockiest_bataltemp
             'if terusken = "T" then
             mlSQL = "SELECT kta,uid,dc_asal,joindt,tipene_kartu FROM member WHERE kta like '" & noid & "'"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+            mlREADER.Read()
+
             If Not mlREADER.HasRows Then
                 If pakai = "T" Or pakai = "F" Then
                     hasil = "Nomor seri / distributor dapat dibatalkan, silahkan lakukan PEMBATALAN PADA TEMPORARY"
@@ -127,6 +131,8 @@ Partial Class MobileStockiest_bataltemp
         Else
             mlSQL = "SELECT kta FROM member WHERE kta like '" & noid & "'"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+            mlREADER.Read()
+
             If Not mlREADER.HasRows Then
                 lanjut = "T"
             Else
@@ -145,6 +151,7 @@ Partial Class MobileStockiest_bataltemp
                     mlSQL2 = "Delete From st_sale_daftar WHERE noseri like '" & noid & "'"
                 End If
                 mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
 
                 If Not mlREADER.HasRows Then
                     If mypos <> dcHO Then
