@@ -221,120 +221,314 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mpCONTENT" runat="Server">
-
     <section class="content-header">
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">PENDAFTARAN MOBILE STOCKIEST DARI EXISTING DISTRIBUTOR MS400</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                        <i class="fa fa-times"></i>
-                    </button>
+        <div style="padding: 20px 20px 20px 20px">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="text-center panel-title" style="font-family:Arial;"><strong>PENDAFTARAN MOBILE STOCKIEST DARI EXISTING DISTRIBUTOR MS400</strong></h3>
                 </div>
-            </div>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">(#1) PERATURAN</div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <ol type="1">
-                                            <li>Secara default, data-data mobile stockiest seperti alamat, nomor telepon dan informasi lainnya sama dengan data sebagai distributor, dapat diganti dicontrol panel mobile stockiest.
-                                            </li>
-                                            <li>Nomor id mobile stockiest adalah :
-                                            <br />
-                                                MS+"-"+nomor id distributor, sebagai contoh 100001 menjadi mobile stockiest, maka id mobile stockiestnya adalah MS-100001 dengan login page pada alamat <a href=" http://www.healthwealthint.com/mobilestockiest">http://www.healthwealthint.com/mobilestockiest</a>
-                                            </li>
-                                            <li>Password login ke control panel mobile stockiest secara default adalah password loginnya sebagai distributor, namun dapat diganti pada control panel mobile stockiest.
-                                            </li>
-                                            <li>Order perdana bagi mobile stockiest baru, 1 Paket MS (MS400U)
-                                            </li>
-                                            <li>Order perdana ini sekaligus sebagai sarana untuk mengaktifkan distributor menjadi mobile stockiest.
-                                            </li>
-                                            <li>Order perdana hanya order produk bukan order paket pendaftaran.
-                                            </li>
-                                            <li class="text text-danger">Setelah anda menekan tombol "Release Order & Daftarkan Mobile Stockiest", maka sistem akan secara otomatis mengaktifkan status mobile stockiest distributor yang id nya didaftarkan dan mengalihkan stock DC menjadi stock mobile stockiest sesuai yang diorder. Pastikan anda sudah mengisi dengan benar item barang yang diorder dan nomor id distributor yang menjadi mobile stockiest.
-                                            <span class="alert-warning text-black">Semua kesalahan yang membutuhkan pembatalan tidak dapat dilakukan dan sepenuhnya menjadi tanggung jawab DC / mobile stockiest yang bersangkutan.
-                                            </span>
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h3>
-                                            Silahkan Pilih Paket Upgrade (cukup 1 saja) :
-                                        </h3>
-                                        <div class="row" id="paketUpgrade" runat="server">
-
-                                        </div>
-                                        <h4 class="text-center alert-warning text-bold text-black">
-                                            SESSION BELANJAAN INI AKAN EXPIRED APABILA ANDA TIDAK MEMPROSESNYA DALAM WAKTU 10 MENIT
-                                        </h4>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">(#2) KERANJANG BELANJAAN</div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        Dibawah ini adalah order yang sudah dimasukan saat ini. Anda dapat menghapus / membatalkan item order dibawah ini. Pembatalan item order hanya dapat dilakukan sebelum sesi ini ditutup, sesi ditutup dengan menekan tombol check out.
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="table1">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Kode
-                                                        </th>
-                                                        <th>Nama Produk
-                                                        </th>
-                                                        <th>PV 
-                                                        </th>
-                                                        <th>Qty 
-                                                        </th>
-                                                        <th>Harga 
-                                                        </th>
-                                                        <th>Sub Total 
-                                                        </th>
-                                                        <th>Aksi  
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="tbMsUpdgrade" runat="server">
-                                                </tbody>
-                                                <tfoot id="tfootMsUpgrade" runat="server">
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">(#2) KERANJANG BELANJAAN</div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        Dibawah ini adalah order yang sudah dimasukan saat ini. Anda dapat menghapus / membatalkan item order dibawah ini. Pembatalan item order hanya dapat dilakukan sebelum sesi ini ditutup, sesi ditutup dengan menekan tombol check .
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="panel-body">	
+                <div>
+                    <div style="padding: 10px 10px 10px 10px; background-color: aqua">
+                        <div style="background-color: orange"><h4 style="text-align:center;color:white;font-family:Arial;"><(#1) PERATURAN</h4></div>
+                        <ol>
+                            <li>Secara default, data-data mobile stockiest seperti alamat, nomor telepeon dan informasi lainnya sama dengan data sebagai distributor, dapat diganti dicontrol panel mobile stockiest</li>
+                            <li>Nomor id mobile stockiest adalah : MS+"-" nomor id distrobutor, sebagai contoh 100001 menjadi mobile stockiest, maka id mobile stockiestnya adalah MS-100001 dengan login page pada alamat http://heallthwealthint.com/mobilestockiest</li>
+                            <li>Password login ke control panel mobile stockiest secara default adalah password loginnya sebagai distributor, namun dapat diganti pada control panel mobile stockiest.</li>
+                            <li>Order perdana bagi mobile stockiest baru, medaftar dengan paket MS400</li>
+                            <li>Order perdana ini sekaliigus sebagai sarana untuk mengaktifkan distributor menjadi mobile stockiest</li>
+                            <li><span style="color: red">Setelah anda menekan tombol "Release Order &amp; Daftarkan Mobile Stockiest", maka sistem akan secara otomatis mengaktifkan status mobile stockiest distributor yang id nya didaftarkan dan mengalahkan stock DC menjadi stock mobile stockiest
+                                sesuai yang diorder, Pastikan anda sudah mengisi dengan benar item barang yang diorder dan nomor id distriibutor yang menjadi mobile stockiest. <span style="background-color: yellow">Semua kesalahan yang membutuhkan pembatalan tidak dapat dilkakukan dan sepenuhnya menjadi tanggung
+                                jawab DC / Mobile stockiest yang bersangkutan.</span></span></li>
+                        </ol>
                     </div>
                 </div>
-            </div>
+    
+                <div style="padding-top: 10px">
+                    <div class="alert alert-warning text-center" role="alert">
+                        <span class="text-uppercase"><span style="text-decoration: underline; font-weight: bold">ERROR MESSAGE</span></span>
+                    </div>
+                </div>
+	
+                <div style="padding: 10px 30px 10px 30px; background-color: aqua">
+		            <p class="text-center"><span style="font-weight: bold">Silahkan pilih Paket Upgrade (cukup 1 saja) :</span><br><a href="#">Upgrade Paket</a></p>
+                    <p class="text-center"><span style="background-color: yellow; font-weight: bold">SESSION BELANJAAN INI</span><br>AKAN AKAN EXPIRED APABILA ANDA TIDAK MEMPROSES DALAM <br>WAKTU 10 MENIT</p>
+                    <p class="text-center"><span style="color: red; font-weight: bold">PERHATIAN KHUSUS KANTOR PUSAT </span><br>Khusus kantor pusat, apabila ada mobile stockiest berbelanja dikantor pusat :</p>
+                    <p class="text-center"><span style="text-decoration: underline; color: red; font-weight: bold">DIAMBIL </span><br>Maka harga gunakan zona / area jawa (1) <br>Silahkan pilih zona 1 pada pilihan kirim ke zona untuk men-set harga yang sesuai.</p>
+                    <p class="text-center"><span style="text-decoration: underline; color: red; font-weight: bold">DIKIRIM </span><br>Maka harga gunakan zona / area mobile stockiest tersebut <br>Silahkan pilih zona yang sesuai zona MC pada pilihan kirim ke zona untuk men-set harga yang sesuai</p>
+                    <p class="text-center">Keterangan Zona <br />Zona 1: Jawa, Bali, Lampung, Bengkulu, Babel, Palembang <br />Zona 2: Mataram, Lombok, NTB, Kalimantan, Sulsel, Sulbar <br />Zona 3: Papua, Maluku, Sulawesi Tenggara, Sulut, Sulteng <br />Zona 4: NTT <br />Zona 5: Sumbar, Sumut, Aceh</p>
+                </div>
+	
+	            <div style="padding: 0px 20px 0px 20px">
+		            <div style="background-color: blue"><h4 style="text-align:center;font-family:Arial;">(#2) KERANJANG BELANJAAN</h4></div>
+		                <p>Dibawah ini adalah daftar belanjaan top up saat ini. Anda dapat menghapus / membatalkan item belanjaan top up dibawah ini. Pembatalan item belanjaan top up hanya dapat dilakukan sebelum sesi belanja ini ditutup, sesi belanja ini ditutup dengan menekan tombol check out.</p>
+		                    <div class="table-responsive">
+			                    <table class="table table-condensed table-bordered">
+				                    <thead>
+					                    <tr>
+						                    <td style="width:6%;"><strong>Kode</strong></td>
+						                    <td style="width:29%;"><strong>Nama Produk</strong></td>
+						                    <td style="width:10%;"><strong>PV</strong></td>
+						                    <td style="width:9%;"><strong>BV</strong></td>
+						                    <td style="width:8%;"><strong>Qty.</strong></td>
+						                    <td style="width:13%;"><strong>Harga</strong></td>
+						                    <td style="width:20%;"><strong>Sub Total</strong></td>
+						                    <td style="width:5%;"><strong>Aksi</strong></td>
+					                     </tr>
+				                    </thead>
+				                    <tbody>
+					                    <tr>
+						                    <td class="text-center" colspan="8"><span style="text-decoration: underline">Sesi ini belum ada belanjaan</span></td>
+					                     </tr>
+					                    <tr>
+						                    <td>&nbsp;</td>
+						                    <td>&nbsp;</td>
+						                    <td>&nbsp;</td>
+						                    <td>&nbsp;</td>
+						                    <td>&nbsp;</td>
+						                    <td>&nbsp;</td>
+						                    <td>&nbsp;</td>
+						                    <td><a href="wwww">DEL</a></td>
+					                    </tr>
+					                    <tr>
+						                    <td class="text-right" colspan="6"><strong>GRAND TOTAL</strong></td>
+						                    <td>&nbsp;</td>
+						                    <td>&nbsp;</td>
+					                    </tr>
+				                    </tbody>
+			                    </table>
+		                    </div>
+	                    </div>
+	                <p style="text-align:center;"><span style="background-color: yellow; color: red; font-weight: bold">BATALKAN SESI BELANJA INI & BIKIN SESI BARU</span></p>
+	                    <div style="padding: 0px 30px 0px 30px">
+                            <div style="background-color: green">
+                                <h4 style="text-align:center;color:white;font-family:Arial;">(#3) CHECK OUT</h4>
+                            </div>
+                            <p class="text-center"><span style="color: red; font-weight: bold">SEMUA ORDERAN YANG TELAH DISUBMIT DENGAN MENEKAN TOMBOL </span><br/><span style="text-decoration: underline; color: black">"Release Order &amp; Register mobile stockiest"</span> DIBAWAH INI, <br/>TIDAK DAPAT DIBATALAKAN ATAU DIREVISI ! <br>KAMI TIDAK MELAYANI PERMINTAAN PEMBATALAN DENGAN ALASAN APAPUN </p>
+                            <p><span style="text-decoration: underline; font-weight: bold">PERJANJIAN DAN PERSETUJUAN SEBAGAI MOBILE STOCKIEST PT. HEALTH WEALTH INTERNATIONAL</span></p>
+                            <textarea rows="8" readonly class="form-control n-resize">SYARAT DAN KETENTUAN MOBILE STOCKIEST  (MS 400)
+		
+a. Pemilik Mobile Stockiest (MS 400) adalah Distributor HWI.
+b. Tidak terlibat langsung maupun tidak langsung dengan bisnis MLM lain.
+c. Bergabung sebagai Mobile Stockiest (MS 400) dengan cara membeli paket aktivasi Mobile Stockiest (MS400)
+d. Mobile Stockiest (MS400) setiap bulannya hanya dapat menyimpan 750 PV. Kelebihan PV diatas 
+750 PV ini akan secara otomatis dialokasikan sebagai auto maintenance 200PV/bulan untuk Mobile 
+Stockiest (MS) yang bersangkutan
+e. Apabila dalam jangka waktu 3 (tiga) bulan berturut-turut tidak pernah repeat order 
+minimal dalam 1 (satu invoice) pada satu bulan (bukan akumulasi) sebesar minimal Rp. 2.000.000,-
+(dua juta rupiah) setelah diskon MS, maka Mobile Stockiest yang bersangkutan tidak dapat
+memeperoleh potongan sebagai MS pada repeat order berikutnya. Kegiatan sebagai Mobile Stockist tetap dapat dilakukan sebagaimana biasanya, namun tidak akan mendapatkan potongan sebagai Mobile Stockist pada saat melakukan repeat order pembelian produk ke D.C
+f. Untuk dapat memperoleh potongan sebagai Mobile Stockist lagi, maka diharuskan melakukan pembelanjaan sebesar minimal Rp 3.000.000,- (tiga juta rupiah) pembelanjaan ini tidak mendapatkan potongan sebagai sanksi, order berikutnya baru akan memperoleh potongan sebagai Mobile Stockist.
+
+LINGKUP KERJASAMA
+
+a. PIHAK KEDUA selaku Pengelola Mobile Stockist ( MS 400 ) resmi HWI memasarkan dan menjual produk-produk HWI kepada seluruh distributor tanpa membeda-bedakan jaringan.
+b. Mobile Stockist ( MS 400 ) sebagai pusat informasi dan pelayanan bisnis Network Marketing HWI, dalam aktifitas operationalnya tidak terlibat atau menjual produk-produk lain dari perusahaan Multi Level lain.
+c. Mobile Stockist ( MS 400 ) berkewajiban sepenuhnya mengikuti tata cara yang ditentukan oleh HWI dalam hal laporan dan administasi.
+d. Apabila Mobile Stockist ( MS 400 )  melakukan tindakan-tindakan yang melanggar isi perjanjian kerja sama Mobile Stockist ( MS 400 ) dan atau aturan dan peraturan perusahaan atau mencemarkan nama baik perusahaan dan atau melakukan tindakan yang meresahkan dan atau merugikan perusahaan maka Mobile Stockist ( MS 400 ) akan diberikan sanksi dari mulai teguran, Surat peringatan, sampai dengan penutupan Mobile Stockist ( MS 400 ).
+
+PENUTUP
+
+Hal-hal yang belum diatur dalam perjanjian ini merupakan ketentuan-ketentuan tambahan, maka hal ini akan diatur secara tertulis dan merupakan bagian yang mengikat dan tidak terpisahkan dari perjanjian kerjasama ini.
+Perjanjian ini dibuat 2 (dua) rangkap dan masing-masing pihak mendapat 1 (satu) rangkap. Perjanjian ini sah berlaku dan mengikat serta mempunyai kekuatan hukum setelah ditanda tangani diatas materai sesuai ketentuan yang berlaku.
+		</textarea>
+		<%--<form method="post" action="">--%>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" required>Saya Menyatakan persetujuan dan tunduk terhadap semua yang sudah diatur didalamnya (mohon diclick)
+                            </label>
+                        </div>
+                        <p><span style="text-decoration: underline; font-weight: bold">Check Out &amp; Data mobile stockiest Baru -</span></p>
+                        <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>DC Asal</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Mobile Stockies Id.</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text">
+                            </div>
+			                <div class="col-md-6">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Username </label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Alamat Mobile Stockiest</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Kota Alamat</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Kode Pos</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Propinsi </label>
+                            </div>
+                            <div class="col-md-9">
+                                <select class="form-control">
+                                    <optgroup label="This is a group">
+                                        <option value="12" selected="">This is item 1</option>
+                                        <option value="13">This is item 2</option>
+                                        <option value="14">This is item 3</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>No. Telp / HP</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>No. Fax</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Alamat Email</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Kirim Ke Zona</label>
+                            </div>
+                            <div class="col-md-5">
+                                <select class="form-control">
+                                    <optgroup label="This is a group">
+                                        <option value="12" selected="">This is item 1</option>
+                                        <option value="13">This is item 2</option>
+                                        <option value="14">This is item 3</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+			                <div class="col-md-4">
+                                <label><span style="color: red"><em>*Pilih Zona Pengiriman untuk menentukan harga</em></span></label>
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Zona / Area M.S</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select class="form-control">
+                                    <optgroup label="This is a group">
+                                        <option value="12" selected="">This is item 1</option>
+                                        <option value="13">This is item 2</option>
+                                        <option value="14">This is item 3</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Total Belanja</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-12">
+                                <label><u><strong>Pembayaran :</strong></u></label>
+                            </div>
+		                </div>
+                        <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Tunai</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text">
+                            </div>
+	                        <div class="col-md-3">
+                                <label>Credit Card</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text">
+                            </div>
+                        </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Debit Card</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text">
+                            </div>
+			                <div class="col-md-3">
+                                <label>Voucher</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Total Pembayaran</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+		                <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label>Kembalian</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text">
+                            </div>
+		                </div>
+                        <div style="padding: 20px 20px 20px 20px">
+                            <div class="col-md-3">
+                                <label> </label>
+                            </div>
+                            <div class="col-md-9">
+                                <button class="btn btn-default" type="button">Release Order & Register</button>
+                                <p><br/><span style="background-color: yellow; color: red; font-weight: bold">PASTIKAN ANDA SUDAH MENGISI DATA DENGAN BENAR ! </span><br/>Klik Sekali Saja dan tunggu hingga keluar invoice</p>
+                            </div>
+                        </div>
+        <%--</form>--%>
+	                </div>
+		        </div>
+	        </div>  
         </div>
     </section>
 </asp:Content>

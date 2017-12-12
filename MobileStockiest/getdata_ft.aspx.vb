@@ -221,7 +221,7 @@ Partial Class MobileStockiest_getdata_ft
         Response.Write("<xmlresponse>")
         Response.Write("<data>" & kode & "</data>")
         Response.Write("<data>" & harga & "</data>")
-        Response.Write("<data>" & pv() & "</data>")
+        Response.Write("<data>" & pv & "</data>")
         Response.Write("<data>" & bv & "</data>")
         Response.Write("</xmlresponse>")
     End Sub
