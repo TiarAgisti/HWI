@@ -8,12 +8,8 @@ Partial Class MobileStockiest_getdata
 
     Dim mlREADER As OleDb.OleDbDataReader
     Dim mlSQL As String
-    Dim mlREADER2 As OleDb.OleDbDataReader
-    Dim mlSQL2 As String
     Dim mlCOMPANYID As String = "ALL"
     Dim mpMODULEID As String = "PB"
-    Dim mlDATATABLE As New DataTable
-    Dim mlDATATABLEDETAIL As New DataTable
 
     Dim TempString2, kode, pos_area, dcpusate, mypos, loguser, apani, ste, kd As String
     Dim harga, minimal, pv, bv As Double
