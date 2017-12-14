@@ -224,7 +224,7 @@
                                     <label>Nomer Seri Pendaftaran</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="noseri" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="-- auto --">
+                                    <input type="text" class="form-control" name="noseri" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="-- auto --"  maxlength="17">
                                 </div>
                                 <div class="col-md-3">
                                     <label><i>*akan digenerate sistem</i></label>
@@ -292,45 +292,8 @@
                                     <label>Paket Pendaftaran</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <select class="form-control" name="paket" id="paket" onChange="javascript:cari(this)">
-                                        <optgroup label="paket pendaftaran">
-                                            <option value="12" selected="">--Silahkan Pilih--</option>
-                                            <%
-                                                pp = "AKT"
-                                                ste = "T"
-                                                minimal = 1
-                                                If mypos <> dcpusate Then
-                                                    If LCase(loguser) = "kris" Then
-                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
-                                                        mlSQL += "And jumlah >= '" & minimal & "' and kode <> 'ms500' and kode <> 'ms500-14' and kode <> 'ms400-14' and kode <> 'ms200-14'" & vbCrLf
-                                                        mlSQL += "And kode Not Like 'ms200%' and kode <> 'ms500V-14'"
-                                                    Else
-                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
-                                                        mlSQL += "And jumlah >= '" & minimal & "' and sta like '" & ste & "' and kode <> 'ms500' and kode <> 'ms500-14'" & vbCrLf
-                                                        mlSQL += "And kode <> 'ms200-14' and kode not like 'ms200%' and kode <> 'ms400-14' and kode <> 'ms500V-14'"
-                                                    End If
-                                                Else
-                                                    If LCase(loguser) = "kris" Then
-                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
-                                                        mlSQL += "And kode <> 'ms500' and kode <> 'ms500-14' and kode <> 'ms400-14' and kode <> 'ms200-14' and kode not like 'ms200%'" & vbCrLf
-                                                        mlSQL += "And kode <> 'ms500V-14'"
-                                                    Else
-                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
-                                                        mlSQL += "And sta like '" & ste & "' and kode <> 'ms500' and kode <> 'ms500-14' and kode <> 'ms200-14'" & vbCrLf
-                                                        mlSQL += "And kode not like 'ms200%' and kode <> 'ms400-14' and kode <> 'ms500V-14'"
-                                                    End If
-                                                End If
-                                                If mlREADER.HasRows <> True Then
-                                                    mlDATATABLE = New Data.DataTable()
-                                                    mlDATATABLE.Load(mlREADER)
-                                                    For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
-                                            %>	
-                                                <option value="<%=mlDATATABLE.Rows(aaaeqSSS)("kode")%>"><%=mlDATATABLE.Rows(aaaeqSSS)("nama")%></option>
-                                            <% 
-                                                    Next
-                                                End If
-                                            %>
-                                        </optgroup>
+                                    <select class="form-control" name="paket" id="paket" onChange="javascript:cari(this)" runat ="server">
+                                        
                                     </select>
                                 </div>
                             </div>
