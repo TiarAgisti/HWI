@@ -18,6 +18,7 @@ Partial Class MobileStockiest_getdatadirek
     Dim kodedr, namab, telp, hp, tipene, upme As String
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        mlOBJGS.Main()
         Response.ContentType = "text/xml"
 
         kodedr = Trim(Request.QueryString.Item(1))

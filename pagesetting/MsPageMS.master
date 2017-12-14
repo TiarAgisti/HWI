@@ -120,14 +120,15 @@
 				
             </section>  
         </aside> 
-		<div class="content-wrapper">		
-                <form id="form1" runat="server">
-                   <div>
-                      <asp:ContentPlaceHolder id="mpCONTENT" runat="server">
+		<div class="content-wrapper">
+            <div>
+                <asp:ContentPlaceHolder id="mpCONTENT" runat="server">
 
-                      </asp:ContentPlaceHolder>
-                    </div>
-                </form>
+                </asp:ContentPlaceHolder>
+            </div>		
+               <%-- <form id="form1" runat="server">
+                   
+                </form>--%>
         </div>
        <footer class="main-footer">
         <strong>

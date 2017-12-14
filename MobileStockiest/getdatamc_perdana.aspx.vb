@@ -14,6 +14,7 @@ Partial Class MobileStockiest_getdatamc_perdana
     Dim kodedr As String
     Dim sss, namab, alamatb, kotab, kodeposb, propinsib, telpb, hpb, emelb As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        mlOBJGS.Main()
         Response.ContentType = "text/xml"
         kodedr = Trim(Request.QueryString.Item(1))
         sss = "T"

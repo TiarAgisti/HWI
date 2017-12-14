@@ -150,7 +150,8 @@
             <div class="panel-body">
                 <ol>
                     <li>Closing Date untuk bulan ini adalah pada tanggal, jam :<br>
-                        <span style="color: red"><b>s.d</b><br>
+                        <% hariakhir = Now%>
+                        <span style="color: red"><%=tutup1%><b>s.d</b><%=tutup2%><br>
                         </span>
                         Semua transaksi yang dilakukan diantara closing period diatas, akan ditolak oleh sistem. Apabila anda membutuhkan untuk membukukan transaksi tersebut untuk keperluan top up bulanan, maka silahkan menghubungi kantor pusat atau DC induk anda.
                             <br>
@@ -181,202 +182,250 @@
         <div style="padding: 10px 35px 10px 35px">
             <div class="col-md-12">
                 <div style="padding: 10px 35px 5px 35px">
+                     <%if mesej <> "" Then %>
                     <div class="alert alert-warning text-center" role="alert">
-                        <span><span style="text-decoration: underline;">
-                            <h4 style="text-align: center; color: black; font-family: Arial;"><b>ERROR MESSAGE</b></h4>
-                        </span></span>
+                        <h4 style="text-align: center; color: black; font-family: Arial;">
+                            <span><span style="text-decoration: underline;">
+                                <b>ERROR MESSAGE</b><br />
+                                <label><%=mesej%></label>
+                            </span></span>
+                        </h4>
                     </div>
+                    <% End If %>
                 </div>
-                <div style="padding: 0px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>Tanggal Transaksi</label>
+
+                <div class="panel panel-default">
+                     <div class="panel-heading">
+                        <h4 class="text-center" style="text-align: center; color: black; font-family: Arial;"><strong></strong></h4>
                     </div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>Nama Calon Distributor</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-3">
-                        <label><i>*maksimal 50 karakter</i></label>
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>Nomer Seri Pendaftaran</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-3">
-                        <label><i>*akan digenerate sistem</i></label>
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>No. Id Direct Sponsor</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>Upline Penempatan</label>
-                    </div>
-                    <div class="col-md-9">
-                        <label>Tuliskan nomor id distributor yang menjad upline penempatan, Masukan id distributor direct sponsor apabila penempatan otomatis dibawah sponsor atau silahkan masukan nomor id distributor lainya.</label>
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label></label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>No. Id Upline</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 25px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label></label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Nama Upline</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label></label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Kaki</label>
-                    </div>
-                    <div class="col-md-6">
-                        <select class="form-control">
-                            <optgroup label="kaki">
-                                <option value="" selected="">Kiri</option>
-                                <option value="">Kanan</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>Paket Pendaftaran</label>
-                    </div>
-                    <div class="col-md-9">
-                        <select class="form-control">
-                            <optgroup label="paket pendaftaran">
-                                <option value="12" selected="">--Silahkan Pilih--</option>
-                                <option value="13">Item 1</option>
-                                <option value="14">Item 2</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>Harga</label>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>PV</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="col-md-2">
-                        <label>BV</label>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>Cara Pembayaran</label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Tunai</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label></label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Debit Card</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label></label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Credit Card</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label></label>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Voucher</label>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>Jumlah Pembayaran</label>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label>Jumlah Kembalian</label>
-                    </div>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div></div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-3">
-                        <label></label>
-                    </div>
-                    <div class="col-md-9">
-                        <button class="btn btn-default" type="button">Check Out</button>
+                    <div class="panel-body">
+                        <form name="theform" method="post" action="sale_stater_save.asp" onSubmit="return formCheck(this)">
+                            <div style="padding: 0px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Tanggal Transaksi</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="tgl" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=tgl%>">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Nama Calon Distributor</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="nama" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                </div>
+                                <div class="col-md-3">
+                                    <label><i>*maksimal 50 karakter</i></label>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Nomer Seri Pendaftaran</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="noseri" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="-- auto --">
+                                </div>
+                                <div class="col-md-3">
+                                    <label><i>*akan digenerate sistem</i></label>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>No. Id Direct Sponsor</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="direk" id="direk" onChange="javascript:cari2(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;" >
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="namadirek" id="namadirek" onKeyDown="if(event.keyCode==13) event.keyCode=9;" readonly>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Upline Penempatan</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <label>Tuliskan nomor id distributor yang menjad upline penempatan, Masukan id distributor direct sponsor apabila penempatan otomatis dibawah sponsor atau silahkan masukan nomor id distributor lainya.</label>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>No. Id Upline</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="upline" id="upline" onChange="javascript:cari3(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=aloc%>">
+                                </div>
+                            </div>
+                            <div style="padding: 25px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Nama Upline</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="namaupline" id="namaupline" onKeyDown="if(event.keyCode==13) event.keyCode=9;" readonly>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Kaki</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" name="kakiupline" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                        <optgroup label="kaki">
+                                            <option value="L" selected="">Kiri</option>
+                                            <option value="R">Kanan</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Paket Pendaftaran</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <select class="form-control" name="paket" id="paket" onChange="javascript:cari(this)">
+                                        <optgroup label="paket pendaftaran">
+                                            <option value="12" selected="">--Silahkan Pilih--</option>
+                                            <%
+                                                pp = "AKT"
+                                                ste = "T"
+                                                minimal = 1
+                                                If mypos <> dcpusate Then
+                                                    If LCase(loguser) = "kris" Then
+                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
+                                                        mlSQL += "And jumlah >= '" & minimal & "' and kode <> 'ms500' and kode <> 'ms500-14' and kode <> 'ms400-14' and kode <> 'ms200-14'" & vbCrLf
+                                                        mlSQL += "And kode Not Like 'ms200%' and kode <> 'ms500V-14'"
+                                                    Else
+                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
+                                                        mlSQL += "And jumlah >= '" & minimal & "' and sta like '" & ste & "' and kode <> 'ms500' and kode <> 'ms500-14'" & vbCrLf
+                                                        mlSQL += "And kode <> 'ms200-14' and kode not like 'ms200%' and kode <> 'ms400-14' and kode <> 'ms500V-14'"
+                                                    End If
+                                                Else
+                                                    If LCase(loguser) = "kris" Then
+                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
+                                                        mlSQL += "And kode <> 'ms500' and kode <> 'ms500-14' and kode <> 'ms400-14' and kode <> 'ms200-14' and kode not like 'ms200%'" & vbCrLf
+                                                        mlSQL += "And kode <> 'ms500V-14'"
+                                                    Else
+                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
+                                                        mlSQL += "And sta like '" & ste & "' and kode <> 'ms500' and kode <> 'ms500-14' and kode <> 'ms200-14'" & vbCrLf
+                                                        mlSQL += "And kode not like 'ms200%' and kode <> 'ms400-14' and kode <> 'ms500V-14'"
+                                                    End If
+                                                End If
+                                                If mlREADER.HasRows <> True Then
+                                                    mlDATATABLE = New Data.DataTable()
+                                                    mlDATATABLE.Load(mlREADER)
+                                                    For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
+                                            %>	
+                                                <option value="<%=mlDATATABLE.Rows(aaaeqSSS)("kode")%>"><%=mlDATATABLE.Rows(aaaeqSSS)("nama")%></option>
+                                            <% 
+                                                    Next
+                                                End If
+                                            %>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Harga</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="harga" name="harga" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>PV</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" id="pv" name="pv" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>BV</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" id="bv" name="bv" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Cara Pembayaran</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Tunai</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="jumbayarcash" onchange="quadratic1(this.form);">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Debit Card</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="jumbayardb" onchange="quadratic1(this.form);">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Credit Card</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="jumbayarcc" onchange="quadratic1(this.form);">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Voucher</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="jumbayarcek" onchange="quadratic1(this.form);">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Jumlah Pembayaran</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="jumbayar" readonly value="0">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Jumlah Kembalian</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="kembalian" readonly value="0">
+                                </div>
+                            </div>
+                            <div></div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="btn btn-default" type="submit" name="btsub" value="Check Out" />
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div style="padding: 20px 20px 20px 20px">

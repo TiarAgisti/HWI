@@ -15,6 +15,7 @@ Partial Class MobileStockiest_getdata_ren
     Dim minimal, harga, PV, bv As Double
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        mlOBJGS.Main()
         Response.ContentType = "text/xml"
         kode = Trim(Request.QueryString.Item(1))
         pos_area = Session("pos_area")

@@ -10,25 +10,16 @@ Partial Class MobileStockiest_getdata_ft
     Dim mlSQL As String
     Dim mlCOMPANYID As String = "ALL"
     Dim mpMODULEID As String = "PB"
-
-    Dim TempString2 As String
-    Dim sBadChars2 As Array
+    Dim mlFUNCT As FunctionHWI
 
     Dim kode, pos_area, dcpusate, mypos, loguser As String
     Dim ste, kd As String
     Dim minimal, harga, pv, bv As Double
-    Function SafeSQL2(sInput As String) As String
-        TempString2 = sInput
-        sBadChars2 = {";", "--", "__", "_", "#", "%", "&", "'", "(", ")", "/", "\", ":", ";", "<", ">", "=", "[", "]", "?", "`", "|", "+", "SELECT", "DROP", "DELETE", "INSERT"}
-        For iCounter2 = 0 To UBound(sBadChars2)
-            TempString2 = Replace(TempString2, sBadChars2(iCounter2), "")
-        Next
-        SafeSQL2 = TempString2
-        Return SafeSQL2
-    End Function
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        kode = Trim(UCase(SafeSQL2((Request.QueryString.Item(1)))))
+        mlOBJGS.Main()
+
+        kode = Trim(UCase(mlFUNCT.SafeSQL((Request.QueryString.Item(1)))))
         pos_area = Session("pos_area")
         dcpusate = Session("dcpusate")
         mypos = Session("motok")
