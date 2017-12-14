@@ -142,47 +142,48 @@
             <div class="panel-heading">
                 <h4 style="text-align: center; color: black; font-family: Arial;"><strong>PENDAFTARAN DISTRIBUTOR BARU</strong></h4>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="text-center" style="text-align: center; color: black; font-family: Arial;"><strong>PERHATIAN</strong></h4>
-            </div>
             <div class="panel-body">
-                <ol>
-                    <li>Closing Date untuk bulan ini adalah pada tanggal, jam :<br>
-                        <% hariakhir = Now%>
-                        <span style="color: red"><%=tutup1%><b>s.d</b><%=tutup2%><br>
-                        </span>
-                        Semua transaksi yang dilakukan diantara closing period diatas, akan ditolak oleh sistem. Apabila anda membutuhkan untuk membukukan transaksi tersebut untuk keperluan top up bulanan, maka silahkan menghubungi kantor pusat atau DC induk anda.
-                            <br>
-                    </li>
-                    <li>Semua transaksi yang sudah dibukukan tidak dapat dibatalkan. Untuk itu mohon periksa dan pastikan transaksi yang anda lakukan sudah benar ! sebelum mmprosesnya ke check out. Untuk itu pastikan anda sudah menerima formulir pendaftaran yang diisi lengkap dan sudah menerima pembayaran sesuai tipe paket pendaftaran yang dipilih sebelum anda melakukan checkout.
-                            <br>
-                    </li>
-                    <li>Setelah anda melakukan checkout, maka proses selanjutnya adalah memasukan data calon distributor kedalam database jaringan HWI. Apabila karena suatu sebab anda terpaksa menunda pemasukan data calon distributor tersebut,
-                                maka anda tidak akan dapat memasukan data dengan nomor seri pendaftaran tersebut. Mohon hubungi kantor pusat untuk merelease lock nomor seri pendaftaran anda tersebut.</label>
-                            <br>
-                    </li>
-                    <li>Paket pendaftaran yang memiliki jumlah stok minimal 1 yang akan ditampilkan didalam pulldown paket pendaftaran anda.
-                            <br>
-                    </li>
-                    <li>1 (nomor) invoice pembelanjaan berlaku untuk 1 (satu) calon distributor. Tanggal transaksi tidak dapat diubah dan menurut jam server (WIB).
-                            <br>
-                    </li>
-                    <li><span style="color: red"><b>PASTIKAN</b></span> bahwa nomor id distributor yang menjadi sponsornya (direct sponsor) maupun upline penempatan sudah terdaftar (sudah menjadi distributor HWI) dengan tanda munculnya nama di kotak direct sponsor dan upline penempatan.
-                                Kami tidak menerima revisi penggantian nomor distributor yang menjadi direct sponsornya dan upline penempatanya dengan alasan apapun. Mohon pastikan dan konfirmasi kepada distributor baru tersebut sebelum anda menekan tombol
-                                checkout.
-                            <br>
-                        <li style="background-color: yellow"><span style="color: red"><b>Setiap checkout harus segera dilanjutkan ke proses pendaftaran distributor.</b></span> Pembelian paket pendaftaran yang tidak dilanjutkan ke proses pendaftaran akan expired setelah anda menutup sesi ini.
-                            <br>
-                        </li>
-                </ol>
-            </div>
-        </div>
-        <div style="padding: 10px 35px 10px 35px">
-            <div class="col-md-12">
+                 <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center" style="text-align: center; color: black; font-family: Arial;"><strong>PERHATIAN</strong></h4>
+                    </div>
+                    <div class="panel-body">
+                        <ol>
+                            <li>Closing Date untuk bulan ini adalah pada tanggal, jam :<br>
+                                <% hariakhir = Now%>
+                                <span style="color: red"><%=tutup1%><b>s.d</b><%=tutup2%><br></span>
+                                Semua transaksi yang dilakukan diantara closing period diatas, akan ditolak oleh sistem. Apabila anda membutuhkan untuk membukukan transaksi tersebut untuk keperluan top up bulanan, maka silahkan menghubungi kantor pusat atau DC induk anda.
+                                <br>
+                            </li>
+                            <li>
+                                Semua transaksi yang sudah dibukukan tidak dapat dibatalkan. Untuk itu mohon periksa dan pastikan transaksi yang anda lakukan sudah benar ! sebelum mmprosesnya ke check out. Untuk itu pastikan anda sudah menerima formulir pendaftaran yang diisi lengkap dan sudah menerima pembayaran sesuai tipe paket pendaftaran yang dipilih sebelum anda melakukan checkout.
+                                <br>
+                            </li>
+                            <li>
+                                Setelah anda melakukan checkout, maka proses selanjutnya adalah memasukan data calon distributor kedalam database jaringan HWI. Apabila karena suatu sebab anda terpaksa menunda pemasukan data calon distributor tersebut
+                                , maka anda tidak akan dapat memasukan data dengan nomor seri pendaftaran tersebut. Mohon hubungi kantor pusat untuk merelease lock nomor seri pendaftaran anda tersebut.
+                                <br>
+                            </li>
+                            <li>
+                                Paket pendaftaran yang memiliki jumlah stok minimal 1 yang akan ditampilkan didalam pulldown paket pendaftaran anda.<br>
+                            </li>
+                            <li>
+                                1 (nomor) invoice pembelanjaan berlaku untuk 1 (satu) calon distributor. Tanggal transaksi tidak dapat diubah dan menurut jam server (WIB).<br>
+                            </li>
+                            <li>
+                                <span style="color: red"><b>PASTIKAN</b></span> bahwa nomor id distributor yang menjadi sponsornya (direct sponsor) maupun upline penempatan sudah terdaftar (sudah menjadi distributor HWI) 
+                                dengan tanda munculnya nama di kotak direct sponsor dan upline penempatan.Kami tidak menerima revisi penggantian nomor distributor yang menjadi direct sponsornya dan upline penempatanya dengan alasan apapun. 
+                                Mohon pastikan dan konfirmasi kepada distributor baru tersebut sebelum anda menekan tombol checkout.<br>
+                            <</li>
+                            <li style="background-color: yellow">
+                                <span style="color: red"><b>Setiap checkout harus segera dilanjutkan ke proses pendaftaran distributor.</b></span> Pembelian paket pendaftaran yang tidak dilanjutkan ke proses pendaftaran akan expired setelah anda menutup sesi ini.<br>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
                 <div style="padding: 10px 35px 5px 35px">
-                     <%if mesej <> "" Then %>
+                    <%if mesej <> "" Then %>
                     <div class="alert alert-warning text-center" role="alert">
                         <h4 style="text-align: center; color: black; font-family: Arial;">
                             <span><span style="text-decoration: underline;">
@@ -195,7 +196,7 @@
                 </div>
 
                 <div class="panel panel-default">
-                     <div class="panel-heading">
+                    <div class="panel-heading">
                         <h4 class="text-center" style="text-align: center; color: black; font-family: Arial;"><strong></strong></h4>
                     </div>
                     <div class="panel-body">
@@ -213,7 +214,7 @@
                                     <label>Nama Calon Distributor</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="nama" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                    <input type="text" class="form-control" name="nama" onKeyDown="if(event.keyCode==13) event.keyCode=9;" maxlength="50">
                                 </div>
                                 <div class="col-md-3">
                                     <label><i>*maksimal 50 karakter</i></label>
@@ -224,7 +225,7 @@
                                     <label>Nomer Seri Pendaftaran</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="noseri" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="-- auto --"  maxlength="17">
+                                    <input type="text" class="form-control" name="noseri" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="-- auto --"  maxlength="17" readonly>
                                 </div>
                                 <div class="col-md-3">
                                     <label><i>*akan digenerate sistem</i></label>
@@ -235,7 +236,7 @@
                                     <label>No. Id Direct Sponsor</label>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="direk" id="direk" onChange="javascript:cari2(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;" >
+                                    <input type="text" class="form-control" name="direk" id="direk" onChange="javascript:cari2(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;" maxlength="8">
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="namadirek" id="namadirek" onKeyDown="if(event.keyCode==13) event.keyCode=9;" readonly>
@@ -291,10 +292,10 @@
                                 <div class="col-md-3">
                                     <label>Paket Pendaftaran</label>
                                 </div>
-                                <div class="col-md-9">
-                                    <select class="form-control" name="paket" id="paket" onChange="javascript:cari(this)" runat ="server">
+                                <div class="col-md-9" id="div_paket" runat="server">
+                                    <%--<select class="form-control" name="paket" onChange="javascript:cari(this)" runat ="server">
                                         
-                                    </select>
+                                    </select>--%>
                                 </div>
                             </div>
                             <div style="padding: 20px 20px 20px 20px">
@@ -391,11 +392,12 @@
                         </form>
                     </div>
                 </div>
-                <div style="padding: 20px 20px 20px 20px">
-                    <div class="col-md-12">
-                        <label></label>
-                    </div>
-                </div>
+
+            </div>
+        </div>
+        <div style="padding: 20px 20px 20px 20px">
+            <div class="col-md-12">
+                <label></label>
             </div>
         </div>
     </section>

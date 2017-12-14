@@ -50,6 +50,7 @@ Partial Class MobileStockiest_sale_stater
         minimal = 1
 
         Dim str_option As String = ""
+        str_option = "<select class='form-control' name='paket' onChange='javascript:cari(this)'>"
         str_option += "<optgroup label='paket pendaftaran'>" & vbCrLf
         str_option += "<option value='--Silahkan Pilih--' selected="">--Silahkan Pilih--</option>"
         pp = "AKT"
@@ -78,13 +79,16 @@ Partial Class MobileStockiest_sale_stater
         End If
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
-        If mlREADER.HasRows <> True Then
+        If mlREADER.HasRows = True Then
             mlDATATABLE = New Data.DataTable()
             mlDATATABLE.Load(mlREADER)
             For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
                 str_option += " <option value=" & mlDATATABLE.Rows(aaaeqSSS)("kode") & ">" & mlDATATABLE.Rows(aaaeqSSS)("nama") & "></option>" & vbCrLf
             Next
         End If
+        mlREADER.Close()
         str_option += "</optgroup>"
+        str_option += "</select>"
+        div_paket.InnerHtml = str_option
     End Sub
 End Class
