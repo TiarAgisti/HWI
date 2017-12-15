@@ -64,7 +64,7 @@ Partial Class MobileStockiest_sale_stater_new
         pp = "AKT"
         ste = "T"
         minimal = 1
-        mlSQL = "SELECT * FROM healthwealthint_com_hwi.st_tipe_paket_new where tipe not like 'upms'"
+        mlSQL = "SELECT * From st_tipe_paket_new where tipe not like 'upms'"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
         If mlREADER.HasRows = True Then
@@ -73,9 +73,9 @@ Partial Class MobileStockiest_sale_stater_new
             For aaaeqsK = 1 To mlDATATABLE.Rows.Count - 1
                 kode = mlDATATABLE.Rows(aaaeqsK)("kode")
                 If mypos <> dcpusate Then
-                    mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and jumlah >= '" & minimal & "' and ( kode like '" & kode & "')"
+                    mlSQL2 = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and jumlah >= '" & minimal & "' and ( kode like '" & kode & "')"
                 Else
-                    mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and sta like '" & ste & "' and ( kode like '" & kode & "' )"
+                    mlSQL2 = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and sta like '" & ste & "' and ( kode like '" & kode & "' )"
                 End If
                 mlREADER2 = mlOBJGS.DbRecordset(mlSQL2, mpMODULEID, mlCOMPANYID)
                 mlREADER2.Read()
