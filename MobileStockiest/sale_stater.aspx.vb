@@ -5,8 +5,7 @@ Partial Class MobileStockiest_sale_stater
     Inherits System.Web.UI.Page
     Protected mlOBJGS As New IASClass.ucmGeneralSystem
     Protected mlREADER As OleDb.OleDbDataReader
-    Protected mlREADER2 As OleDb.OleDbDataReader
-    Protected mlSQL, mlSQL2, mlSQL3 As String
+    Protected mlSQL As String
     Protected mpMODULEID As String = "PB"
     Protected mlCOMPANYID As String = "ALL"
     Protected mlDATATABLE As DataTable
@@ -50,7 +49,7 @@ Partial Class MobileStockiest_sale_stater
         minimal = 1
 
         Dim str_option As String = ""
-        str_option = "<select class='form-control' name='paket' onChange='javascript:cari(this)'>"
+        str_option = "<select class='form-control' name='paket' id='paket' onChange='javascript:cari(this)' onKeyDown='if(event.keyCode==13) event.keyCode=9;'>"
         str_option += "<optgroup label='paket pendaftaran'>" & vbCrLf
         str_option += "<option value='--Silahkan Pilih--' selected="">--Silahkan Pilih--</option>"
         pp = "AKT"
