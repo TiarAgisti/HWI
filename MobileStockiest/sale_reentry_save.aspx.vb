@@ -991,7 +991,7 @@ Partial Class MobileStockiest_sale_reentry_save
                     jumak = 0
                 Else
                     jumak = mlREADER("jumlah")
-                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - 1 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd1 & "' order by kode DESC"
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah1 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd1 & "' order by kode DESC"
                     mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
                 mlREADER.Close()
@@ -1032,16 +1032,17 @@ Partial Class MobileStockiest_sale_reentry_save
             End If
 
             If kode_prd2 <> "" Or kode_prd2 <> "-" Or IsDBNull(kode_prd2) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd2&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd2 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah2
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah2 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd2 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah2
@@ -1049,67 +1050,49 @@ Partial Class MobileStockiest_sale_reentry_save
                     jumak = jumak
                 End If
 
+
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd2&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd2
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah2
-                    rsALL("akhir") = jumak - jumlah2
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd2 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd2 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah2 & "','" & jumak - jumlah2 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah2
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd2
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah2
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd2 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah2 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
+
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by id DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd2
-                rsALL("jumlah") = jumlah2
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd2 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah2 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd3 <> "" Or kode_prd3 <> "-" Or isnull(kode_prd3) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd3&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd3 <> "" Or kode_prd3 <> "-" Or IsDBNull(kode_prd3) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd3 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah3
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah3 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd3 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah3
@@ -1118,66 +1101,46 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd3&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd3
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah3
-                    rsALL("akhir") = jumak - jumlah3
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd3 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd3 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah3 & "','" & jumak - jumlah3 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah3
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd3
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah3
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd3 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah3 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by id DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd3
-                rsALL("jumlah") = jumlah3
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd3 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah3 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd4 <> "" Or kode_prd4 <> "-" Or isnull(kode_prd4) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd4&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd4 <> "" Or kode_prd4 <> "-" Or IsDBNull(kode_prd4) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd4 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah4
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah4 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd4 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah4
@@ -1186,66 +1149,46 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd4&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd4
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah4
-                    rsALL("akhir") = jumak - jumlah4
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd4 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd4 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah4 & "','" & jumak - jumlah4 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah4
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd4
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah4
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd4 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah4 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by id DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd4
-                rsALL("jumlah") = jumlah4
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd4 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah4 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd5 <> "" Or kode_prd5 <> "-" Or isnull(kode_prd5) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd5&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd5 <> "" Or kode_prd5 <> "-" Or IsDBNull(kode_prd5) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd5 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah5
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah5 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd5 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah5
@@ -1254,66 +1197,46 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd5&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd5
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah5
-                    rsALL("akhir") = jumak - jumlah5
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd5 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd5 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah5 & "','" & jumak - jumlah5 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah5
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd5
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah5
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd5 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah5 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by id DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd5
-                rsALL("jumlah") = jumlah5
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd5 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah5 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd6 <> "" Or kode_prd6 <> "-" Or isnull(kode_prd6) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd6&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd6 <> "" Or kode_prd6 <> "-" Or IsDBNull(kode_prd6) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd6 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah6
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah6 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd6 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah6
@@ -1322,66 +1245,46 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd6&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd6
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah6
-                    rsALL("akhir") = jumak - jumlah6
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd6 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd6 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah6 & "','" & jumak - jumlah6 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah6
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd6
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah6
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd6 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah6 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by id DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd6
-                rsALL("jumlah") = jumlah6
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd6 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah6 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd7 <> "" Or kode_prd7 <> "-" Or isnull(kode_prd7) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd7&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd7 <> "" Or kode_prd7 <> "-" Or IsDBNull(kode_prd7) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd7 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah7
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah7 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd7 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah7
@@ -1390,66 +1293,46 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd7&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd7
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah7
-                    rsALL("akhir") = jumak - jumlah7
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd7 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd7 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah7 & "','" & jumak - jumlah7 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah7
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd7
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah7
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd7 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah7 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by nopos DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd7
-                rsALL("jumlah") = jumlah7
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd7 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah7 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd8 <> "" Or kode_prd8 <> "-" Or isnull(kode_prd8) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd8&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd8 <> "" Or kode_prd8 <> "-" Or IsDBNull(kode_prd8) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd8 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah8
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah8 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd8 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah8
@@ -1458,66 +1341,46 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd8&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd8
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah8
-                    rsALL("akhir") = jumak - jumlah8
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd8 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd8 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah8 & "','" & jumak - jumlah8 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah8
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd8
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah8
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd8 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah8 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by nopos DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd8
-                rsALL("jumlah") = jumlah8
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd8 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah8 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd9 <> "" Or kode_prd9 <> "-" Or isnull(kode_prd9) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd9&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd9 <> "" Or kode_prd9 <> "-" Or IsDBNull(kode_prd9) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd9 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah9
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah9 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd9 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah9
@@ -1526,66 +1389,46 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd9&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd9
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah9
-                    rsALL("akhir") = jumak - jumlah9
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd9 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd9 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah9 & "','" & jumak - jumlah9 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah9
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd9
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah9
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd9 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah9 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by nopos DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd9
-                rsALL("jumlah") = jumlah9
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd9 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah9 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd10 <> "" Or kode_prd10 <> "-" Or isnull(kode_prd10) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd10&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd10 <> "" Or kode_prd10 <> "-" Or IsDBNull(kode_prd10) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd10 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah10
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah10 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd10 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah10
@@ -1594,67 +1437,46 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd10&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd10
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah10
-                    rsALL("akhir") = jumak - jumlah10
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd10 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd10 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah10 & "','" & jumak - jumlah10 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah10
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd10
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah10
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd10 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah10 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by id DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd10
-                rsALL("jumlah") = jumlah10
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd10 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah10 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd11 <> "" Or kode_prd11 <> "-" Or isnull(kode_prd11) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd11&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd11 <> "" Or kode_prd11 <> "-" Or IsDBNull(kode_prd11) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd11 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah11
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah11 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd11 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
-
+                mlREADER.Close()
                 If jumak <= 0 Then
                     jumak = jumlah11
                 Else
@@ -1662,66 +1484,46 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd11&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd11
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah11
-                    rsALL("akhir") = jumak - jumlah11
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd11 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd11 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah11 & "','" & jumak - jumlah11 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah11
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd11
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah11
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd11 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah11 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by id DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd11
-                rsALL("jumlah") = jumlah11
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd11 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah11 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
-            If kode_prd12 <> "" Or kode_prd12 <> "-" Or isnull(kode_prd12) = False Then
-                rsALL.Open "SELECT * FROM " & namatabel&" where nopos like '"&mypos&"' and kode like '"&kode_prd12&"' order by kode DESC LIMIT 1", connALL, 3, 3
-        If rsALL.bof Then
+            If kode_prd12 <> "" Or kode_prd12 <> "-" Or IsDBNull(kode_prd12) = False Then
+                mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & kode_prd12 & "' order by kode DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumak = 0
                 Else
-                    jumak = rsALL("jumlah")
-                    rsALL.update
-                    rsALL("jumlah") = rsALL("jumlah") - jumlah12
-                    rsALL.update
+                    jumak = mlREADER("jumlah")
+                    mlSQL2 = "Update " & namatabel & " set jumlah = '" & mlREADER("jumlah") - jumlah12 & "' where nopos like '" & mypos & "' and kode like '" & kode_prd12 & "' order by kode DESC"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 If jumak <= 0 Then
                     jumak = jumlah12
@@ -1730,239 +1532,159 @@ Partial Class MobileStockiest_sale_reentry_save
                 End If
 
                 ' KARTU STOCK
-                rsALL.Open "SELECT * FROM " & namatabel2&" where nopos like '"&mypos&"' and kode like '"&kode_prd12&"' order by tgl DESC, id DESC LIMIT 3", connALL, 3, 3
-        If rsALL.bof Then
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd12
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = jumak
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah12
-                    rsALL("akhir") = jumak - jumlah12
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+                mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & kode_prd12 & "' order by tgl DESC, id DESC"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd12 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & jumak & "',0,'" & jumlah12 & "','" & jumak - jumlah12 & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 Else
-                    awal = rsALL("akhir")
+                    awal = mlREADER("akhir")
                     sisastok = awal - jumlah12
                     If sisastok < 0 Then
                         sisastok = 0
                     Else
                         sisastok = sisastok
                     End If
-                    rsALL.addnew
-                    rsALL("kode") = kode_prd12
-                    rsALL("nopos") = mypos
-                    rsALL("tgl") = dino
-                    rsALL("awal") = awal
-                    rsALL("masuk") = 0
-                    rsALL("keluar") = jumlah12
-                    rsALL("akhir") = sisastok
-                    rsALL("referensi") = noinvo
-                    rsALL("keterangan") = "Produk Penjualan FastTrack"
-                    rsALL.update
+
+                    mlSQL2 = "Insert into " & namatabel2 & "(kode,nopos,tgl,awal,masuk,keluar,akhir,referensi,keterangan)values('" & kode_prd12 & "','" & mypos & "'" & vbCrLf
+                    mlSQL2 += ",'" & dino & "','" & awal & "',0,'" & jumlah12 & "','" & sisastok & "','" & noinvo & "','Penjualan FastTrack')"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
                 End If
-                rsALL.close
+                mlREADER.Close()
 
                 ' simpan produk rekap harian
-                rsALL.Open "SELECT * FROM st_sale_daftar_rekap order by id DESC LIMIT 1", connALL, 3, 3
-        rsALL.addnew
-                rsALL("tgl") = dino
-                rsALL("nopos") = mypos
-                rsALL("kode") = kode_prd12
-                rsALL("jumlah") = jumlah12
-                rsALL("noslip") = noinvo
-                rsALL("dcinduk") = indukdc
-                rsALL("nopajak") = nourutpjk
-                rsALL.update
-                rsALL.close
+                mlSQL = "Insert into st_sale_daftar_rekap(tgl,nopos,kode,jumlah,noslip,dcinduk,nopajak)Values('" & dino & "','" & mypos & "','" & kode_prd12 & "'" & vbCrLf
+                mlSQL += ",'" & jumlah12 & "','" & noinvo & "','" & indukdc & "','" & nourutpjk & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
             End If
 
 
-            rsALL.Open "SELECT * FROM st_sale_daftar_prd where noslip like '" & noinvo&"'", connALL, 3, 3
-    If rsALL.bof Then
-                rsALL.addnew
-                rsALL("noslip") = noinvo
-                rsALL("tgl") = dino
-                rsALL("nopajak") = nourutpjk
-                If kode_prd1 <> "" Or kode_prd1 <> "-" Or isnull(kode_prd1) = False Then
-                    rsALL("kode1") = kode_prd1
-                    rsALL("jumlah1") = jumlah1
-                Else
-                    rsALL("kode1") = "-"
-                    rsALL("jumlah1") = 0
-                End If
-                If kode_prd2 <> "" Or kode_prd2 <> "-" Or isnull(kode_prd2) = False Then
-                    rsALL("kode2") = kode_prd2
-                    rsALL("jumlah2") = jumlah2
-                Else
-                    rsALL("kode2") = "-"
-                    rsALL("jumlah2") = 0
-                End If
-                If kode_prd3 <> "" Or kode_prd3 <> "-" Or isnull(kode_prd3) = False Then
-                    rsALL("kode3") = kode_prd3
-                    rsALL("jumlah3") = jumlah3
-                Else
-                    rsALL("kode3") = "-"
-                    rsALL("jumlah3") = 0
-                End If
-                If kode_prd4 <> "" Or kode_prd4 <> "-" Or isnull(kode_prd4) = False Then
-                    rsALL("kode4") = kode_prd4
-                    rsALL("jumlah4") = jumlah4
-                Else
-                    rsALL("kode4") = "-"
-                    rsALL("jumlah4") = 0
-                End If
-                If kode_prd5 <> "" Or kode_prd5 <> "-" Or isnull(kode_prd5) = False Then
-                    rsALL("kode5") = kode_prd5
-                    rsALL("jumlah5") = jumlah5
-                Else
-                    rsALL("kode5") = "-"
-                    rsALL("jumlah5") = 0
-                End If
-                If kode_prd6 <> "" Or kode_prd6 <> "-" Or isnull(kode_prd6) = False Then
-                    rsALL("kode6") = kode_prd6
-                    rsALL("jumlah6") = jumlah6
-                Else
-                    rsALL("kode6") = "-"
-                    rsALL("jumlah6") = 0
-                End If
-                If kode_prd7 <> "" Or kode_prd7 <> "-" Or isnull(kode_prd7) = False Then
-                    rsALL("kode7") = kode_prd7
-                    rsALL("jumlah7") = jumlah7
-                Else
-                    rsALL("kode7") = "-"
-                    rsALL("jumlah7") = 0
-                End If
-                If kode_prd8 <> "" Or kode_prd8 <> "-" Or isnull(kode_prd8) = False Then
-                    rsALL("kode8") = kode_prd8
-                    rsALL("jumlah8") = jumlah8
-                Else
-                    rsALL("kode8") = "-"
-                    rsALL("jumlah8") = 0
-                End If
-                If kode_prd9 <> "" Or kode_prd9 <> "-" Or isnull(kode_prd9) = False Then
-                    rsALL("kode9") = kode_prd9
-                    rsALL("jumlah9") = jumlah9
-                Else
-                    rsALL("kode9") = "-"
-                    rsALL("jumlah9") = 0
-                End If
-                If kode_prd10 <> "" Or kode_prd10 <> "-" Or isnull(kode_prd10) = False Then
-                    rsALL("kode10") = kode_prd10
-                    rsALL("jumlah10") = jumlah10
-                Else
-                    rsALL("kode10") = "-"
-                    rsALL("jumlah10") = 0
-                End If
-                If kode_prd11 <> "" Or kode_prd11 <> "-" Or isnull(kode_prd11) = False Then
-                    rsALL("kode11") = kode_prd11
-                    rsALL("jumlah11") = jumlah11
-                Else
-                    rsALL("kode11") = "-"
-                    rsALL("jumlah11") = 0
-                End If
-                If kode_prd12 <> "" Or kode_prd12 <> "-" Or isnull(kode_prd12) = False Then
-                    rsALL("kode12") = kode_prd12
-                    rsALL("jumlah12") = jumlah12
-                Else
-                    rsALL("kode12") = "-"
-                    rsALL("jumlah12") = 0
-                End If
-                rsALL("dcinduk") = indukdc
-                rsALL.update
+            mlSQL = "SELECT * FROM st_sale_daftar_prd where noslip like '" & noinvo & "'"
+            mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+            mlREADER.Read()
+
+            Dim kodeprd1, kodeprd2, kodeprd3, kodeprd4, kodeprd5, kodeprd6, kodeprd7, kodeprd8, kodeprd9, kodeprd10, kodeprd11, kodeprd12 As String
+            Dim jum1, jum2, jum3, jum4, jum5, jum6, jum7, jum8, jum9, jum10, jum11, jum12 As Double
+            If kode_prd1 <> "" Or kode_prd1 <> "-" Or IsDBNull(kode_prd1) = False Then
+                kodeprd1 = kode_prd1
+                jum1 = jumlah1
             Else
-                rsALL.update
-                rsALL("nopajak") = nourutpjk
-                If kode_prd1 <> "" Or kode_prd1 <> "-" Or isnull(kode_prd1) = False Then
-                    rsALL("kode1") = kode_prd1
-                    rsALL("jumlah1") = jumlah1
-                Else
-                    rsALL("kode1") = "-"
-                    rsALL("jumlah1") = 0
-                End If
-                If kode_prd2 <> "" Or kode_prd2 <> "-" Or isnull(kode_prd2) = False Then
-                    rsALL("kode2") = kode_prd2
-                    rsALL("jumlah2") = jumlah2
-                Else
-                    rsALL("kode2") = "-"
-                    rsALL("jumlah2") = 0
-                End If
-                If kode_prd3 <> "" Or kode_prd3 <> "-" Or isnull(kode_prd3) = False Then
-                    rsALL("kode3") = kode_prd3
-                    rsALL("jumlah3") = jumlah3
-                Else
-                    rsALL("kode3") = "-"
-                    rsALL("jumlah3") = 0
-                End If
-                If kode_prd4 <> "" Or kode_prd4 <> "-" Or isnull(kode_prd4) = False Then
-                    rsALL("kode4") = kode_prd4
-                    rsALL("jumlah4") = jumlah4
-                Else
-                    rsALL("kode4") = "-"
-                    rsALL("jumlah4") = 0
-                End If
-                If kode_prd5 <> "" Or kode_prd5 <> "-" Or isnull(kode_prd5) = False Then
-                    rsALL("kode5") = kode_prd5
-                    rsALL("jumlah5") = jumlah5
-                Else
-                    rsALL("kode5") = "-"
-                    rsALL("jumlah5") = 0
-                End If
-                If kode_prd6 <> "" Or kode_prd6 <> "-" Or isnull(kode_prd6) = False Then
-                    rsALL("kode6") = kode_prd6
-                    rsALL("jumlah6") = jumlah6
-                Else
-                    rsALL("kode6") = "-"
-                    rsALL("jumlah6") = 0
-                End If
-                If kode_prd7 <> "" Or kode_prd7 <> "-" Or isnull(kode_prd7) = False Then
-                    rsALL("kode7") = kode_prd7
-                    rsALL("jumlah7") = jumlah7
-                Else
-                    rsALL("kode7") = "-"
-                    rsALL("jumlah7") = 0
-                End If
-                If kode_prd8 <> "" Or kode_prd8 <> "-" Or isnull(kode_prd8) = False Then
-                    rsALL("kode8") = kode_prd8
-                    rsALL("jumlah8") = jumlah8
-                Else
-                    rsALL("kode8") = "-"
-                    rsALL("jumlah8") = 0
-                End If
-                If kode_prd9 <> "" Or kode_prd9 <> "-" Or isnull(kode_prd9) = False Then
-                    rsALL("kode9") = kode_prd9
-                    rsALL("jumlah9") = jumlah9
-                Else
-                    rsALL("kode9") = "-"
-                    rsALL("jumlah9") = 0
-                End If
-                If kode_prd10 <> "" Or kode_prd10 <> "-" Or isnull(kode_prd10) = False Then
-                    rsALL("kode10") = kode_prd10
-                    rsALL("jumlah10") = jumlah10
-                Else
-                    rsALL("kode10") = "-"
-                    rsALL("jumlah10") = 0
-                End If
-                If kode_prd11 <> "" Or kode_prd11 <> "-" Or isnull(kode_prd11) = False Then
-                    rsALL("kode11") = kode_prd11
-                    rsALL("jumlah11") = jumlah11
-                Else
-                    rsALL("kode11") = "-"
-                    rsALL("jumlah11") = 0
-                End If
-                If kode_prd12 <> "" Or kode_prd12 <> "-" Or isnull(kode_prd12) = False Then
-                    rsALL("kode12") = kode_prd12
-                    rsALL("jumlah12") = jumlah12
-                Else
-                    rsALL("kode12") = "-"
-                    rsALL("jumlah12") = 0
-                End If
-                rsALL.update
+                kodeprd1 = "-"
+                jum1 = 0
             End If
-            rsALL.close
 
+            If kode_prd2 <> "" Or kode_prd2 <> "-" Or IsDBNull(kode_prd2) = False Then
+                kodeprd2 = kode_prd2
+                jum2 = jumlah2
+            Else
+                kodeprd2 = "-"
+                jum2 = 0
+            End If
+
+            If kode_prd3 <> "" Or kode_prd3 <> "-" Or IsDBNull(kode_prd3) = False Then
+                kodeprd3 = kode_prd3
+                jum3 = jumlah3
+            Else
+                kodeprd3 = "-"
+                jum3 = 0
+            End If
+
+            If kode_prd4 <> "" Or kode_prd4 <> "-" Or IsDBNull(kode_prd4) = False Then
+                kodeprd4 = kode_prd4
+                jum4 = jumlah4
+            Else
+                kodeprd4 = "-"
+                jum4 = 0
+            End If
+
+            If kode_prd5 <> "" Or kode_prd5 <> "-" Or IsDBNull(kode_prd5) = False Then
+                kodeprd5 = kode_prd5
+                jum5 = jumlah5
+            Else
+                kodeprd5 = "-"
+                jum5 = 0
+            End If
+
+            If kode_prd6 <> "" Or kode_prd6 <> "-" Or IsDBNull(kode_prd6) = False Then
+                kodeprd6 = kode_prd6
+                jum6 = jumlah6
+            Else
+                kodeprd6 = "-"
+                jum6 = 0
+            End If
+
+            If kode_prd7 <> "" Or kode_prd7 <> "-" Or IsDBNull(kode_prd7) = False Then
+                kodeprd7 = kode_prd7
+                jum7 = jumlah7
+            Else
+                kodeprd7 = "-"
+                jum7 = 0
+            End If
+
+            If kode_prd8 <> "" Or kode_prd8 <> "-" Or IsDBNull(kode_prd8) = False Then
+                kodeprd8 = kode_prd8
+                jum8 = jumlah8
+            Else
+                kodeprd8 = "-"
+                jum8 = 0
+            End If
+
+            If kode_prd9 <> "" Or kode_prd9 <> "-" Or IsDBNull(kode_prd9) = False Then
+                kodeprd9 = kode_prd9
+                jum9 = jumlah9
+            Else
+                kodeprd9 = "-"
+                jum9 = 0
+            End If
+
+            If kode_prd10 <> "" Or kode_prd10 <> "-" Or IsDBNull(kode_prd10) = False Then
+                kodeprd10 = kode_prd10
+                jum10 = jumlah10
+            Else
+                kodeprd10 = "-"
+                jum10 = 0
+            End If
+
+            If kode_prd11 <> "" Or kode_prd11 <> "-" Or IsDBNull(kode_prd11) = False Then
+                kodeprd11 = kode_prd11
+                jum11 = jumlah11
+            Else
+                kodeprd11 = "-"
+                jum11 = 0
+            End If
+
+            If kode_prd12 <> "" Or kode_prd12 <> "-" Or IsDBNull(kode_prd12) = False Then
+                kodeprd12 = kode_prd12
+                jum12 = jumlah12
+            Else
+                kodeprd12 = "-"
+                jum12 = 0
+            End If
+
+            If Not mlREADER.HasRows Then
+                mlSQL2 = "Insert into st_sale_daftar_prd(noslip,tgl,nopajak,kode1,jumlah1,kode2,jumlah2,kode3,jumlah3,kode4,jumlah4,kode5,jumlah5,kode6,jumlah6,kode7,jumlah7,kode8,jumlah8" & vbCrLf
+                mlSQL2 += ",kode9,jumlah9,kode10,jumlah10,kode11,jumlah11,kode12,jumlah12,dcinduk)Values('" & noinvo & "','" & dino & "','" & nourutpjk & "','" & kodeprd1 & "',,'" & jum1 & "'" & vbCrLf
+                mlSQL2 += ",'" & kodeprd2 & "',,'" & jum2 & "','" & kodeprd3 & "',,'" & jum3 & "','" & kodeprd4 & "',,'" & jum4 & "','" & kodeprd5 & "',,'" & jum5 & "','" & kodeprd6 & "',,'" & jum6 & "'" & vbCrLf
+                mlSQL2 += ",'" & kodeprd7 & "',,'" & jum7 & "','" & kodeprd8 & "',,'" & jum8 & "','" & kodeprd9 & "',,'" & jum9 & "','" & kodeprd10 & "',,'" & jum10 & "','" & kodeprd11 & "',,'" & jum11 & "'" & vbCrLf
+                mlSQL2 += ",'" & kodeprd12 & "',,'" & jum12 & "','" & indukdc & "')"
+            Else
+                'rsALL.update
+                'rsALL("nopajak") = nourutpjk
+                mlSQL2 = "Update st_sale_daftar_prd set nopajak = '" & nourutpjk & "',kode1 = '" & kodeprd1 & "',jumlah1 = '" & jum1 & "',kode2 = '" & kodeprd2 & "',jumlah2 = '" & jum2 & "'" & vbCrLf
+                mlSQL2 += ",kode3 = '" & kodeprd3 & "',jumlah3 = '" & jum3 & "',kode4 = '" & kodeprd4 & "',jumlah4 = '" & jum4 & "',kode5 = '" & kodeprd5 & "',jumlah5 = '" & jum5 & "'" & vbCrLf
+                mlSQL2 += ",kode6 = '" & kodeprd6 & "',jumlah6 = '" & jum6 & "',kode7 = '" & kodeprd7 & "',jumlah7 = '" & jum7 & "',kode8 = '" & kodeprd8 & "',jumlah8 = '" & jum8 & "'" & vbCrLf
+                mlSQL2 += ",kode9 = '" & kodeprd9 & "',jumlah9 = '" & jum9 & "',kode10 = '" & kodeprd10 & "',jumlah10 = '" & jum10 & "',kode11 = '" & kodeprd11 & "',jumlah11 = '" & jum11 & "'" & vbCrLf
+                mlSQL2 += ",kode12 = '" & kodeprd12 & "',jumlah12 = '" & jum12 & "' where noslip like '" & noinvo & "'"
+                'rsALL.update
+            End If
+            mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
+            mlREADER.Close()
+
+            Dim upke, expra, sapa, direknya, sapa1, sapa2, noid As String
+            Dim nambah As Integer
+            Dim nilaipvnya, nilaibv, pvfull, nilaipv1, nilaipv2, nilaipv3, nilaipv, produp, postingup, pvnya, jume As Double
             If kop = "P" Then
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                 ' UPDATE PV PRIBADI DAN UPLINENYA
@@ -1985,19 +1707,18 @@ Partial Class MobileStockiest_sale_reentry_save
                 nilaibv = 0
                 pvfull = jumpv
 
-                rs.Open "SELECT * FROM member where kta LIKE '" & sapa&"'", conn, 1, 3
-    If rs.bof Then
-                Else
-                    rs.update
-                    rs("tipene_kartu") = kop
-                    rs("tipene") = kop
-                    'rs("upme") = upke
-                    rs.update
-                    direknya = rs("direk")
-                    sapa1 = rs("pal1")
-                    sapa2 = rs("pal2")
+                mlSQL = "SELECT * FROM member where kta Like '" & sapa & "'"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If mlREADER.HasRows Then
+                    mlSQL2 = "Update member set tipene_kartu = '" & kop & "',tipene = '" & kop & "' Where kta Like '" & sapa & "'"
+                    mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
+
+                    direknya = mlREADER("direk")
+                    sapa1 = mlREADER("pal1")
+                    sapa2 = mlREADER("pal2")
                 End If
-                rs.close
+                mlREADER.Close()
 
 
                 nilaipv1 = 0
@@ -2027,13 +1748,17 @@ Partial Class MobileStockiest_sale_reentry_save
                 '   0 S/D 400 PV = QP SEMUA
                 '   > 400 = SPLIT 50%:50%
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                rs.Open "SELECT grdlevel FROM jenjang where kta like '" & noid&"'", conn
-    If rs.bof Then
+                Dim levnya As Integer
+                Dim ncrd As String
+                mlSQL = "SELECT grdlevel FROM jenjang where kta like '" & noid & "'"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     levnya = 1
                 Else
-                    levnya = CInt(rs("grdlevel"))
+                    levnya = CInt(mlREADER("grdlevel"))
                 End If
-                rs.close
+                mlREADER.Close()
 
                 nilaipv1 = 0
                 nilaipv2 = 0
@@ -2049,13 +1774,16 @@ Partial Class MobileStockiest_sale_reentry_save
                 ' JIKA YG BELANJA RANKNYA SAPHIER KEATAS, PEMOTONGANYA ADALAH 200
                 ' semua pemotongan productivity dimulai saat pv sekarang atau pv belanja >= 200 pv
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                rs.Open "SELECT grdlevel FROM jenjang where kta like '" & noid&"'", conn
-    If rs.bof Then
+                Dim pvnow, pvnow2, pvnow3, prodada, nilaip, tambahan, produpkurang, nilaipvpri As Double
+                mlSQL = "SELECT grdlevel FROM jenjang where kta like '" & noid & "'"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     levnya = 1
                 Else
-                    levnya = CInt(rs("grdlevel"))
+                    levnya = CInt(mlREADER("grdlevel"))
                 End If
-                rs.close
+                mlREADER.Close()
 
                 '''''''''''''''''''''''''''''''''''''''''''''	
                 ' JIKA YG BELANJA RANKNYA DISTRIBUTOR
@@ -2067,21 +1795,23 @@ Partial Class MobileStockiest_sale_reentry_save
                 '''''''''''''''''''''''''''''''''''''''''''''
                 If levnya = 1 Or levnya = 2 Or levnya = 3 Then
                     produpkurang = 0
-                    rs.Open "SELECT pvpribadi,produp FROM bns_mypv_current where ((kta like '" & noid&"') and (bulan = '"&wulan&"') and (tahun = '"&nahun&"'))", conn, 3, 3
-        If rs.bof Then
+                    mlSQL = "SELECT pvpribadi,produp FROM bns_mypv_current where ((kta like '" & noid & "') and (bulan = '" & wulan & "') and (tahun = '" & nahun & "'))"
+                    mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                    mlREADER.Read()
+                    If Not mlREADER.HasRows Then
                         pvnow = pvnya
                         pvnow2 = 0
                         pvnow3 = 0
                         nilaibv = 0
                         prodada = 0
                     Else
-                        pvnow = (rs("pvpribadi") + rs("produp")) + pvnya
-                        pvnow2 = rs("pvpribadi") + rs("produp")
-                        pvnow3 = rS("pvpribadi") + pvnya
-                        prodada = rs("produp")
+                        pvnow = (mlREADER("pvpribadi") + mlREADER("produp")) + pvnya
+                        pvnow2 = mlREADER("pvpribadi") + mlREADER("produp")
+                        pvnow3 = mlREADER("pvpribadi") + pvnya
+                        prodada = mlREADER("produp")
                         nilaibv = 0
                     End If
-                    rs.close
+                    mlREADER.Close()
 
                     If pvnow > 0 And pvnow < 200 Then
                         nilaipv = pvnya
@@ -2136,15 +1866,17 @@ Partial Class MobileStockiest_sale_reentry_save
                 '''''''''''''''''''''''''''''''''''''''''''''
                 If levnya >= 4 Then
                     pvnow = 0
-                    rs.Open "SELECT pvpribadi,produp FROM bns_mypv_current where ((kta like '" & noid&"') and (bulan = '"&wulan&"') and (tahun = '"&nahun&"'))", conn, 3, 3
-        If rs.bof Then
+                    mlSQL = "SELECT pvpribadi,produp FROM bns_mypv_current where ((kta like '" & noid & "') and (bulan = '" & wulan & "') and (tahun = '" & nahun & "'))"
+                    mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                    mlREADER.Read()
+                    If Not mlREADER.HasRows Then
                         pvnow = pvnya
                         nilaibv = 0
                     Else
-                        pvnow = (rs("pvpribadi") + rs("produp"))
+                        pvnow = (mlREADER("pvpribadi") + mlREADER("produp"))
                         nilaibv = 0
                     End If
-                    rs.close
+                    mlREADER.Close()
 
                     If pvnow >= 400 Then
                         nilaipv = pvnya / 2
@@ -2169,11 +1901,9 @@ Partial Class MobileStockiest_sale_reentry_save
 
                 nilaipvpri = nilaipv
 
-%>
-<!--#Include File=../dbcon/calldbG.asp-->
-<%
-Session.LCID = 2057 ' setting desimal & local setting untuk indonesia 2057 = uk
-                intLocale = SetLocale(2057) ' setting desimal & local setting untuk indonesia
+
+                Session.LCID = 2057 ' setting desimal & local setting untuk indonesia 2057 = uk
+                'intLocale = SetLocale(2057) ' setting desimal & local setting untuk indonesia
 
 
                 ''''''''''''''''''''''''''''''''''''
@@ -2183,132 +1913,121 @@ Session.LCID = 2057 ' setting desimal & local setting untuk indonesia 2057 = uk
                 ' PV DEPOSIT RELEASE BERASAL DARI BNS_DEPOSITDANA YANG DIRELEASE PADA SAAT CLOSING PERIODE
                 ' KEDALAM TABLE BNS_DEPOSITRELEASE SESUAI SPLIT POINT YANG BERLAKU KUALIFIKASINYA
                 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                Dim proddepo, pvdepo, prodreg, pvprod, pvku, pvreg, jumpvki, jumpvka, jummurni As Double
+                Dim ada, direk As String
                 proddepo = 0
                 pvdepo = 0
-                rs.Open "SELECT * FROM bns_depositrelease where ((kta like '" & sapa&"') and (bulan = '"&wulan&"') and (tahun = '"&nahun&"'))", conn
-    If rs.bof Then
+                mlSQL = "SELECT * FROM bns_depositrelease where ((kta like '" & sapa & "') and (bulan = '" & wulan & "') and (tahun = '" & nahun & "'))"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     proddepo = 0
                     pvdepo = 0
                 Else
-                    proddepo = rs("pvprod")
-                    pvdepo = rs("pvpri")
+                    proddepo = mlREADER("pvprod")
+                    pvdepo = mlREADER("pvpri")
                 End If
-                rs.close
+                mlREADER.Close()
 
                 prodreg = 0
-                rs.Open "SELECT sum(produp) FROM bns_mypv_prod_reg where ((kta like '" & sapa&"') and (bulan = '"&wulan&"') and (tahun = '"&nahun&"'))", conn
-    If rs.bof Then
+                mlSQL = "SELECT sum(produp) FROM bns_mypv_prod_reg where ((kta like '" & sapa & "') and (bulan = '" & wulan & "') and (tahun = '" & nahun & "'))"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     prodreg = 0
                 Else
-                    prodreg = rs("sum(produp)")
+                    prodreg = mlREADER("sum(produp)")
                 End If
-                rs.close
-                If isnull(prodreg) = False Then
+                mlREADER.Close()
+
+                If IsDBNull(prodreg) = False Then
                     prodreg = prodreg
                 Else
                     prodreg = 0
                 End If
 
                 pvprod = 0
-                rs.Open "SELECT sum(produp),sum(postingup) FROM st_sale_prd_head where ((nodist like '" & sapa&"') and (alokbulan = '"&wulan&"') and (aloktahun = '"&nahun&"'))", conn, 3, 3
-    If rs.bof Then
+                mlSQL = "SELECT sum(produp),sum(postingup) FROM st_sale_prd_head where ((nodist like '" & sapa & "') and (alokbulan = '" & wulan & "') and (aloktahun = '" & nahun & "'))"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     pvprod = 0
                     pvku = 0
                 Else
-                    pvprod = rs("sum(produp)")
-                    pvku = rs("sum(postingup)")
+                    pvprod = mlREADER("sum(produp)")
+                    pvku = mlREADER("sum(postingup)")
                 End If
-                rs.close
-                If isnull(pvprod) = False Then
+                mlREADER.Close()
+
+                If IsDBNull(pvprod) = False Then
                     pvprod = pvprod + prodreg + produp + proddepo
                 Else
                     pvprod = produp + prodreg + proddepo
                 End If
 
                 pvreg = 0
-                rs.Open "SELECT sum(pvpri) FROM st_sale_daftar where ((noseri like '" & sapa&"') and (alokbulan = '"&wulan&"') and (aloktahun = '"&nahun&"'))", conn
-    If rs.bof Then
+                mlSQL = "SELECT sum(pvpri) FROM st_sale_daftar where ((noseri like '" & sapa & "') and (alokbulan = '" & wulan & "') and (aloktahun = '" & nahun & "'))"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     pvreg = 0
                 Else
-                    pvreg = rs("sum(pvpri)")
+                    pvreg = mlREADER("sum(pvpri)")
                 End If
-                rs.close
-                If isnull(pvreg) = False Then
+                mlREADER.Close()
+
+                If IsDBNull(pvreg) = False Then
                     pvreg = pvreg
                 Else
                     pvreg = 0
                 End If
 
-                If isnull(pvku) = False Then
+                If IsDBNull(pvku) = False Then
                     pvku = pvku + pvreg + nilaipv + pvdepo
                 Else
                     pvku = 0 + pvreg + nilaipv + pvdepo
                 End If
 
-                rs.Open "SELECT * FROM bns_mypv_current where ((kta like '" & sapa&"') and (bulan = '"&wulan&"') and (tahun = '"&nahun&"'))", conn, 3, 3
-    If rs.bof Then
+                mlSQL = "SELECT * FROM bns_mypv_current where ((kta like '" & sapa & "') and (bulan = '" & wulan & "') and (tahun = '" & nahun & "'))"
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                mlREADER.Read()
+                If Not mlREADER.HasRows Then
                     jumpvki = 0
                     jumpvka = 0
                     ada = "F"
                     jummurni = 0
                 Else
                     ada = "T"
-                    jumpvki = rs("pvgrupkiri")
-                    jumpvka = rs("pvgrupkanan")
-                    jummurni = rs("pvmurni") + pvnya
+                    jumpvki = mlREADER("pvgrupkiri")
+                    jumpvka = mlREADER("pvgrupkanan")
+                    jummurni = mlREADER("pvmurni") + pvnya
                 End If
-                rs.close
-                If isnull(jummurni) Then
+                mlREADER.Close()
+
+                If IsDBNull(jummurni) Then
                     jummurni = pvnya
                 Else
                     jummurni = jummurni
                 End If
 
                 If ada = "F" Then
-                    rs.Open "SELECT * FROM bns_mypv_current", conn, 3, 3
-        rs.addnew
-                    rs("kta") = sapa
-                    rs("bulan") = wulan
-                    rs("tahun") = nahun
-                    rs("pvpribadi") = pvku
-                    rs("produp") = pvprod
-                    rs("pvmurni") = pvnya
-                    rs("pvgrupkiri") = jumpvki
-                    rs("pvgrupkanan") = jumpvka
-
-                    rs.update
-                    rs.close
+                    mlSQL = "Insert into bns_mypv_current(kta,bulan,tahun,pvpribadi,produp,pvmurni,pvgrupkiri,pvgrupkanan)Values('" & sapa & "','" & wulan & "'" & vbCrLf
+                    mlSQL += ",'" & nahun & "','" & pvku & "','" & pvprod & "','" & pvnya & "','" & jumpvki & "','" & jumpvka & "')"
                 Else
-                    Call OpenDBG()
-                    'strSQLG = "UPDATE bns_mypv_current SET produp = '"&pvprod&"', pvpribadi= '"&pvku&"' WHERE (((bulan = "&wulan&") and (tahun = "&nahun&")) and (kta like '"&sapa&"'))"
-                    strSQLG = "UPDATE bns_mypv_current SET produp = '" & pvprod&"', pvpribadi= '"&pvku&"' , pvmurni= '"&jummurni&"' WHERE (((bulan = "&wulan&") and (tahun = "&nahun&")) and (kta like '"&sapa&"'))"
-	Set rsG =  dBConnG.Execute(strSQLG)
-	Call CloseDBG()
+                    mlSQL = "UPDATE bns_mypv_current SET produp = '" & pvprod & "', pvpribadi= '" & pvku & "' , pvmurni= '" & jummurni & "' WHERE (((bulan = " & wulan & ") and (tahun = " & nahun & ")) and (kta like '" & sapa & "'))"
                 End If
-
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
                 ''''''''''''''''''''''''''''''''''''''''''
                 ' update 
                 ' add pv reg upgarde
                 ' jangan dibalik, karena bisa double pv
                 ''''''''''''''''''''''''''''''''''''''''''
-                rs.Open "SELECT * FROM bns_mypv_prod_reg order by id desc LIMIT 1", conn, 3, 3
-    rs.addnew
-                rs("kta") = sapa
-                rs("bulan") = wulan
-                rs("tahun") = nahun
-                rs("produp") = produp
-                rs.update
-                rs.close
+                mlSQL = "Insert into bns_mypv_prod_reg(kta,bulan,tahun,produp)Values('" & sapa & "','" & wulan & "','" & nahun & "','" & produp & "')"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
 
-                rs.Open "SELECT * FROM st_sale_daftar where nopos like '" & mypos&"' and noseri like '"&sapa&"' and noslip like '"&noinvo&"'", conn, 1, 3
-    rs.update
-                rs("pvpri") = nilaipvpri
-                rs("alokbulan") = wulan
-                rs("aloktahun") = nahun
-                rs("tipe") = "normal"
-                rs.update
-                'end if	
-                rs.close
+                mlSQL = "Update st_sale_daftar set pvpri = '" & nilaipvpri & "',alokbulan = '" & wulan & "',aloktahun = '" & nahun & "',tipe = 'normal'" & vbCrLf
+                mlSQL += "where nopos Like '" & mypos & "' and noseri like '" & sapa & "' and noslip like '" & noinvo & "'"
+                mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
 
                 nilaipv = postingup
                 jume = postingup
