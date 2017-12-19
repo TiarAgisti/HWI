@@ -20,7 +20,7 @@ Partial Class MobileStockiest_sale_stater_save_new
 
     Dim jumstok As Double
     Dim skr As Date
-    Dim wulan, wulpos, nahun, nuhun As Integer
+    Dim wulan, nahun As String
 
     Dim namaupline, notelpupline, aloc, namaalo, notelpalo, subalo, psa, uprane As String
     Dim muter, aax As Long
@@ -322,8 +322,8 @@ Partial Class MobileStockiest_sale_stater_save_new
 
 
         skr = Now()
-        wulan = wulpos
-        nahun = nuhun
+        wulan = Session("wulpos")
+        nahun = Session("nuhun")
         'if tutup1 < skr and tutup2 > skr then
         '	lanjutposting = "F"
         'else

@@ -26,7 +26,7 @@ Partial Class MobileStockiest_sale_stater_save
     Dim jumstok, jumberi1, jumberi2, jumberi3, jumberi4, jumberi5, jumberi6, jumberi7, jumberi8, jumberi9, jumberi10, jumberi11, jumberi12, sisaku As Double
 
     Dim skr As Date
-    Dim wulan, wulpos, nahun, nuhun As String
+    Dim wulan, nahun As String
 
     Dim direk, upline, bcupline, kakiupline, error1, namadirek, notelpdirek, l3, error3, error2 As String
     Dim namaupline, notelpupline, aloc, namaalo, notelpalo, subalo, psa, uprane As String
@@ -760,8 +760,8 @@ Partial Class MobileStockiest_sale_stater_save
         Dim str_valid As String = ""
 
         skr = Now()
-        wulan = wulpos
-        nahun = nuhun
+        wulan = Session("wulpos")
+        nahun = Session("nuhun")
         'if tutup1 < skr and tutup2 > skr then
         '	lanjutposting = "F"
         'else

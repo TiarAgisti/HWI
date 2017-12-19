@@ -25,7 +25,7 @@ Partial Class MobileStockiest_sale_reentry_save
     Dim jumberi1, jumberi2, jumberi3, jumberi4, jumberi5, jumberi6, jumberi7, jumberi8, jumberi9, jumberi10, jumberi11, jumberi12, sisaku, sisastk As Double
 
     Dim skr As Date
-    Dim wulan, wulpos, nahun, nuhun As Integer
+    Dim wulan, nahun As String
     Dim bulanskr, tahunskr, noakhir, bulsks, jk, tahskr, nopajak As Integer
     Dim tamb, blne, taun, nipe, noinvo, kel, masterdc, k1, k2, nourutpjk As String
     Dim cekbg As Double
@@ -736,8 +736,8 @@ Partial Class MobileStockiest_sale_reentry_save
 
         skr = Now()
 
-        wulan = wulpos
-        nahun = nuhun
+        wulan = Session("wulpos")
+        nahun = Session("nuhun")
         lanjutposting = "T"
 
         Dim str_Valid As String = ""
