@@ -31,6 +31,32 @@ Partial Class MobileStockiest_sale_reentry_save
     Dim cekbg As Double
 
     Dim aloc, subalo, psa As String
+
+    Dim jumak As Integer
+    Dim awal, jumlah1, jumlah2, jumlah3, jumlah4, jumlah5, jumlah6, jumlah7, jumlah8, jumlah9, jumlah10, jumlah11, jumlah12 As Integer
+    Dim kode_prd1, kode_prd2, kode_prd3, kode_prd4, kode_prd5, kode_prd6, kode_prd7, kode_prd8, kode_prd9, kode_prd10, kode_prd11, kode_prd12 As String
+    Dim kodeprd1, kodeprd2, kodeprd3, kodeprd4, kodeprd5, kodeprd6, kodeprd7, kodeprd8, kodeprd9, kodeprd10, kodeprd11, kodeprd12 As String
+    Dim jum1, jum2, jum3, jum4, jum5, jum6, jum7, jum8, jum9, jum10, jum11, jum12 As Double
+    Dim upke, expra, sapa, direknya, sapa1, sapa2, noid As String
+    Dim nambah As Integer
+    Dim nilaipvnya, nilaibv, pvfull, nilaipv1, nilaipv2, nilaipv3, nilaipv, produp, postingup, pvnya, jume As Double
+    Dim levnya As Integer
+    Dim ncrd As String
+    Dim proddepo, pvdepo, prodreg, pvprod, pvku, pvreg, jumpvki, jumpvka, jummurni As Double
+    Dim ada, direk As String
+    Dim tglku, tglbayar As Date
+    Dim tglini, bulanini, bulanikis, tauniki, perik_promo, nahun_promo, wulan_promo, wulan_pajak, nahun_pajak, bonft1, bonft, p_one, p_tu, pred As Integer
+    Dim sinten, kedua As Date
+    Dim piro, mutere, levke, aaxd, aax As Integer
+    Dim ent, posloc, spld, posef, dowo, staluup, opoupnye, uplu, okelahklo, al1, al2 As String
+    Dim kiri, kirifull, kanan, kananfull As Double
+    Dim pvgrupkiri, pvgrupkanan, pvfull_kiri, pvfull_kanan As Double
+    Dim strKta, strUpdt As String
+    Dim intKiri, intKanan, intBulan, intTahun, intTupo As Integer
+    Dim bulan, tahun, lastday1, expbln, expthn, lastday, totdirkiri, totdirkanan As Integer
+    Dim tglskr, tglexpiredac As Date
+    Dim alocnya As String
+    Dim pvnow, pvnow2, pvnow3, prodada, nilaip, tambahan, produpkurang, nilaipvpri As Double
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         mlOBJGS.Main()
         Session("tema") = "home"
@@ -874,7 +900,7 @@ Partial Class MobileStockiest_sale_reentry_save
             mlSQL += ",'" & direkmu & "','" & aloc & "','" & subalo & "','" & psa & "','T','normal')"
             mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
 
-            Dim jumak As Integer
+
             ' STOCK AKTUAL Paket Upgrade DC
             If UCase(mypos) <> dcHO Then ' bila DC kantor pusat tidak ada paket pendaftaran
                 mlSQL = "SELECT TOP 1 * FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & paket & "' order by kode DESC"
@@ -898,8 +924,7 @@ Partial Class MobileStockiest_sale_reentry_save
                 jumak = jumak
             End If
 
-            Dim awal, jumlah1, jumlah2, jumlah3, jumlah4, jumlah5, jumlah6, jumlah7, jumlah8, jumlah9, jumlah10, jumlah11, jumlah12 As Integer
-            Dim kode_prd1, kode_prd2, kode_prd3, kode_prd4, kode_prd5, kode_prd6, kode_prd7, kode_prd8, kode_prd9, kode_prd10, kode_prd11, kode_prd12 As String
+
             ' KARTU STOCK PAKET PENDAFTARAN
             mlSQL = "SELECT TOP 3 * FROM " & namatabel2 & " where nopos like '" & mypos & "' and kode like '" & paket & "' order by tgl DESC, id DESC"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
@@ -1565,8 +1590,7 @@ Partial Class MobileStockiest_sale_reentry_save
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
             mlREADER.Read()
 
-            Dim kodeprd1, kodeprd2, kodeprd3, kodeprd4, kodeprd5, kodeprd6, kodeprd7, kodeprd8, kodeprd9, kodeprd10, kodeprd11, kodeprd12 As String
-            Dim jum1, jum2, jum3, jum4, jum5, jum6, jum7, jum8, jum9, jum10, jum11, jum12 As Double
+
             If kode_prd1 <> "" Or kode_prd1 <> "-" Or IsDBNull(kode_prd1) = False Then
                 kodeprd1 = kode_prd1
                 jum1 = jumlah1
@@ -1682,9 +1706,7 @@ Partial Class MobileStockiest_sale_reentry_save
             mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
             mlREADER.Close()
 
-            Dim upke, expra, sapa, direknya, sapa1, sapa2, noid As String
-            Dim nambah As Integer
-            Dim nilaipvnya, nilaibv, pvfull, nilaipv1, nilaipv2, nilaipv3, nilaipv, produp, postingup, pvnya, jume As Double
+
             If kop = "P" Then
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                 ' UPDATE PV PRIBADI DAN UPLINENYA
@@ -1748,8 +1770,7 @@ Partial Class MobileStockiest_sale_reentry_save
                 '   0 S/D 400 PV = QP SEMUA
                 '   > 400 = SPLIT 50%:50%
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                Dim levnya As Integer
-                Dim ncrd As String
+
                 mlSQL = "SELECT grdlevel FROM jenjang where kta like '" & noid & "'"
                 mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
                 mlREADER.Read()
@@ -1774,7 +1795,7 @@ Partial Class MobileStockiest_sale_reentry_save
                 ' JIKA YG BELANJA RANKNYA SAPHIER KEATAS, PEMOTONGANYA ADALAH 200
                 ' semua pemotongan productivity dimulai saat pv sekarang atau pv belanja >= 200 pv
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                Dim pvnow, pvnow2, pvnow3, prodada, nilaip, tambahan, produpkurang, nilaipvpri As Double
+
                 mlSQL = "SELECT grdlevel FROM jenjang where kta like '" & noid & "'"
                 mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
                 mlREADER.Read()
@@ -1913,8 +1934,7 @@ Partial Class MobileStockiest_sale_reentry_save
                 ' PV DEPOSIT RELEASE BERASAL DARI BNS_DEPOSITDANA YANG DIRELEASE PADA SAAT CLOSING PERIODE
                 ' KEDALAM TABLE BNS_DEPOSITRELEASE SESUAI SPLIT POINT YANG BERLAKU KUALIFIKASINYA
                 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                Dim proddepo, pvdepo, prodreg, pvprod, pvku, pvreg, jumpvki, jumpvka, jummurni As Double
-                Dim ada, direk As String
+
                 proddepo = 0
                 pvdepo = 0
                 mlSQL = "SELECT * FROM bns_depositrelease where ((kta like '" & sapa & "') and (bulan = '" & wulan & "') and (tahun = '" & nahun & "'))"
@@ -2052,8 +2072,7 @@ Partial Class MobileStockiest_sale_reentry_save
                 ' FAST TRACK PLAN
                 ' GANTI dan TAMBAH KODE PAKET BILA ADA LEBIH DARI 2 PAKET
                 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                Dim tglku, tglbayar As Date
-                Dim tglini, bulanini, bulanikis, tauniki, perik_promo, nahun_promo, wulan_promo, wulan_pajak, nahun_pajak, bonft1, bonft, p_one, p_tu, pred As Integer
+
                 If UCase(paket) = "UFT1" Or UCase(paket) = "UFT2" Or UCase(paket) = "UFT3" Or UCase(paket) = "UFT4" Or UCase(paket) = "UFT5" Or UCase(paket) = "UFT6" Or UCase(paket) = "UFT7" Or UCase(paket) = "UFT8" Or UCase(paket) = "UFT2-14" Or UCase(paket) = "UFT1-14" Then
                     tglku = Now.Date
                     tglini = Day(tglku)
@@ -2156,7 +2175,7 @@ Partial Class MobileStockiest_sale_reentry_save
                         End If
                     End If
 
-                    Dim wulan_pajak As Integer
+
                     mlSQL = "SELECT * FROM minggu_fsb where minggu='" & perik_promo & "' and tahun='" & nahun_promo & "' and kta like '" & direk & "'"
                     mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
                     mlREADER.Read()
@@ -2169,7 +2188,7 @@ Partial Class MobileStockiest_sale_reentry_save
                     mlREADER.Close()
                 End If
 
-                Dim sinten, kedua As Date
+
                 sinten = noser
                 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                 ' update table temporary untuk dieksekusi waktu muncul invoice
@@ -2193,9 +2212,7 @@ Partial Class MobileStockiest_sale_reentry_save
                 ' START HERE FOR LOOPING UPLINE PVGRUP UPDATE
                 ' BIKIN TABEL SASARAN UPDATE PARA UPLINENYA
                 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                Dim piro, mutere, levke, aaxd, aax As Integer
-                Dim ent, posloc, spld, posef, dowo, staluup, opoupnye, uplu, okelahklo, al1, al2 As String
-                Dim kiri, kirifull, kanan, kananfull As Double
+
                 piro = 0
                 kedua = sinten
                 mutere = 0
@@ -2239,7 +2256,7 @@ Partial Class MobileStockiest_sale_reentry_save
                                 okelahklo = "T"
                             End If
 
-                            Dim pvgrupkiri, pvgrupkanan, pvfull_kiri, pvfull_kanan As Double
+
                             If uplu = "T" Then
                                 mlSQL2 = "SELECT * FROM bns_mypv_current WHERE ((kta LIKE '" & spld & "') and (bulan='" & wulan & "' and tahun = '" & nahun & "'))"
                                 mlREADER2 = mlOBJGS.DbRecordset(mlSQL2, mpMODULEID, mlCOMPANYID)
@@ -2295,8 +2312,7 @@ Partial Class MobileStockiest_sale_reentry_save
                                 End If
                                 mlREADER2.Close()
 
-                                Dim strKta, strUpdt As String
-                                Dim intKiri, intKanan, intBulan, intTahun, intTupo As Integer
+
                                 If pred > 0 And (dowo = 7 Or dowo = 8) Then
                                     mlSQL2 = "SELECT * FROM bns_titirews where kta like '" & spld & "' and bulan='" & wulan & "' and tahun = '" & nahun & "'"
                                     mlREADER2 = mlOBJGS.DbRecordset(mlSQL2, mpMODULEID, mlCOMPANYID)
@@ -2310,14 +2326,6 @@ Partial Class MobileStockiest_sale_reentry_save
                                             intBulan = wulan
                                             intTahun = nahun
                                             intTupo = 0
-                                            strUpdt = "F"
-                                            'rsALL("kta") = spld
-                                            'rsALL("kiri") = pred
-                                            'rsALL("kanan") = 0
-                                            'rsALL("bulan") = wulan
-                                            'rsALL("tahun") = nahun
-                                            'rsALL("tupo") = 0
-                                            'rsALL("updt") = "F"
                                         Else
                                             If posef = "R" Then
                                                 strKta = spld
@@ -2327,13 +2335,6 @@ Partial Class MobileStockiest_sale_reentry_save
                                                 intTahun = nahun
                                                 intTupo = 0
                                                 strUpdt = "F"
-                                                'rsALL("kta") = spld
-                                                'rsALL("kiri") = 0
-                                                'rsALL("kanan") = pred
-                                                'rsALL("bulan") = wulan
-                                                'rsALL("tahun") = nahun
-                                                'rsALL("tupo") = 0
-                                                'rsALL("updt") = "F"
                                             End If
                                         End If
                                         mlSQL3 = "insert into bns_titirews(kta,kiri,kanan,bulan,tahun,tupo,updt)values('" & strKta & "','" & intKiri & "','" & intKanan & "','" & intBulan & "'" & vbCrLf
@@ -2465,9 +2466,7 @@ Partial Class MobileStockiest_sale_reentry_save
             End If ' akhir lanjut
 
 
-            Dim bulan, tahun, lastday1, expbln, expthn, lastday, totdirkiri, totdirkanan As Integer
-            Dim tglskr, tglexpiredac As Date
-            Dim alocnya As String
+
             bulan = wulan
             tahun = nahun
             ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
