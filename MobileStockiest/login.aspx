@@ -18,9 +18,9 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <div class="login-logo">
-                <img src='../images/logohwi.png' height='120px' weight='280px' alt='' title='#slider-direction-1' />
+                <img src='../images/logohwi.png' style="height:120px;" alt='' title='#slider-direction-1' />
             </div>
-            <div align='center'>
+            <div style="text-align:center;">
                 PT. HEALTH WEALTH INTERNATIONAL
 		MOBILE STOCKIEST LOGIN 2.0
             </div>

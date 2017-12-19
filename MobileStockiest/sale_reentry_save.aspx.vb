@@ -48,7 +48,7 @@ Partial Class MobileStockiest_sale_reentry_save
     Dim tglini, bulanini, bulanikis, tauniki, perik_promo, nahun_promo, wulan_promo, wulan_pajak, nahun_pajak, bonft1, bonft, p_one, p_tu, pred As Integer
     Dim sinten, kedua As Date
     Dim piro, mutere, levke, aaxd, aax As Integer
-    Dim ent, posloc, spld, posef, dowo, staluup, opoupnye, uplu, okelahklo, al1, al2 As String
+    Dim ent, posloc, spld, posef, dowo, staluup, opoupnye, uplu, okelahklo, al1, al2, uplinemu, jenengmu, poseupmu As String
     Dim kiri, kirifull, kanan, kananfull As Double
     Dim pvgrupkiri, pvgrupkanan, pvfull_kiri, pvfull_kanan As Double
     Dim strKta, strUpdt As String
@@ -2245,7 +2245,7 @@ Partial Class MobileStockiest_sale_reentry_save
                             '	Set rsG =  dBConnG.Execute(strSQLG)
                             '	Call CloseDBG()
 
-                            staluup = UCase(rs("sta"))
+                            staluup = UCase(mlREADER("sta"))
 
                             opoupnye = Right(spld, 2)
                             If (opoupnye = "-2" Or opoupnye = "-3") Or (staluup = "F") Then

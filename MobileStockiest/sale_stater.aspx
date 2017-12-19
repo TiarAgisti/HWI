@@ -292,10 +292,50 @@
                                 <div class="col-md-3">
                                     <label>Paket Pendaftaran</label>
                                 </div>
-                                <div class="col-md-9" id="div_paket" runat="server">
-                                    <%--<select class="form-control" name="paket" onChange="javascript:cari(this)" runat ="server">
-                                        
-                                    </select>--%>
+                                <div class="col-md-9">
+                                    <select class="form-control" name="paket" onChange="javascript:cari(this);">
+                                        <optgroup label="Paket Pendaftaran">
+                                            <option value="12" selected="">--Silahkan Pilih--</option>
+                                    <%
+                pp = "AKT"
+                ste = "T"
+                minimal = 1
+                If mypos <> dcpusate Then
+                    If LCase(loguser) = "kris" Then
+                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
+                        mlSQL += "And jumlah >= '" & minimal & "' and kode <> 'ms500' and kode <> 'ms500-14' and kode <> 'ms400-14' and kode <> 'ms200-14'" & vbCrLf
+                        mlSQL += "And kode Not Like 'ms200%' and kode <> 'ms500V-14'"
+                    Else
+                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
+                        mlSQL += "And jumlah >= '" & minimal & "' and sta like '" & ste & "' and kode <> 'ms500' and kode <> 'ms500-14'" & vbCrLf
+                        mlSQL += "And kode <> 'ms200-14' and kode not like 'ms200%' and kode <> 'ms400-14' and kode <> 'ms500V-14'"
+                    End If
+                Else
+                    If LCase(loguser) = "kris" Then
+                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
+                        mlSQL += "And kode <> 'ms500' and kode <> 'ms500-14' and kode <> 'ms400-14' and kode <> 'ms200-14' and kode not like 'ms200%'" & vbCrLf
+                        mlSQL += "And kode <> 'ms500V-14'"
+                    Else
+                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'" & vbCrLf
+                        mlSQL += "And sta like '" & ste & "' and kode <> 'ms500' and kode <> 'ms500-14' and kode <> 'ms200-14'" & vbCrLf
+                        mlSQL += "And kode not like 'ms200%' and kode <> 'ms400-14' and kode <> 'ms500V-14'"
+                    End If
+                End If
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                'mlREADER.Read()
+                If mlREADER.HasRows = True Then
+                    mlDATATABLE = New Data.DataTable()
+                    mlDATATABLE.Load(mlREADER)
+                    For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
+                                     %>
+                                        <option value="<%=mlDATATABLE.Rows(aaaeqSSS)("kode")%>"><%=mlDATATABLE.Rows(aaaeqSSS)("nama")%></Option>
+                                    <%
+                    Next
+                End If
+                mlREADER.Close()
+                                    %>
+                                        </optgroup>
+                                    </select>
                                 </div>
                             </div>
                             <div style="padding: 20px 20px 20px 20px">
@@ -324,17 +364,17 @@
                                 <div class="col-md-3">
                                     <label>Cara Pembayaran</label>
                                 </div>
+                            </div>
+
+                             <div style="padding: 20px 20px 20px 20px">
                                 <div class="col-md-3">
                                     <label>Tunai</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="jumbayarcash" onchange="quadratic1(this.form);">
+                                    <input type="text" class="form-control" name="jumbayarcash" onchange="quadratic1(this.form);" value="0" maxlength="7">
                                 </div>
                             </div>
                             <div style="padding: 20px 20px 20px 20px">
-                                <div class="col-md-3">
-                                    <label></label>
-                                </div>
                                 <div class="col-md-3">
                                     <label>Debit Card</label>
                                 </div>
@@ -344,9 +384,6 @@
                             </div>
                             <div style="padding: 20px 20px 20px 20px">
                                 <div class="col-md-3">
-                                    <label></label>
-                                </div>
-                                <div class="col-md-3">
                                     <label>Credit Card</label>
                                 </div>
                                 <div class="col-md-6">
@@ -354,9 +391,6 @@
                                 </div>
                             </div>
                             <div style="padding: 20px 20px 20px 20px">
-                                <div class="col-md-3">
-                                    <label></label>
-                                </div>
                                 <div class="col-md-3">
                                     <label>Voucher</label>
                                 </div>

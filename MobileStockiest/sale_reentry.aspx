@@ -136,182 +136,216 @@
                     <div class="panel-heading">
                         <h4 class="text-center" style="text-align:center;color:black;font-family:Arial;"><strong>PERHATIAN</strong></h4>
                     </div>
+                    <div class="panel-body">
+                        <ol>
+                            <li>
+                                Closing Date untuk bulan ini adalah pada tanggal, jam :<br> <% hariakhir = Now.Date()%>
+                                <span style="color: red"><%=tutup1%><b>s.d</b> <%=tutup2%><br></span>
+                                Semua transaksi yang dilakukan diantara closing period diatas, akan ditolak oleh sistem. Apabila anda membutuhkan untuk membukukan transaksi tersebut untuk keperluan top up bulanan, maka silahkan menghubungi kantor pusat.
+                                <br>
+                            </li>
+                            <li>
+                                Semua transaksi yang sudah dibukukan tidak dapat dibatalkan. Untuk itu mohon periksa dan pastikan transaksi yang anda lakukan sudah benar ! 
+                                sebelum mmprosesnya ke check out. Untuk itu pastikan anda sudah menerima formulir pembelian paket re-entry fast track dari distributor dengan benar dan sudah melakukan konfirmasi pembelian tersebut.<br>
+                            </li>
+                            <li>
+                                1 (satu) nomor invoice pembelanjaan paket re-entry fast track berlaku untuk 1 (satu) distributor. 
+                                <p style="color:#FF0000;">
+                                    Hanya distributor bertipe <b>Regular</b> (Distributor yang bergabung dengan segala jenis paket Regular) yang dapat membeli paket re-entry fast track. Distributor yang bergabung dengan paket Premium
+                                    , Platinum (sudah diupgrade ke platinum atau memperoleh auto upgrade by sistem) atau Titanium tidak perlu melakukan re-entry untuk dapat mengikuti Fast Track Plan.<br>
+                                </p>
+                                Tanggal transaksi tidak dapat diubah dan menurut jam server (WIB).
+                            </li>
+                        </ol>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <ol>
-                        <li>
-                            Closing Date untuk bulan ini adalah pada tanggal, jam :<br> <% hariakhir = Now.Date()%>
-                            <span style="color: red"><%=tutup1%><b>s.d</b> <%=tutup2%><br></span>
-                            Semua transaksi yang dilakukan diantara closing period diatas, akan ditolak oleh sistem. Apabila anda membutuhkan untuk membukukan transaksi tersebut untuk keperluan top up bulanan, maka silahkan menghubungi kantor pusat.
-                            <br>
-                        </li>
-                        <li>
-                            Semua transaksi yang sudah dibukukan tidak dapat dibatalkan. Untuk itu mohon periksa dan pastikan transaksi yang anda lakukan sudah benar ! 
-                            sebelum mmprosesnya ke check out. Untuk itu pastikan anda sudah menerima formulir pembelian paket re-entry fast track dari distributor dengan benar dan sudah melakukan konfirmasi pembelian tersebut.<br>
-                        </li>
-                        <li>
-                            1 (satu) nomor invoice pembelanjaan paket re-entry fast track berlaku untuk 1 (satu) distributor. 
-                            <p style="color:#FF0000;">
-                                Hanya distributor bertipe <b>Regular</b> (Distributor yang bergabung dengan segala jenis paket Regular) yang dapat membeli paket re-entry fast track. Distributor yang bergabung dengan paket Premium
-                                , Platinum (sudah diupgrade ke platinum atau memperoleh auto upgrade by sistem) atau Titanium tidak perlu melakukan re-entry untuk dapat mengikuti Fast Track Plan.<br>
-                            </p>
-                            Tanggal transaksi tidak dapat diubah dan menurut jam server (WIB).
-                        </li>
-                    </ol>
-                </div>
+                
 
-                <%if mesej <> "" then %>
+                <%if mesej <> "" Then %>
                 <div class="alert alert-warning text-center" role="alert">
                     <h4 style="text-align:center;color:black;font-family:Arial;">
-                        <span><span style="text-decoration: underline;"><b>ERROR MESSAGE</b></span></span>
+                        <span>
+                            <span style="text-decoration: underline;"><b>ERROR MESSAGE</b></span><br />
+                            <%=mesej%>
+                        </span>
                     </h4>               
                 </div>
-                <%end if%>
+                <%end If%>
 
-                <form name="theform1" method="post" action="sale_reentry_save.asp" onSubmit="return checkFields()">
-                    <input type="hidden" name="menu_id" value="<%=session("menu_id")%>">
-                    <div style="padding: 0px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label>Tanggal Transaksi</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" name="tgl" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=tgl%>">
-                        </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center" style="text-align:center;color:black;font-family:Arial;"><strong></strong></h4>
                     </div>
-                    <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label>Nomor Id. Distributor</label>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" class="form-control" name="direk" id="direk" onChange="javascript:cari2(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;" maxlength="8">
-                        </div>
-		                <div class="col-md-6">
-                            <input type="text" class="form-control" readonly name="namadirek" id="namadirek" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
-                            <input type="hidden" name="upme" id="upme">
-                            <input type="hidden" name="tipene" id="tipene">
-                        </div>
+                    <div class="panel-body">
+                        <form name="theform1" method="post" action="sale_reentry_save.asp" onSubmit="return checkFields()">
+                            <input type="hidden" name="menu_id" value="<%=Session("menu_id")%>">
+                            <div style="padding: 0px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Tanggal Transaksi</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="tgl" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=tgl%>">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Nomor Id. Distributor</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="direk" id="direk" onChange="javascript:cari2(this);" onKeyDown="if(event.keyCode==13) event.keyCode=9;" maxlength="8">
+                                </div>
+		                        <div class="col-md-6">
+                                    <input type="text" class="form-control" readonly name="namadirek" id="namadirek" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                    <input type="hidden" name="upme" id="upme">
+                                    <input type="hidden" name="tipene" id="tipene">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 75px 20px">
+                                <div class="col-md-3">
+                                    <label>Keterangan</label>
+                                </div>
+                                <div class="col-md-9">
+			                        <textarea rows="4"  class="form-control"  name="keterangan" readonly></textarea>
+                                </div>
+	                        </div>
+		                    <div style="padding: 20px 20px 20px 20px">	
+                                <div class="col-md-3">
+                                    <label>Paket Fast Track</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <select class="form-control"  name="paket" id="paket" onChange="javascript:cari(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                        <optgroup label="">
+                                            <option value="12" selected="">--Silahkan Pilih--</option>
+                                            <%
+                pp = "UPG"
+                kds = "PRG"
+                ddd = "FT"
+                If mypos <> dcpusate Then
+                    If LCase(loguser) = "kris" Then
+                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and (grp like '" & pp & "' and kgrp like '" & ddd & "') and jumlah >= '" & minimal & "'"
+                    Else
+                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and (grp like '" & pp & "' and kgrp like '" & ddd & "') and jumlah >= '" & minimal & "'"
+                    End If
+                Else
+                    If LCase(loguser) = "kris" Then
+                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and (grp like '" & pp & "' and grp like '" & ddd & "')"
+                    Else
+                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and (grp like '" & pp & "' and kgrp like '" & ddd & "')"
+                    End If
+                End If
+
+                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                'mlREADER.Read()
+                If mlREADER.HasRows = True Then
+                    mlDATATABLE = New Data.DataTable()
+                    mlDATATABLE.Load(mlREADER)
+                    For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
+                                             %>
+                                                      <option value="<%=mlDATATABLE.Rows(aaaeqSSS)("kode")%>"><%=mlDATATABLE.Rows(aaaeqSSS)("nama")%></Option>
+                                            <%
+                    Next
+                End If
+                mlREADER.Close()
+                                            %>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Harga</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="harga" name="harga" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                </div>
+                            </div>
+			                <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>PV</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" id="pv" name="pv" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>BV</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" id="bv" name="bv" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Cara Pembayaran</label>
+                                </div>
+                            </div>
+			                <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Tunai</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="jumbayarcash" onchange="quadratic1(this.form);" value="0" maxlength="7">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Debit Card</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="jumbayardb" onchange="quadratic1(this.form);" value="0" maxlength="7">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Credit Card</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="jumbayarcc" onchange="quadratic1(this.form);" value="0" maxlength="7">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>BG/Cheque</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="jumbayarcek"  onchange="quadratic1(this.form);" value="0" maxlength="7" disabled>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Jumlah Pembayaran</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="jumbayar" readonly value="0">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label>Jumlah Kembalian</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="kembalian" readonly value="0">
+                                </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label> </label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input class="btn btn-default" type="submit" name="btsub" value="Check Out">
+                                </div>
+                            </div>
+		                    <div style="padding: 20px 20px 20px 20px">
+                                <div class="col-md-3">
+                                    <label></label>
+                                </div>
+				                <div class="col-md-9">
+                                    <label style="color:#FF0000;">Klik sekali saja dan tunggu hingga keluar invoice</label>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div style="padding: 20px 20px 75px 20px">
-                        <div class="col-md-3">
-                            <label>Keterangan</label>
-                        </div>
-                        <div class="col-md-9">
-			                <textarea rows="4"  class="form-control"  name="keterangan" readonly></textarea>
-                        </div>
-	                </div>
-		            <div style="padding: 20px 20px 20px 20px">	
-                        <div class="col-md-3">
-                            <label>Paket Fast Track</label>
-                        </div>
-                        <div class="col-md-9" id="div_Paket" runat="server">
-                            <%--<select class="form-control"  name="paket" id="paket" onChange="javascript:cari(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
-                                <optgroup label="">
-                                    <option value="12" selected="">--Silahkan Pilih--</option>
-                                    <option value="13">Item 1</option>
-                                    <option value="14">Item 2</option>
-                                </optgroup>
-                            </select>--%>
-                        </div>
-                    </div>
-                    <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label>Harga</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" id="harga" name="harga" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;">
-                        </div>
-                    </div>
-			        <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label>PV</label>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" class="form-control" id="pv" name="pv" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;">
-                        </div>
-                        <div class="col-md-2">
-                            <label>BV</label>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" id="bv" name="bv" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;">
-                        </div>
-                    </div>
-			        <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label>Cara Pembayaran</label>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Tunai</label>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" name="jumbayarcash" onchange="quadratic1(this.form)" value="0" maxlength="7">
-                        </div>
-                    </div>
-                    <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label> </label>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Debit Card</label>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" name="jumbayardb" onchange="quadratic1(this.form)" value="0" maxlength="7">
-                        </div>
-                    </div>
-                    <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label> </label>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Credit Card</label>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" name="jumbayarcc" onchange="quadratic1(this.form)" value="0" maxlength="7">
-                        </div>
-                    </div>
-                    <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label> </label>
-                        </div>
-                        <div class="col-md-3">
-                            <label>BG/Cheque</label>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" name="jumbayarcek"  onchange="quadratic1(this.form)" value="0" maxlength="7" disabled>
-                        </div>
-                    </div>
-                    <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label>Jumlah Pembayaran</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" name="jumbayar" readonly value="0">
-                        </div>
-                    </div>
-                    <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label>Jumlah Kembalian</label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" name="kembalian" readonly value="0">
-                        </div>
-                    </div>
-                    <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label> </label>
-                        </div>
-                        <div class="col-md-9">
-                            <input class="btn btn-default" type="submit" name="btsub" value="Check Out">
-                        </div>
-                    </div>
-		            <div style="padding: 20px 20px 20px 20px">
-                        <div class="col-md-3">
-                            <label></label>
-                        </div>
-				        <div class="col-md-9">
-                            <label style="color:#FF0000;">Klik sekali saja dan tunggu hingga keluar invoice</label>
-                        </div>
-                    </div>
-                </form>
+                </div>
+                
             </div>
         </div>
         <div style="padding: 20px 20px 20px 20px">

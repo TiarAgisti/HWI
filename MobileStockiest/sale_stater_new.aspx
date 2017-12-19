@@ -296,10 +296,42 @@
                                 <div class="col-md-3">
                                     <label>Paket Pendaftaran</label>
                                 </div>
-                                <div class="col-md-9" id="div_pendaftaran" runat="server">
-                                    <%--<select class="form-control" name="paket" id="paket" onChange="javascript:cari(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;" runat="server">
-                                        
-                                    </select>--%>
+                                <div class="col-md-9">
+                                    <select class="form-control" name="paket" id="paket" onChange="javascript:cari(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                        <optgroup label="">
+                                            <option value="12" selected="">--Silahkan Pilih--</option>
+                                    <%
+                                        pp = "AKT"
+                                        ste = "T"
+                                        minimal = 1
+                                        mlSQL = "SELECT * From st_tipe_paket_new where tipe not like 'upms'"
+                                        mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                                        'mlREADER.Read()
+                                        If mlREADER.HasRows = True Then
+                                            mlDATATABLE = New Data.DataTable
+                                            mlDATATABLE.Load(mlREADER)
+                                            For aaaeqsK = 1 To mlDATATABLE.Rows.Count - 1
+                                                kode = mlDATATABLE.Rows(aaaeqsK)("kode")
+                                                If mypos <> dcpusate Then
+                                                    mlSQL2 = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and jumlah >= '" & minimal & "' and ( kode like '" & kode & "')"
+                                                Else
+                                                    mlSQL2 = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and sta like '" & ste & "' and ( kode like '" & kode & "' )"
+                                                End If
+                                                mlREADER2 = mlOBJGS.DbRecordset(mlSQL2, mpMODULEID, mlCOMPANYID)
+                                                mlREADER2.Read()
+                                                If Not mlREADER2.HasRows Then
+                                                Else
+                                    %>
+                                        <option value="<%=mlDATATABLE.Rows(aaaeqsK)("kode")%>"><%=mlDATATABLE.Rows(aaaeqsK)("nama")%></Option>
+                                    <%
+                                                End If
+                                                mlREADER2.Close()
+                                            Next
+                                        End If
+                                        mlREADER.Close()
+                                    %>
+                                        </optgroup>
+                                    </select>
                                 </div>
                             </div>
                             <div style="padding: 20px 20px 20px 20px">
@@ -328,6 +360,8 @@
                                 <div class="col-md-3">
                                     <label>Cara Pembayaran</label>
                                 </div>
+                            </div>
+                            <div style="padding: 20px 20px 20px 20px">
                                 <div class="col-md-3">
                                     <label>Tunai</label>
                                 </div>
@@ -337,9 +371,6 @@
                             </div>
                             <div style="padding: 20px 20px 20px 20px">
                                 <div class="col-md-3">
-                                    <label></label>
-                                </div>
-                                <div class="col-md-3">
                                     <label>Debit Card</label>
                                 </div>
                                 <div class="col-md-6">
@@ -348,9 +379,6 @@
                             </div>
                             <div style="padding: 20px 20px 20px 20px">
                                 <div class="col-md-3">
-                                    <label></label>
-                                </div>
-                                <div class="col-md-3">
                                     <label>Credit Card</label>
                                 </div>
                                 <div class="col-md-6">
@@ -358,9 +386,6 @@
                                 </div>
                             </div>
                             <div style="padding: 20px 20px 20px 20px">
-                                <div class="col-md-3">
-                                    <label></label>
-                                </div>
                                 <div class="col-md-3">
                                     <label>Voucher</label>
                                 </div>
