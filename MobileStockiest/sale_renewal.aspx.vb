@@ -3,6 +3,7 @@ Imports System.Data
 Imports System.Data.OleDb
 Partial Class MobileStockiest_sale_renewal
     Inherits System.Web.UI.Page
+
     Protected mlOBJGS As New IASClass.ucmGeneralSystem
     Protected mlREADER As OleDb.OleDbDataReader
     Protected mlSQL As String

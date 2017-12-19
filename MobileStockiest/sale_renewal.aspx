@@ -168,12 +168,12 @@
                     </div>
                 </div>
 
-              <%if mesej <> "" Then %>
+              <%If mesej <> "" Then %>
                 <div class="alert alert-warning text-center" role="alert">
                     <h4 style="text-align:center;color:black;font-family:Arial;">
                         <span>
                             <span style="text-decoration: underline;"><b>ERROR MESSAGE</b></span><br />
-                            <%=mesej%>
+                            <% =mesej %>
                         </span>
                     </h4>               
                 </div>
@@ -223,26 +223,26 @@
                                         <optgroup label="">
                                             <option value="12" selected="">--Silahkan Pilih--</option>
                                             <%
-                pp = "REN"
-                If mypos <> dcpusate Then
-                    If LCase(loguser) = "kris" Then
-                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "' and jumlah >= '" & minimal & "'"
-                    Else
-                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "' and jumlah >= '" & minimal & "'"
-                    End If
-                Else
-                    If LCase(loguser) = "kris" Then
-                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'"
-                    Else
-                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'"
-                    End If
-                End If
+                                                pp = "REN"
+                                                If mypos <> dcpusate Then
+                                                    If LCase(loguser) = "kris" Then
+                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "' and jumlah >= '" & minimal & "'"
+                                                    Else
+                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "' and jumlah >= '" & minimal & "'"
+                                                    End If
+                                                Else
+                                                    If LCase(loguser) = "kris" Then
+                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'"
+                                                    Else
+                                                        mlSQL = "SELECT kode,nama FROM " & namatabel & " WHERE nopos like '" & mypos & "' and grp like '" & pp & "'"
+                                                    End If
+                                                End If
 
-                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
-                If mlREADER.HasRows = True Then
-                    mlDATATABLE = New Data.DataTable()
-                    mlDATATABLE.Load(mlREADER)
-                    For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
+                                                mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+                                                If mlREADER.HasRows = True Then
+                                                    mlDATATABLE = New Data.DataTable()
+                                                    mlDATATABLE.Load(mlREADER)
+                                                    For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
                                              %>
                                                       <option value="<%=mlDATATABLE.Rows(aaaeqSSS)("kode")%>"><%=mlDATATABLE.Rows(aaaeqSSS)("nama")%></Option>
                                             <%
