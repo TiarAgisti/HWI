@@ -17,6 +17,7 @@ Partial Class MobileStockiest_sale_prd_dist
     Protected totpv, totbv, gtot, gtotnet, jumdisk, jumtotdis, brapadis, kurangi, jumdis, jumdivc As Double
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        mlOBJGS.Main()
         Session("tema") = "home"
         Session("menu_id") = Request("menu_id")
         dcpusate = Session("dcpusate")
