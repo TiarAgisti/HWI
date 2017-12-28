@@ -1,7 +1,7 @@
 ﻿Imports System
 Imports System.Data
 Imports System.Data.OleDb
-Partial Class MobileStockiest_sale_prd_dist_remove
+Partial Class MobileStockiest_sale_prd_dist_clear
     Inherits System.Web.UI.Page
     Dim mlOBJGS As New IASClass.ucmGeneralSystem
     Dim mlOBJGF As New IASClass.ucmGeneralFunction
@@ -12,6 +12,7 @@ Partial Class MobileStockiest_sale_prd_dist_remove
     Dim mlSQL2 As String
     Dim mlCOMPANYID As String = "ALL"
     Dim mpMODULEID As String = "PB"
+    Dim mlDATATABLE As DataTable
 
     Dim menu_id, pos_area, mypos, loguser, nosesi, kelasdc, indukdc, indukmc, kode, lanjutposting, lanjutdodol As String
     Dim hariakhir, dino, dinoe, skr As Date
@@ -46,7 +47,7 @@ Partial Class MobileStockiest_sale_prd_dist_remove
         dino = Now()
         dinoe = Now.Date
         hariakhir = dino
-        kode = Request("id")
+        kode = Session("nosesi")
 
         If kode = "" Then
             Session("errorpos") = ""
@@ -63,6 +64,7 @@ Partial Class MobileStockiest_sale_prd_dist_remove
         ' CLOSE SESSION TIAP AKHIR BULAN PADA TANGGAL 30/31 JAM 19:00:00 WIB
         ' BILA ADA TRANSAKSI PADA TANGGAL 30/31 LEWAT CLOSING TIME, MAKA DITOLAK DAN DIMINTA UNTUK MENGHUBUNGI KANTOR PUSAT
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
         'lanjutposting = "F"
         'lanjutdodol = "F"
         skr = Now()
@@ -76,47 +78,36 @@ Partial Class MobileStockiest_sale_prd_dist_remove
         If lanjutposting = "T" Then
 
             ''''''''''''''''''''''''''''''''
-            ' EDIT TEMPORARY TABLE DETAIL
+            ' SAVE TO TEMPORARY TABLE DETAIL
             ''''''''''''''''''''''''''''''''
-            mlSQL = "SELECT * FROM st_sale_prd_det_tmp where id = '" & kode & "'"
+            mlSQL = "SELECT * FROM st_sale_prd_det_tmp where nosesi like '" & kode & "' and nopos like '" & mypos & "'"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
             mlREADER.Read()
             If mlREADER.HasRows Then
-                pvlama = mlREADER("pv")
-                bvlama = mlREADER("bv")
-                jumlama = mlREADER("jumlah")
-                hargalama = mlREADER("harga")
-                subtotlama = jumlama * hargalama
-                mlSQL2 = "delete from st_sale_prd_det_tmp where id = '" & kode & "'"
-                mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
+                mlDATATABLE = New DataTable
+                mlDATATABLE.Load(mlREADER)
+                For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
+                    pvlama = mlREADER("pv")
+                    bvlama = mlREADER("bv")
+                    jumlama = mlREADER("jumlah")
+                    hargalama = mlREADER("harga")
+                    subtotlama = jumlama * hargalama
+                Next
             End If
-
+            mlSQL2 = "delete from st_sale_prd_det_tmp where nosesi like '" & kode & "' and nopos like '" & mypos & "'"
+            mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
             mlREADER.Close()
 
             mlSQL = "SELECT * FROM st_sale_prd_head_tmp where nopos like '" & mypos & "' and nosesi like '" & nosesi & "'"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
             mlREADER.Read()
-            If Not mlREADER.HasRows Then
-                totpv = 0
-                subtot = 0
-            Else
-                'rsALL.update
-                totpv = mlREADER("totpv") - (pvlama * jumlama)
-                'rsALL("totbv") = rsALL("totbv")-(bvlama*jumlama)
-                subtot = mlREADER("subtot") - subtotlama
-                'rsALL.update										
+            If mlREADER.HasRows Then
+                mlSQL2 = "update st_sale_prd_head_tmp set totpv = 0,totbv = 0,subtot = 0 where nopos like '" & mypos & "' and nosesi like '" & nosesi & "'"
+                mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
             End If
             mlREADER.Close()
-
-            Session.LCID = 2057 ' setting desimal & local setting untuk indonesia 2057 = uk
-            'intLocale = SetLocale(2057) ' setting desimal & local setting untuk indonesia
-
-            mlSQL = "UPDATE st_sale_prd_head_tmp SET totpv = '" & totpv & "', subtot = '" & subtot & "' WHERE (nosesi like '" & nosesi & "') and (nopos like '" & mypos & "')"
-            mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
-
-            Session.LCID = 1057 ' setting desimal & local setting untuk indonesia 2057 = uk
-            'intLocale = SetLocale(1057) ' setting desimal & local setting untuk indonesia
             Response.Redirect("sale_prd_dist.aspx?menu_id=" & menu_id)
+
         Else
             Dim str_Utama As String = ""
 
@@ -145,7 +136,7 @@ Partial Class MobileStockiest_sale_prd_dist_remove
             str_Utama += "</div>" & vbCrLf
             str_Utama += "</div>" & vbCrLf
 
-            Div_sale_remove.InnerHtml = str_Utama
+            Div_sale_clear.InnerHtml = str_Utama
         End If
     End Sub
 End Class
