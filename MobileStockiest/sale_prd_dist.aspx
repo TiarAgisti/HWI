@@ -233,8 +233,8 @@
                                 <div class="col-md-3">
                                     <label>
                                         [<a href="#">
-                                            <span onClick="javascript:window.open('../MobileStockiest/daftarkode.asp?tipe=PRD', 'HelpWindow','scrollbars=yes, resizable=yes, height=500, width=300')">Tampilkan Kode</span>
-                                         </a>
+                                            <span onClick="javascript:window.open('../MobileStockiest/daftarkode.aspx?tipe=PRD', 'HelpWindow','scrollbars=yes, resizable=yes, height=500, width=300')">Tampilkan Kode</span>
+                                         </a>]
                                     </label>
                                 </div>
                             </div>
@@ -423,7 +423,7 @@
                         <%if gtot > 0 then %>
                          <p>
                             <span style="background-color: yellow; color: red; font-weight: bold;text-align:center;">
-                                <a target="_top" href="sale_prd_dist_clear.asp">BATALKAN SESI BELANJA INI & BIKIN SESI BARU</a>
+                                <a target="_top" href="sale_prd_dist_clear.aspx">BATALKAN SESI BELANJA INI & BIKIN SESI BARU</a>
                             </span>
                         </p>
                         <%else%>

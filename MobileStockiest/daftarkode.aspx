@@ -18,13 +18,13 @@
 					<h3 class="panel-title text-center">DAFTAR KODE</h3>
 				</div>
 				<div class="panel-body">
-					<div style="padding: 20px 20px 20px 20px"><br />
+					<div><br />
 						<div class="col-md-12">
 							<div style="text-align:center;" class="sizefont">
 								<img border="0" src="http://newoffice.healthwealthint.com/images/logohwi.png" width="135" height="72" />
 							</div>
-							<div style="padding: 20px 20px 20px 20px">
-								<table class="table" border="1">
+							<div>
+								<table class="table">
 									<thead class="table table-bordered">
 										<tr class="btn-primary">
 											<th style="text-align:center;width:auto;">
@@ -35,7 +35,7 @@
 											</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody class="table table-bordered">
                                         <%
                                             if tpe = "AKT" Then
                                                 mlSQL = "SELECT * FROM st_barang where (grp like '" & tpe & "' or grp like '" & tpi & "' or grp like '" & tpd & "') and kode like '%-14%' and sta like 'T' order by kode"
@@ -54,8 +54,8 @@
                                                 For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
 %>						
 							<tr>
-								<td style="text-align:right;">&nbsp;&nbsp;<%=mlDATATABLE.Rows(aaaeqSSS)("kode")%></td>
-								<td style="text-align:right;">&nbsp;&nbsp;<%=mlDATATABLE.Rows(aaaeqSSS)("nama")%></td>
+								<td style="text-align:left;width:auto;" class="table table-bordered">&nbsp;&nbsp;<%=mlDATATABLE.Rows(aaaeqSSS)("kode")%></td>
+								<td style="text-align:left;width:auto;" class="table table-bordered">&nbsp;&nbsp;<%=mlDATATABLE.Rows(aaaeqSSS)("nama")%></td>
 							</tr>
 <%  
         Next
