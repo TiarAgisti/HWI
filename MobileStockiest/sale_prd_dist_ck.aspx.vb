@@ -29,7 +29,7 @@ Partial Class MobileStockiest_sale_prd_dist_ck
     Dim piyeup, l1, namadist, l5, pak As String
 
     Dim kepiro, jume, jumlahalokakt, juma, jume1, juma1, levnya, tahunskr As Integer
-    Dim lanjutdodol1, lanjutdodol2, lanjutdodol3, lanjutdodol4, lanjutdodol5, lanjutdodol6, lanjutdodol7, nokode, ggg, ggg1, kode1, namabr, mesej1, namabr1, nokode1 As String
+    Dim lanjutdodol1, lanjutdodol2, lanjutdodol3, lanjutdodol4, lanjutdodol5, lanjutdodol6, lanjutdodol7, nokode, ggg, ggg1, ggg2, kode1, namabr, mesej1, namabr1, nokode1 As String
     Dim jumlah1, jumakt, jumpaket, tambahanpv As Double
     Dim mesej, mesej2, namabr2, nokode2, mesej3, namabr3, nokode3, mesej4, namabr4, nokode4, mesej5, namabr5, nokode5, mesej6, namabr6, nokode6, mesej7, namabr7, nokode7 As String
     Dim jume2, juma2, jume3, juma3, jume4, juma4, jume5, juma5, jume6, juma6, jume7, juma7 As Integer
@@ -996,7 +996,7 @@ Partial Class MobileStockiest_sale_prd_dist_ck
                             If Not mlREADER.HasRows Then
                                 belonjone = 0
                             Else
-                                belonjone = rs("sum(totpv)")
+                                belonjone = mlREADER("sum(totpv)")
                             End If
                             mlREADER.Close()
 
