@@ -1,7 +1,7 @@
 ﻿Imports System
 Imports System.Data
 Imports System.Data.OleDb
-Partial Class MobileStockiest_sale_prd_dist_remove
+Partial Class MobileStockiest_mc_prd_topup_clear
     Inherits System.Web.UI.Page
     Dim mlOBJGS As New IASClass.ucmGeneralSystem
     Dim mlOBJGF As New IASClass.ucmGeneralFunction
@@ -12,8 +12,9 @@ Partial Class MobileStockiest_sale_prd_dist_remove
     Dim mlSQL2 As String
     Dim mlCOMPANYID As String = "ALL"
     Dim mpMODULEID As String = "PB"
+    Dim mlDATATABLE As DataTable
 
-    Dim menu_id, pos_area, mypos, loguser, nosesi, kelasdc, indukdc, indukmc, kode, lanjutposting, lanjutdodol As String
+    Dim menu_id, pos_area, mypos, loguser, nosesi, kelasdc, indukdc, kode, lanjutposting, lanjutdodol As String
     Dim hariakhir, dino, dinoe, skr As Date
     Dim pvlama, bvlama, jumlama, hargalama, subtotlama, totpv, subtot As Double
 
@@ -31,28 +32,25 @@ Partial Class MobileStockiest_sale_prd_dist_remove
         Session("nosesi") = nosesi
         kelasdc = Session.Contents("kelasdc")
         indukdc = Session.Contents("indukdc")
-        indukmc = Session.Contents("indukmc")
         If Session("motok") = "" Or Session("kowe") = "" Then
             Session("out") = "Session login anda sudah expired, silahkan login kembali"
             Response.Redirect("login.aspx")
         Else
-            Session("motok") = mypos
-            Session("kowe") = loguser
+            Session("sotok") = mypos
+            Session("anda") = loguser
             Session.Contents("kelasdc") = kelasdc
             Session.Contents("indukdc") = indukdc
-            Session.Contents("indukmc") = indukmc
         End If
 
         dino = Now()
         dinoe = Now.Date
         hariakhir = dino
-        kode = Request("id")
+        kode = Session("nosesi")
 
         If kode = "" Then
             Session("errorpos") = ""
-            Response.Redirect("sale_prd_dist.aspx?menu_id=" & menu_id)
+            Response.Redirect("mc_prd_topup.aspx?menu_id=" & menu_id)
         End If
-
         CekValidSession()
     End Sub
 
@@ -76,47 +74,35 @@ Partial Class MobileStockiest_sale_prd_dist_remove
         If lanjutposting = "T" Then
 
             ''''''''''''''''''''''''''''''''
-            ' EDIT TEMPORARY TABLE DETAIL
+            ' SAVE TO TEMPORARY TABLE DETAIL
             ''''''''''''''''''''''''''''''''
-            mlSQL = "SELECT * FROM st_sale_prd_det_tmp where id = '" & kode & "'"
+            mlSQL = "SELECT * FROM st_sale_prd_det_tmp where nosesi like '" & kode & "' and nopos like '" & mypos & "'"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
-            mlREADER.Read()
             If mlREADER.HasRows Then
-                pvlama = mlREADER("pv")
-                bvlama = mlREADER("bv")
-                jumlama = mlREADER("jumlah")
-                hargalama = mlREADER("harga")
-                subtotlama = jumlama * hargalama
-                mlSQL2 = "delete from st_sale_prd_det_tmp where id = '" & kode & "'"
-                mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
+                mlDATATABLE = New DataTable
+                mlDATATABLE.Load(mlREADER)
+                For aaaeqSSS = 1 To mlDATATABLE.Rows.Count - 1
+                    pvlama = mlDATATABLE.Rows(aaaeqSSS)("pv")
+                    bvlama = mlDATATABLE.Rows(aaaeqSSS)("bv")
+                    jumlama = mlDATATABLE.Rows(aaaeqSSS)("jumlah")
+                    hargalama = mlDATATABLE.Rows(aaaeqSSS)("harga")
+                    subtotlama = jumlama * hargalama
+                Next
             End If
-
+            mlSQL2 = "delete FROM st_sale_prd_det_tmp where nosesi like '" & kode & "' and nopos like '" & mypos & "'"
+            mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
             mlREADER.Close()
 
             mlSQL = "SELECT * FROM st_sale_prd_head_tmp where nopos like '" & mypos & "' and nosesi like '" & nosesi & "'"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
             mlREADER.Read()
-            If Not mlREADER.HasRows Then
-                totpv = 0
-                subtot = 0
-            Else
-                'rsALL.update
-                totpv = mlREADER("totpv") - (pvlama * jumlama)
-                'rsALL("totbv") = rsALL("totbv")-(bvlama*jumlama)
-                subtot = mlREADER("subtot") - subtotlama
-                'rsALL.update										
+            If mlREADER.HasRows Then
+                mlSQL2 = "update st_sale_prd_head_tmp set totpv = 0,totbv = 0,subtot = 0 where nopos like '" & mypos & "' and nosesi like '" & nosesi & "'"
+                mlOBJGS.ExecuteQuery(mlSQL2, mpMODULEID, mlCOMPANYID)
             End If
             mlREADER.Close()
+            Response.Redirect("mc_prd_topup.aspx?menu_id=" & menu_id)
 
-            Session.LCID = 2057 ' setting desimal & local setting untuk indonesia 2057 = uk
-            'intLocale = SetLocale(2057) ' setting desimal & local setting untuk indonesia
-
-            mlSQL = "UPDATE st_sale_prd_head_tmp SET totpv = '" & totpv & "', subtot = '" & subtot & "' WHERE (nosesi like '" & nosesi & "') and (nopos like '" & mypos & "')"
-            mlOBJGS.ExecuteQuery(mlSQL, mpMODULEID, mlCOMPANYID)
-
-            Session.LCID = 1057 ' setting desimal & local setting untuk indonesia 2057 = uk
-            'intLocale = SetLocale(1057) ' setting desimal & local setting untuk indonesia
-            Response.Redirect("sale_prd_dist.aspx?menu_id=" & menu_id)
         Else
             Dim strDiv As String = ""
             strDiv += "<p style='text-align:center;'>"
@@ -124,8 +110,8 @@ Partial Class MobileStockiest_sale_prd_dist_remove
             strDiv += "<p style='text-align:center;font-family:Verdana;'>Maaf saat ini transaksi anda tidak dapat dilakukan karena sudah memasuki<b style='color:#FF0000;'>closing period</b><br>"
             strDiv += "Apabila anda membutuhkan transaksi ini untuk dibukukan kedalam tutup point bulanan <br> maka silahkan hubungi kantor pusat sesegera mungkin.<br>"
             strDiv += "Mohon maaf atas ketidaknyamanan ini dan terima kasih atas pengertian anda.<br>"
-            strDiv += "&lt;-- <a href='sale_prd_dist.aspx?menu_id=<%=session('menu_id')%>'>Kembali</a> --&gt;"
-            Div_sale_remove.InnerHtml = strDiv
+            strDiv += "&lt;-- <a href='mc_prd_topup.aspx?menu_id=<%=session('menu_id')%>'>Kembali</a> --&gt;"
+            Div_mc_clear.InnerHtml = strDiv
         End If
     End Sub
 End Class

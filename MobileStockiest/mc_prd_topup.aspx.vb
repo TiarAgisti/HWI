@@ -12,7 +12,7 @@ Partial Class MobileStockiest_mc_prd_topup
     Dim mlSQL As String
     Dim mlREADER As OleDb.OleDbDataReader
 
-    Protected mesej, lanjutken, mypos, nosesi, nokode, namadistopup As String
+    Protected mesej, lanjutken, mypos, nosesi, nokode, namadistopup, namadis As String
     Protected tgl, tupoawal, tupoakhir, wulane, nahune, wultupo, nuhuntupo As Date
     Protected jumskr As Integer
     Protected totpv, totbv, gtot, gtotnet, jumdisk, jumtotdis, brapadis, kurangi, jumdis, jumdivc As Double

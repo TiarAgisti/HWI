@@ -2591,7 +2591,7 @@ Partial Class MobileStockiest_sale_reentry_save
                 strResponsive2 += "" & error4 & " " & vbCrLf
             End If
             strResponsive2 += " < br /> " & vbCrLf
-            strResponsive2 += " & lt;-- <a href='sale_kits.aspx?menu_id=" & Session("menu_id") & "'>Kembali</a> --&gt;</font>" & vbCrLf
+            strResponsive2 += " & lt;-- <a href='sale_reentry.aspx?menu_id=" & Session("menu_id") & "'>Kembali</a> --&gt;</font>" & vbCrLf
             strResponsive2 += "</div>" & vbCrLf
             strResponsive2 += "  </div>" & vbCrLf
             strResponsive2 += "</section>" & vbCrLf

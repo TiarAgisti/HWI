@@ -109,34 +109,14 @@ Partial Class MobileStockiest_sale_prd_dist_clear
             Response.Redirect("sale_prd_dist.aspx?menu_id=" & menu_id)
 
         Else
-            Dim str_Utama As String = ""
-
-            str_Utama += "<div Class='box'>" & vbCrLf
-            str_Utama += "<div Class='box-header with-border'>" & vbCrLf
-            str_Utama += "<h3 Class='box-title'></h3>" & vbCrLf
-            str_Utama += "<div Class='box-tools pull-right'>" & vbCrLf
-            str_Utama += "<Button type = 'button' Class='btn btn-box-tool' data-widget='collapse' data-toggle='tooltip' title='Collapse'>" & vbCrLf
-            str_Utama += "<i Class='fa fa-minus'></i></button>" & vbCrLf
-            str_Utama += "<Button type = 'button' Class='btn btn-box-tool' data-widget='remove' data-toggle='tooltip' title='Remove'>" & vbCrLf
-            str_Utama += "<i Class='fa fa-times'></i></button>" & vbCrLf
-            str_Utama += "</div>" & vbCrLf
-            str_Utama += "</div>" & vbCrLf
-            str_Utama += "<div Class='box-body'>" & vbCrLf
-            str_Utama += "<p align = 'center' >" & vbCrLf
-            str_Utama += "<img border='0' src='../images/health-wealthlogo.jpg' width='186' height='125'>" & vbCrLf
-            str_Utama += "<br/>" & vbCrLf
-            str_Utama += "<br/>" & vbCrLf
-
-            str_Utama += "<p align='center'>" & vbCrLf
-            str_Utama += "Maaf saat ini transaksi anda tidak dapat dilakukan karena sudah memasuki <font color='#FF0000'><b>closing period</b></font><br/>" & vbCrLf
-            str_Utama += "Apabila anda membutuhkan transaksi ini untuk dibukukan kedalam tutup point bulanan<br/>" & vbCrLf
-            str_Utama += "maka silahkan hubungi kantor pusat sesegera mungkin.<br/>" & vbCrLf
-            str_Utama += "Mohon maaf atas ketidaknyamanan ini dan terima kasih atas pengertian anda.<br/>" & vbCrLf
-            str_Utama += "&lt;-- <a href='sale_prd_dist.aspx?menu_id=<%=session(' menu_id')%>'>Kembali</a> --&gt;" & vbCrLf
-            str_Utama += "</div>" & vbCrLf
-            str_Utama += "</div>" & vbCrLf
-
-            Div_sale_clear.InnerHtml = str_Utama
+            Dim strDiv As String = ""
+            strDiv += "<p style='text-align:center;'>"
+            strDiv += "<img border='0' src='../images/health-wealthlogo.jpg' width='186' height='125'></p>"
+            strDiv += "<p style='text-align:center;font-family:Verdana;'>Maaf saat ini transaksi anda tidak dapat dilakukan karena sudah memasuki<b style='color:#FF0000;'>closing period</b><br>"
+            strDiv += "Apabila anda membutuhkan transaksi ini untuk dibukukan kedalam tutup point bulanan <br> maka silahkan hubungi kantor pusat sesegera mungkin.<br>"
+            strDiv += "Mohon maaf atas ketidaknyamanan ini dan terima kasih atas pengertian anda.<br>"
+            strDiv += "&lt;-- <a href='sale_prd_dist.aspx?menu_id=<%=session('menu_id')%>'>Kembali</a> --&gt;"
+            Div_sale_clear.InnerHtml = strDiv
         End If
     End Sub
 End Class
