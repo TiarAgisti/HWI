@@ -269,52 +269,121 @@
                                                     totbg = totbg + CDbl(mlDT.Rows(aaaeqSSS)("bg"))
 
                                                     tpe = UCase(mlDT.Rows(aaaeqSSS)("tipe"))
-                                                    If tpe = "TOPUP" Then
-                                                        bgcol = "#FFEFDF"
-                                                    Else
-                                                        bgcol = "#E1FFE1"
-                                                    End If
+                                                    'If tpe = "TOPUP" Then
+                                                    '    bgcol = "#FFEFDF"
+                                                    'Else
+                                                    '    bgcol = "#E1FFE1"
+                                                    'End If
                                         %>
                                         <tr class="table-bordered">
-                                            <td style="text-align:center;width:13%;background-color:<%=bgcol%>;" class="table-bordered"><%=mlDT.Rows(aaaeqSSS)("tgl")%></td>
-                                            <td style="width:18%;text-align:center;background-color:<%=bgcol%>;" class="table-bordered">
-											    <%   If mlDT.Rows(aaaeqSSS)("paket") <> "UPG" Then %>
+                                            <% If tpe = "TOPUP" Then %>
+                                            <td style="text-align:center;width:13%;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="text-align:center;width:13%;background-color:#E1FFE1;" class="table-bordered">
+                                            <%End If%>
+                                                <%=mlDT.Rows(aaaeqSSS)("tgl")%>
+                                            </td>
+                                            <% If tpe = "TOPUP" Then %>
+                                            <td style="width:18%;text-align:center;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="width:18%;text-align:center;background-color:#E1FFE1;" class="table-bordered">
+                                            <%End If%>
+											    <%If mlDT.Rows(aaaeqSSS)("paket") <> "UPG" Then %>
 												<a href="#">
                                                     <span onClick="javascript:window.open('sale_cetak_invoice_daftar.aspx?noinvo=<%=mlDT.Rows(aaaeqSSS)("noslip")%>&menu_id=<%=Session("menu_id")%>'
                                                     , 'HelpWindow','scrollbars=yes, resizable=yes, height=480, width=900')" style="text-decoration: none;color:red;"><%=mlDT.Rows(aaaeqSSS)("noslip")%>
                                                     </span>
 												</a>
-												<%      Else%>
+												<%Else%>
 												<a href="#">
                                                     <span onClick="javascript:window.open('sale_cetak_invoice_upgrade.aspx?noinvo=<%=mlDT.Rows(aaaeqSSS)("noslip")%>&menu_id=<%=Session("menu_id")%>'
                                                         , 'HelpWindow','scrollbars=yes, resizable=yes, height=480, width=900')" style="text-decoration: none;color:red;"><%=mlDT.Rows(aaaeqSSS)("noslip")%>
                                                     </span>
 												</a>
-												<%  End If%>																		
+												<%End If%>																		
 										    </td>
-                                            <td style="width:7%;text-align:center;background-color:<%=bgcol%>;" class="table-bordered">
-												<%      If mlDT.Rows(aaaeqSSS)("paket") <> "UPG" Then %>
+                                            <% If tpe = "TOPUP" Then %>
+                                            <td style="width:7%;text-align:center;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else %>
+                                            <td style="width:7%;text-align:center;background-color:#E1FFE1;" class="table-bordered">
+                                            <% End If %>
+												<%If mlDT.Rows(aaaeqSSS)("paket") <> "UPG" Then %>
 													<a href="#">
                                                         <span onClick="javascript:window.open('sale_cetak_invoice_daftar.aspx?noinvo=<%=mlDT.Rows(aaaeqSSS)("noslip")%>&menu_id=<%=Session("menu_id")%>'
                                                             , 'HelpWindow','scrollbars=yes, resizable=yes, height=550, width=900')" style="text-decoration: none;color:red;"><%=mlDT.Rows(aaaeqSSS)("nopajak")%>
                                                         </span>
 													</a>
-												<%      Else%>
+												<%Else%>
 													<a href="#">
                                                         <span onClick="javascript:window.open('sale_cetak_invoice_upgrade.aspx?noinvo=<%=mlDT.Rows(aaaeqSSS)("noslip")%>&menu_id=<%=Session("menu_id")%>'
                                                                     , 'HelpWindow','scrollbars=yes, resizable=yes, height=480, width=900')" style="text-decoration: none;color:red;"><%=mlDT.Rows(aaaeqSSS)("nopajak")%>
 													    </span>
 													</a>
-												<%      End If%>															
-										    </td>	
-                                            <td style="width:6%;background-color:<%=bgcol%>;" class="table-bordered">&nbsp;&nbsp;<%=mlDT.Rows(aaaeqSSS)("noseri")%></td>
-                                            <td style="width:14%;background-color:<%=bgcol%>;" class="table-bordered">&nbsp;&nbsp;<%=mlDT.Rows(aaaeqSSS)("nama")%></td>
-                                            <td style="width:5%;background-color:<%=bgcol%>;" class="table-bordered">&nbsp;&nbsp;<%=mlDT.Rows(aaaeqSSS)("paket")%></td>
-											<td style="width:7%;text-align:right;background-color:<%=bgcol%>;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("harga"), 0)%>&nbsp;&nbsp;</td>
-											<td style="width:7%;text-align:right;background-color:<%=bgcol%>;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("tunai") - mlDT.Rows(aaaeqSSS)("kembalian"), 0)%>&nbsp;&nbsp;</td>
-											<td style="width:8%;text-align:right;background-color:<%=bgcol%>;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("debit"), 0)%>&nbsp;&nbsp;</td>
-											<td style="width:8%;text-align:right;background-color:<%=bgcol%>;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("cc"), 0)%>&nbsp;&nbsp;</td>
-											<td style="width:8%;text-align:right;background-color:<%=bgcol%>;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("bg"), 0)%>&nbsp;&nbsp;</td>
+												<%End If%>															
+										    </td>
+                                            <% If tpe = "TOPUP" Then %>	
+                                            <td style="width:6%;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="width:6%;background-color:#E1FFE1;" class="table-bordered">
+                                            <%End If%>
+                                                &nbsp;&nbsp;<%=mlDT.Rows(aaaeqSSS)("noseri")%>
+                                            </td>
+
+                                            <% If tpe = "TOPUP" Then %>
+                                            <td style="width:14%;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="width:14%;background-color:#E1FFE1;" class="table-bordered">
+                                            <%End If%>
+                                                &nbsp;&nbsp;<%=mlDT.Rows(aaaeqSSS)("nama")%>
+                                            </td>
+
+                                            <% If tpe = "TOPUP" Then %>
+                                            <td style="width:5%;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="width:5%;background-color:#E1FFE1;" class="table-bordered">
+                                            <%End If%>
+                                                &nbsp;&nbsp;<%=mlDT.Rows(aaaeqSSS)("paket")%>
+                                            </td>
+
+                                            <% If tpe = "TOPUP" Then %>
+											<td style="width:7%;text-align:right;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="width:7%;text-align:right;background-color:#E1FFE1;" class="table-bordered">
+                                            <%End If%>
+                                                <%=FormatNumber(mlDT.Rows(aaaeqSSS)("harga"), 0)%>&nbsp;&nbsp;
+											</td>
+
+                                            <% If tpe = "TOPUP" Then %>
+											<td style="width:7%;text-align:right;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="width:7%;text-align:right;background-color:#E1FFE1;" class="table-bordered">
+                                            <%End If%>
+                                                <%=FormatNumber(mlDT.Rows(aaaeqSSS)("tunai") - mlDT.Rows(aaaeqSSS)("kembalian"), 0)%>&nbsp;&nbsp;
+											</td>
+
+                                            <% If tpe = "TOPUP" Then %>
+											<td style="width:8%;text-align:right;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="width:8%;text-align:right;background-color:#E1FFE1;" class="table-bordered">
+                                            <%End If%>
+                                                <%=FormatNumber(mlDT.Rows(aaaeqSSS)("debit"), 0)%>&nbsp;&nbsp;
+											</td>
+
+                                            <% If tpe = "TOPUP" Then %>
+											<td style="width:8%;text-align:right;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="width:8%;text-align:right;background-color:#E1FFE1;" class="table-bordered">
+                                            <% End If%>
+                                                <%=FormatNumber(mlDT.Rows(aaaeqSSS)("cc"), 0)%>&nbsp;&nbsp;
+											</td>
+
+                                            <% If tpe = "TOPUP" Then %>
+											<td style="width:8%;text-align:right;background-color:#FFEFDF;" class="table-bordered">
+                                            <%Else%>
+                                            <td style="width:8%;text-align:right;background-color:#E1FFE1;" class="table-bordered">
+                                            <%End If%>
+                                                <%=FormatNumber(mlDT.Rows(aaaeqSSS)("bg"), 0)%>&nbsp;&nbsp;
+											</td>
                                         </tr>
                                     <%
                                             Next
