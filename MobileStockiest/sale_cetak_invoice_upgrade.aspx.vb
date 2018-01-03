@@ -1,7 +1,7 @@
 ﻿Imports System
 Imports System.Data
 Imports System.Data.OleDb
-Partial Class MobileStockiest_sale_cetak_invoice_daftar
+Partial Class MobileStockiest_sale_cetak_invoice_upgrade
     Inherits System.Web.UI.Page
     Dim mlOBJGS As New IASClass.ucmGeneralSystem
     Dim mlOBJGF As New IASClass.ucmGeneralFunction
@@ -11,14 +11,13 @@ Partial Class MobileStockiest_sale_cetak_invoice_daftar
     Dim mlCOMPANYID As String = "ALL"
     Dim mpMODULEID As String = "PB"
 
-    Dim pos_area, mypos, kelasdc, indukdc, indukmc, namatabel, namatabel2, pak, namakasir As String
+    Dim pos_area, mypos, kelasdc, indukdc, indukmc, namatabel, namatabel2, nopos, kta, noslip, namakasir As String
     Dim tglnya As Date
+    Dim bv, jumbayar As Double
 
-    Dim nopos, kta, noslip, tpe, judul As String
     Dim kode_prd1, kode_prd2, kode_prd3, kode_prd4, kode_prd5, kode_prd6, kode_prd7, kode_prd8, kode_prd9, kode_prd10, kode_prd11, kode_prd12 As String
     Dim nama_prd1, nama_prd2, nama_prd3, nama_prd4, nama_prd5, nama_prd6, nama_prd7, nama_prd8, nama_prd9, nama_prd10, nama_prd11, nama_prd12 As String
     Dim jumlah1, jumlah2, jumlah3, jumlah4, jumlah5, jumlah6, jumlah7, jumlah8, jumlah9, jumlah10, jumlah11, jumlah12 As Double
-    Dim bv, jumbayar As Double
 
     Public lanjut, perush_dc, nama_dc, no_dc, alamat_dc, alamat_dc2, telp_dc, emel_dc, web_dc, nopajak, noinvo, noseri, namakon, loguser, namapaket, paket As String
     Public produk1, produk2, produk3, produk4, produk5, produk6, produk7, produk8, produk9, produk10, produk11, produk12 As String
@@ -36,16 +35,14 @@ Partial Class MobileStockiest_sale_cetak_invoice_daftar
         loguser = Session("kowe")
         kelasdc = Session.Contents("kelasdc")
         indukdc = Session.Contents("indukdc")
-        indukmc = Session.Contents("indukmc")
         If Session("motok") = "" Or Session("kowe") = "" Then
             Session("popout") = "Session login anda sudah expired, silahkan login kembali"
-            Response.Redirect("errorpop.aspx")
+            Response.Redirect("errorpop.asp")
         Else
             Session("motok") = mypos
             Session("kowe") = loguser
             Session.Contents("kelasdc") = kelasdc
             Session.Contents("indukdc") = indukdc
-            Session.Contents("indukmc") = indukmc
         End If
 
         namatabel = "st_barang_ms"
@@ -53,14 +50,11 @@ Partial Class MobileStockiest_sale_cetak_invoice_daftar
 
         PrepareData()
     End Sub
-
     Sub PrepareData()
         noinvo = Request("noinvo")
-        pak = "T"
-        mlSQL = "SELECT * FROM st_sale_daftar where nopos like '" & mypos & "' and noslip like '" & noinvo & "' and pakai like '" & pak & "' order by id"
+        mlSQL = "SELECT * FROM st_sale_daftar where nopos like '" & mypos & "' and noslip like '" & noinvo & "' order by id"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
-
         If Not mlREADER.HasRows Then
             lanjut = "F"
         Else
@@ -86,16 +80,9 @@ Partial Class MobileStockiest_sale_cetak_invoice_daftar
             tglnya = mlREADER("tgl")
             alokbulan = mlREADER("alokbulan")
             aloktahun = mlREADER("aloktahun")
-            tpe = mlREADER("tipe")
             namakasir = mlREADER("kta")
         End If
         mlREADER.Close()
-
-        If UCase(tpe) = "TOPUP" Then
-            judul = "INVOICE PAKET PENDAFTARAN TOPUP"
-        Else
-            judul = "INVOICE PAKET PENDAFTARAN"
-        End If
 
         If lanjut = "T" Then
             mlSQL = "SELECT nama FROM " & namatabel & " where nopos like '" & mypos & "' and kode like '" & paket & "' order by id"
@@ -105,6 +92,18 @@ Partial Class MobileStockiest_sale_cetak_invoice_daftar
                 namapaket = mlREADER("nama")
             End If
             mlREADER.Close()
+
+            If UCase(paket) = "PRG" Then
+                namapaket = "Paket Upgrade Regular"
+            Else
+                If UCase(paket) = "PPL" Then
+                    namapaket = "Paket Upgrade Platinum"
+                Else
+                    If UCase(paket) = "PPR" Then
+                        namapaket = "Paket Upgrade Premium"
+                    End If
+                End If
+            End If
 
             mlSQL = "SELECT * FROM st_sale_daftar_prd where noslip like '" & noinvo & "'"
             mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
