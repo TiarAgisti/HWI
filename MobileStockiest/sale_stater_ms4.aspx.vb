@@ -3,17 +3,18 @@ Imports System.Data
 Imports System.Data.OleDb
 Partial Class MobileStockiest_sale_stater_ms4
     Inherits System.Web.UI.Page
-    Dim mlOBJGS As New IASClass.ucmGeneralSystem
-    Dim mlREADER As OleDb.OleDbDataReader
-    Dim mlREADER2 As OleDb.OleDbDataReader
-    Dim mlSQL, mlSQL2, mlSQL3 As String
-    Dim mpMODULEID As String = "PB"
-    Dim mlCOMPANYID As String = "ALL"
-    Dim mlDATATABLE As DataTable
+    Protected mlOBJGS As New IASClass.ucmGeneralSystem
+    Protected mlREADER As OleDb.OleDbDataReader
+    Protected mlSQL As String
+    Protected mpMODULEID As String = "PB"
+    Protected mlCOMPANYID As String = "ALL"
+    Protected mlDATATABLE As DataTable
 
-    Dim hariakhir, dcpusate, pos_area, mypos, loguser, kelasdc, indukdc, mesej, namatabel, namatabel2, dcpusat As String
-    Dim tgl As Date
-    Dim minimal As Integer
+    Dim pos_area, kelasdc, indukdc, namatabel2, dcpusat As String
+
+    Public mesej, pp, ste, mypos, dcpusate, loguser, namatabel As String
+    Public tgl, hariakhir, tutup1, tutup2 As Date
+    Public minimal As Double
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Session("tema") = "home"
