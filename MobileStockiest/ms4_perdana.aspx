@@ -292,7 +292,7 @@
                                         mlDT.Load(mlDR)
                                         For aaaeqsK = 1 To mlDT.Rows.Count - 1
                                 %>
-                                    <a href="ms4_perdana_add.asp?kode=<%=UCase(mlDT.Rows(aaaeqsK)("kode"))%>&jumlah=1">
+                                    <a href="ms4_perdana_add.aspx?kode=<%=UCase(mlDT.Rows(aaaeqsK)("kode"))%>&jumlah=1">
                                         <label>- Upgrade Paket <%=UCase(mlDT.Rows(aaaeqsK)("kode"))%> </label>
 								    </a>
                                 <%
@@ -312,7 +312,7 @@
                     </div>
                 </div>
 
-                <form name="theform1" method="post" action="ms4_perdana_ck.asp" onSubmit="return checkFields()">
+                <form name="theform1" method="post" action="ms4_perdana_ck.aspx" onSubmit="return checkFields()">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="text-center panel-title" style="text-align:left;font-family:Arial;">(#2) KERANJANG BELANJAAN</h4>
