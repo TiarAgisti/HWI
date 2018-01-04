@@ -269,7 +269,7 @@
                 <div style="padding-top: 10px">
                     <div class="alert alert-warning text-center" role="alert">
                         <span class="text-uppercase">
-                            <span style="text-decoration: underline; font-weight: bold;color:black;">ERROR MESSAGE</span>
+                            <span style="text-decoration: underline; font-weight: bold;color:black;">ERROR MESSAGE</span><br />
                             <label style="color:red;"><%=mesej%></label>
                         </span>
                     </div>

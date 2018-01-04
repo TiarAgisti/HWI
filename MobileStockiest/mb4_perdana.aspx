@@ -226,7 +226,7 @@
                 </h3>
             </div>
             <div class="panel-body">
-
+                <%if sutepe = "PRD" Then %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="text-center panel-title" style="text-align:left;font-family:Arial;">(#1) PERATURAN</h4>
@@ -272,11 +272,15 @@
 				        </h3>
                     </div>
                 </div>
+
+                <%if mesej <> "" then %>
                 <div style="padding-top: 10px">
                     <div class="alert alert-warning text-center" role="alert">
-                        <span class="text-uppercase"><span style="text-decoration: underline; font-weight: bold;color:black;">ERROR MESSAGE</span></span>
+                        <span class="text-uppercase"><span style="text-decoration: underline; font-weight: bold;color:black;">ERROR MESSAGE</span></span><br />
+                        <label style="color:red;"><%=mesej%></label>
                     </div>
                 </div>
+                <%end If%>
                 <div class="panel panel-default">
                     <div class="panel-body">
                          <p class="text-center">
@@ -284,6 +288,7 @@
                                 SESSION BELANJAAN INI <br />AKAN AKAN EXPIRED APABILA ANDA TIDAK MEMPROSES DALAM <br>WAKTU 10 MENIT
                             </span>
                         </p>
+                        <%if mypos = dcHO then %>
                         <p class="text-center">
                             <span style="color: red; font-weight: bold">
                                 PERHATIAN KHUSUS KANTOR PUSAT 
@@ -305,9 +310,10 @@
                             Zona 4: NTT <br>
                             Zona 5: Sumbar, Sumut, Aceh
                         </p>
+                        <%end if%>
                     </div>
                 </div>
-                <form name="theform" method="post" action="mb4_perdana_ck.asp" onSubmit="return formCheck(this)">
+                <form name="theform" method="post" action="mb4_perdana_ck.aspx" onSubmit="return formCheck(this)">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="text-center panel-title" style="text-align:left;font-family:Arial;">(#3) CHECK OUT</h4>
@@ -323,32 +329,12 @@
                                 TIDAK DAPAT DIBATALAKAN ATAU DIREVISI ! <br/>KAMI TIDAK MELAYANI PERMINTAAN PEMBATALAN DENGAN ALASAN APAPUN
                                 </span> 
                             </p>
-                            <div style="padding-top: 10px">
-                                <div class="alert alert-info text-center">
-                                    <p style="text-align:center;">
-									    <b style="color:white;font-size:larger;">
-										    JUMLAH TOTAL PEMBELANJAAN
-									    </b>
-								    </p>
-                                    <p style="text-align:center;">
-							            <b style="font-size:large;color:yellow">
-								            Rp 0,-
-							            </b>
-						            </p>
-                                    <p style="text-align:center;">
-							            <b>
-								            <label style="color:white;font-size:large;">TOTAL PV : </label>
-								            <label style="color:white;font-size:large;"> 0 </label>
-							            </b>
-						            </p>
-                                </div>
-                            </div>
                             <p>
                                 <span style="text-decoration: underline; font-weight: bold">
                                     PERJANJIAN DAN PERSETUJUAN SEBAGAI MOBILE STOCKIEST PT. HEALTH WEALTH INTERNATIONAL
                                 </span>
                             </p>
-                            <textarea rows="8" readonly class="form-control n-resize">
+                            <textarea rows="8" name="setujuform" readonly class="form-control n-resize">
                                 SYARAT DAN KETENTUAN MOBILE STOCKIEST  (MS 400)
                                 a. Pemilik Mobile Stockiest (MS 400) adalah Distributor HWI.
                                 b. Tidak terlibat langsung maupun tidak langsung dengan bisnis MLM lain.
@@ -371,20 +357,27 @@
 		                    </textarea>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" required>Saya Menyatakan persetujuan dan tunduk terhadap semua yang sudah diatur didalamnya (mohon diclick)
+                                    <input type="checkbox" name="setuju" value="AGREE" required>Saya Menyatakan persetujuan dan tunduk terhadap semua yang sudah diatur didalamnya (mohon diclick)
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <p><span style="text-decoration: underline; font-weight: bold">Check Out &amp; Data mobile stockiest Baru -</span></p>
+                            <p><span style="text-decoration: underline; font-weight: bold">Check Out &amp; Data mobile stockiest Baru <%=AREA_ID%> - <%=nosesifaxmc_pdn%></span></p>
                             <div style="padding: 20px 20px 20px 20px">
                                 <div class="col-md-3">
                                     <label>DC Asal</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" readonly name="dc_asal" value="<%=ucase(mypos)%>">
+                                    <%
+                                        If nokode_m = "" Then
+                                        Else
+                                    %>
+                                    &nbsp;
+                                    <label style="color:#FF0000;"><b>Distributor Baru yang bernama <%=namae%> ber Id <%=nokode_m%>.</b></label>
+                                    <%end if%>
                                 </div>
 			                </div>
 			                <div style="padding: 20px 20px 20px 20px">
@@ -392,7 +385,7 @@
                                     <label>Username </label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" name="nama_user" id="nama_user" value="<%=namamu%>">
                                 </div>
 			                </div>
 			                <div style="padding: 20px 20px 20px 20px">
@@ -400,7 +393,7 @@
                                     <label>Alamat Mobile Stockiest</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text">
+                                    <textarea rows="3" name="alamatdis" id="alamatdis" cols="63" style="font-size: 8pt; font-family: Verdana; border: 1px solid #000000; "><%=alamatdis%></textarea>
                                 </div>
 			                </div>
 			                <div style="padding: 20px 20px 20px 20px">
@@ -408,7 +401,7 @@
                                     <label>Kota Alamat</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" name="kotadis" id="kotadis" value="<%=kotadis%>">
                                 </div>
 			                </div>
 			                <div style="padding: 20px 20px 20px 20px">
@@ -416,7 +409,7 @@
                                     <label>Kode Pos</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" name="kodeposdis" id="kodeposdis" value="<%=kodeposdis%>">
                                 </div>
 			                </div>
 			                <div style="padding: 20px 20px 20px 20px">
@@ -424,12 +417,27 @@
                                     <label>Propinsi </label>
                                 </div>
                                 <div class="col-md-9">
-                                    <select class="form-control">
-                                        <optgroup label="This is a group">
-                                            <option value="12" selected="">This is item 1</option>
-                                            <option value="13">This is item 2</option>
-                                            <option value="14">This is item 3</option>
-                                        </optgroup>
+                                    <select class="form-control" name="propinsidis" id="propinsidis" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                        <%      
+                                                pp = "prp"
+                                                mlQuery = "SELECT * FROM tabdesc WHERE grp like '" & pp & "' order by deskripsi"
+                                                mlDR = mlOBJGS.DbRecordset(mlQuery, mpMODULEID, mlCOMPANYID)
+
+                                                If mlDR.HasRows Then
+                                                    mlDT = New Data.DataTable
+                                                    mlDT.Load(mlDR)
+                                                    For aaaeqsK = 1 To mlDT.Rows.Count - 1
+                                        %>
+                                        <%if prop_dc = mlDT.Rows(aaaeqsK)("deskripsi") Then %>
+									    <option value="<%= mlDT.Rows(aaaeqsK)("deskripsi")%>" selected><%= mlDT.Rows(aaaeqsK)("deskripsi")%></option>
+										<%else%>
+										<option value="<%= mlDT.Rows(aaaeqsK)("deskripsi")%>"><%= mlDT.Rows(aaaeqsK)("deskripsi")%></option>
+										<%end if%> 
+                                        <%
+                                                    Next
+                                                End If
+                                                mlDR.Close()
+										%>
                                     </select>
                                 </div>
 			                </div>
@@ -438,7 +446,7 @@
                                     <label>No. Telp / HP</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" name="telpdis" id="telpdis" value="<%=telpdis%>">
                                 </div>
 			                </div>
 			                <div style="padding: 20px 20px 20px 20px">
@@ -446,7 +454,7 @@
                                     <label>No. Fax</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" name="faxdis" id="faxdis" value="<%=faxdis%>">
                                 </div>
 			                </div>
 			                <div style="padding: 20px 20px 20px 20px">
@@ -454,20 +462,32 @@
                                     <label>Alamat Email</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" name="emaildis" id="emaildis" value="<%=emaildis%>">
                                 </div>
 			                </div>
+                            <input type="hidden" name="cara">
 			                <div style="padding: 20px 20px 20px 20px">
                                 <div class="col-md-3">
                                     <label>Zona / Area M.S</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <select class="form-control">
-                                        <optgroup label="This is a group">
-                                            <option value="12" selected="">This is item 1</option>
-                                            <option value="13">This is item 2</option>
-                                            <option value="14">This is item 3</option>
-                                        </optgroup>
+                                    <select class="form-control" name="zona" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                        <%      
+                                            pp = "zno"
+                                            mlQuery = "SELECT * FROM tabdesc WHERE grp like '" & pp & "' order by ket"
+                                            mlDR = mlOBJGS.DbRecordset(mlQuery, mpMODULEID, mlCOMPANYID)
+
+                                            If mlDR.HasRows Then
+                                                mlDT = New Data.DataTable
+                                                mlDT.Load(mlDR)
+                                                For aaaeqsK = 1 To mlDT.Rows.Count - 1
+                                        %>
+                                        <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>"><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option> 
+                                        <%
+                                                Next
+                                            End If
+                                            mlDR.Close()
+										%>
                                     </select>
                                 </div>
 			                </div>
@@ -476,7 +496,7 @@
                                     <label> </label>
                                 </div>
                                 <div class="col-md-9">
-                                    <button class="btn btn-default" type="button">Release Order & Register</button>
+                                    <input class="btn btn-default" type="submit" name="btsbs0" value="Release Order &amp; Daftarkan Mobile Stockiest">
                                     <p><br/>
                                         <span style="background-color: yellow; color: red; font-weight: bold">
                                             PASTIKAN ANDA SUDAH MENGISI DATA DENGAN BENAR ! 
@@ -489,6 +509,11 @@
                     </div>
                 </form>
 
+                <%if error1 <> "" Then %>
+                <p style="text-align:center;color:#FF0000"><%=error1%></p>
+                <%End If%>
+
+                <%else%>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <b style="font-size:larger;color:#FF0000;">
@@ -496,6 +521,7 @@
                         </b>
                     </div>
                 </div>
+                <%end if%>
             </div>
         </div>
         <div style="padding: 20px 20px 20px 20px">
