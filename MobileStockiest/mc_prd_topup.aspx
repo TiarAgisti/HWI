@@ -218,12 +218,12 @@
     <section class="content-header" style="background-color:white;">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 style="text-align: center; color: black; font-family: Arial;"><strong>PENJUALAN PRODUK TOP UP</strong></h4>
+                <h3 class="text-center panel-title" style="text-align: center; color: black; font-family: Arial;"><strong>PENJUALAN PRODUK TOP UP</strong></h3>
             </div>
             <div class="panel-body">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h5 style="text-align:left;color:black;font-family:Arial;">(#1) PERHATIAN DAN PERATURAN TOP UP</h5>
+                        <h4 class="text-center panel-title" style="text-align:left;color:black;font-family:Arial;">(#1) PERHATIAN DAN PERATURAN TOP UP</h4>
                     </div>
                      <div class="panel-body">
                          <ol>
@@ -339,7 +339,7 @@
                  </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h5 style="text-align:left;color:black;font-family:Arial;">(#2) KERANJANG BELANJAAN</h5>
+                        <h4 class="text-center panel-title" style="text-align:left;color:black;font-family:Arial;">(#2) KERANJANG BELANJAAN</h4>
                     </div>
                     <div class="panel-body">
                         <p>
@@ -451,7 +451,7 @@
                 <%if jumskr > 0 and nosesi <> "" then %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h5 style="text-align:left;color:black;font-family:Arial;">(#3) CHECK OUT</h5>
+                        <h4 class="text-center panel-title" style="text-align:left;color:black;font-family:Arial;">(#3) CHECK OUT</h4>
                     </div>
                     <div class="panel-body">
                         <p>
@@ -459,7 +459,7 @@
                             <b style="color:#FF0000;">maka transaksi tidak dapat dibatalkan</b> dengan alasan apapun, karena saat anda melakukan check out, 
                             <u style="color:#FF0000;">maka posting update PV kepada seluruh upline distributor</u> yang berbelanja dilakukan secara realtime setelah anda menekan tombol check out dibawah ini.
 		                </p>
-                         <div style="background-color: black; color: white;text-align:center;">
+                         <div class="alert alert-info text-center">
                             <strong style="font-family:Arial">
                                 JUMLAH TOTAL PEMBELANJAAN <br/>
 			                    <span style="color: yellow">Rp <%=formatnumber(gtot,0)%>,-</span><br/>

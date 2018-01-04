@@ -129,12 +129,12 @@
     <section class="content-header" style="background-color:white;">
         <div class="panel panel-default">
              <div class="panel-heading">
-                <h4 style="text-align: center; color: black; font-family: Arial;"><strong>PEMBELIAN PAKET RE-ENTRY FAST TRACK</strong></h4>
+                <h3 class="text-center panel-title" style="text-align: center; color: black; font-family: Arial;"><strong>PEMBELIAN PAKET RE-ENTRY FAST TRACK</strong></h3>
             </div>
             <div class="panel-body">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="text-center" style="text-align:center;color:black;font-family:Arial;"><strong>PERHATIAN</strong></h4>
+                        <h4 class="text-center panel-title" style="text-align:center;color:black;font-family:Arial;"><strong>PERHATIAN</strong></h4>
                     </div>
                     <div class="panel-body">
                         <ol>

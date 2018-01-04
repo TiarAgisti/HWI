@@ -171,9 +171,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="alert alert-warning">
-                            <u><b>Catatan :</b></u>
-                            <ol type="1">
+                        <div class="alert alert-warning" style="color:black;">
+                            <u><b style="color:black;">Catatan :</b></u>
+                            <ol type="1" style="color:black;">
                                 <li>Fee MS diperhitungan berdasarkan bulan kalender bukan bulan periode, dimulai dari tanggal 1 tiap bulan dan ditutup pada tanggal akhir bulan.
                                 </li>
                                 <li>Fee MS akan dibayarkan bersamaan dengan transfer bonus bulanan dengan pemotongan pajak PPH progressif.
