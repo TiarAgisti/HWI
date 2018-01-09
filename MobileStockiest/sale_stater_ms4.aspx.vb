@@ -12,7 +12,7 @@ Partial Class MobileStockiest_sale_stater_ms4
 
     Dim pos_area, kelasdc, indukdc, namatabel2, dcpusat As String
 
-    Public mesej, pp, ste, mypos, dcpusate, loguser, namatabel As String
+    Public mesej, pp, ste, mypos, dcpusate, loguser, namatabel, aloc As String
     Public tgl, hariakhir, tutup1, tutup2 As Date
     Public minimal As Double
 

@@ -619,7 +619,7 @@ Partial Class MobileStockiest_ms4_perdana_ck
                 Else
                     If ((Len(zona) <= 151) And (zona <> "")) Then
                         ggg = "zno"
-                        mlSQL = "SELECT *FROM tabdesc WHERE deskripsi LIKE '" & zona & "' and grp like '" & ggg & "'"
+                        mlSQL = "SELECT * FROM tabdesc WHERE deskripsi LIKE '" & zona & "' and grp like '" & ggg & "'"
                         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
                         mlREADER.Read()
                         If Not mlREADER.HasRows Then
