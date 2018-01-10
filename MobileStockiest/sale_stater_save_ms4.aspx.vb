@@ -889,8 +889,8 @@ Partial Class MobileStockiest_sale_stater_save_ms4
                         Else
                             l1 = "Ter1"
                             error1 = ""
-                            namadirek = rs("uid")
-                            notelpdirek = rs("telp")
+                            namadirek = mlREADER("uid")
+                            notelpdirek = mlREADER("telp")
                         End If
                         mlREADER.Close()
                     End If

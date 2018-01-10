@@ -24,6 +24,7 @@ Partial Class MobileStockiest_mb4_perdana
     Public mesej, error1, sutepe, mypos, dcHO, nokode_m, namae, AREA_ID, nosesifaxmc_pdn, namamu, alamatdis, kotadis, kodeposdis, prop_dc, telpdis, faxdis, emaildis, pp As String
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        mlOBJGS.Main()
         Response.Buffer = True
         Response.CacheControl = "no-cache"
         Response.AddHeader("Pragma", "no-cache")
@@ -69,19 +70,19 @@ Partial Class MobileStockiest_mb4_perdana
         If mypos = dcHO Then
             namatabel = "st_kartustock"
             namatabel2 = "st_barang"
-            area_id = Request("area")
+            AREA_ID = Request("area")
             zona_id = Request("zona_id")
         Else
             namatabel = "st_kartustock_ms"
             namatabel2 = "st_barang_ms"
-            area_id = pos_area
+            AREA_ID = pos_area
             zona_id = ""
         End If
 
-        If area_id = "" Then
-            area_id = 0
+        If AREA_ID = "" Then
+            AREA_ID = 0
         Else
-            area_id = CInt(area_id)
+            AREA_ID = CInt(AREA_ID)
         End If
 
         ''''''''''''''''''''''''''''''''''''''''''

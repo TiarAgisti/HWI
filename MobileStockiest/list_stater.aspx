@@ -11,7 +11,7 @@
             <div class="panel-body">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form name="list_stater.asp">
+                        <form action="list_stater.aspx">
                             <input type="hidden" name="menu_id" value="<%=Session("menu_id")%>">
 							<input type="hidden" name="pgview" value="<%=bg%>">	
 							<input type="hidden" name="page" value="<%=pg + 1%>">
@@ -59,7 +59,7 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form name="acts" method="post" action="list_stater.asp">
+                        <form name="acts" method="post" action="list_stater.aspx">
                             <input type="hidden" name="menu_id" value="<%=Session("menu_id")%>">
 							<input type="hidden" name="pgview" value="<%=bg%>">	
 							<input type="hidden" name="kasir" value="<%=kasir%>">	
@@ -98,7 +98,7 @@
                         <p style="text-align:left;">
                             <b style="color:#FF0000">Ditemukan <%=formatnumber(x,0)%> transaksi&nbsp;&nbsp;&nbsp;</b>
                         </p>
-                        <form name="view" method="post" action="list_stater.asp">
+                        <form name="view" method="post" action="list_stater.aspx">
                             <input type="hidden" name="menu_id" value="<%=session("menu_id")%>">
 							<input type="hidden" name="sort" value="<%=sort%>">	
 							<input type="hidden" name="kasir" value="<%=kasir%>">	
