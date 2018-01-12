@@ -26,7 +26,7 @@ Partial Class MobileStockiest_mc_cetak_invoice_perdana
     Dim pir, kepiro As Integer
 
     Protected perush_dc, nama_dc, no_dc, alamat_dc, alamat_dc2, telp_dc, emel_dc, web_dc, asale, nopajak, noinvo, nomc, namamc, namauser, namakasir As String
-    Protected no1, kdbr1, namabr1, no2, kdbr2, namabr2, no3, kdbr3, namabr3, no4, kdbr4, namabr4, no5, kdbr5, namabr5, no6, kdbr6, namabr6, no7, kdbr7, namabr7, no8, kdbr8, namabr8, no9, kdbr9, namabr9, no10, kdbr10, namabr10 As String
+    Protected no1, kdbr1, namabr1, no2, kdbr2, namabr2, no3, kdbr3, namabr3, no4, kdbr4, namabr4, no5, kdbr5, namabr5, no6, kdbr6, namabr6, no7, kdbr7, namabr7, no8, kdbr8, namabr8, no9, kdbr9, namabr9, no10, kdbr10, namabr10, no11 As String
     Protected tgl As Date
     Protected jumlah1, jumlah2, jumlah3, jumlah4, jumlah5, jumlah6, jumlah7, jumlah8, jumlah9, jumlah10 As Double
     Protected harga1, harga2, harga3, harga4, harga5, harga6, harga7, harga8, harga9, harga10 As Double
