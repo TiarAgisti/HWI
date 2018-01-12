@@ -12,21 +12,28 @@ Partial Class MobileStockiest_mc_cetak_invoice_perdana
     Dim mpMODULEID As String = "PB"
     Dim mlDATATABLE As DataTable
 
-    Dim pos_area, mypos, loguser, kelasdc, indukdc, indukmc, idstk2, namaperus, alamatperus, kotaperus, kodeposperus, noinvo, asale, telpperus As String
+    Dim pos_area, mypos, loguser, kelasdc, indukdc, indukmc, idstk2, namaperus, alamatperus, kotaperus, kodeposperus, telpperus As String
 
-    Dim lanjut, nopos, nomc, nopajak, nomce, namamc, namauser, no1, kdbr1, namabr1, no2, kdbr2, namabr2, nokode As String
-    Dim no3, kdbr3, namabr3, no4, kdbr4, namabr4, no5, kdbr5, namabr5, no6, kdbr6, namabr6, no7, kdbr7, namabr7, no8, kdbr8, namabr8, no9, kdbr9, namabr9 As String
-    Dim no10, kdbr10, namabr10, no11, kdbr11, namabr11, no12, kdbr12, namabr12, no13, kdbr13, namabr13, no14, kdbr14, namabr14 As String
-    Dim tgl, tglnya As Date
-    Dim subtot, stot, gtot, PV, bv, tunai, debit, cc, vouc, jumbayar, kembalian, namakasir, diskon, jumbr1, harga1, pv1, bv1, subtot1 As Double
-    Dim jumbr2, harga2, pv2, bv2, subtot2, jumbr3, harga3, pv3, bv3, subtot3, jumbr4, harga4, pv4, bv4, subtot4, jumbr5, harga5, pv5, bv5, subtot5, jumbr6, harga6, pv6, bv6, subtot6 As Double
-    Dim jumbr7, harga7, pv7, bv7, subtot7, jumbr8, harga8, pv8, bv8, subtot8, jumbr9, harga9, pv9, bv9, subtot9, jumbr10, harga10, pv10, bv10, subtot10, jumbr11, harga11, pv11, bv11, subtot11 As Double
+    Dim lanjut, nopos, nomce, nokode, nama As String
+    Dim kdbr11, namabr11, no12, kdbr12, namabr12, no13, kdbr13, namabr13, no14, kdbr14, namabr14 As String
+    Dim tglnya As Date
+    Dim subtot, PV, bv, jumbr1, bv1 As Double
+    Dim jumbr2, bv2, jumbr3, bv3, jumbr4, bv4, jumbr5, bv5, jumbr6, bv6 As Double
+    Dim jumbr7, bv7, jumbr8, bv8, jumbr9, bv9, jumbr10, bv10, jumbr11, harga11, pv11, bv11, subtot11 As Double
     Dim jumbr12, harga12, pv12, bv12, subtot12, jumbr13, harga13, pv13, bv13, subtot13, jumbr14, harga14, pv14, bv14, subtot14 As Double
-    Dim totpv, totpv1, totpv2, totpv3, totpv4, totpv5, totpv6, totpv7, totpv8, totpv9, totpv10, totpv11, totpv12, totpv13, totpv14 As Double
+    Dim totpv11, totpv12, totpv13, totpv14, jume, harga As Double
     Dim totbv, totbv1, totbv2, totbv3, totbv4, totbv5, totbv6, totbv7, totbv8, totbv9, totbv10, totbv11, totbv12, totbv13, totbv14 As Double
-    Dim jume, harga, jumlah1, jumlah2, jumlah3, jumlah4, jumlah5, jumlah6, jumlah7, jumlah8, jumlah9, jumlah10, totjum As Double
-    Dim nama As String
     Dim pir, kepiro As Integer
+
+    Protected perush_dc, nama_dc, no_dc, alamat_dc, alamat_dc2, telp_dc, emel_dc, web_dc, asale, nopajak, noinvo, nomc, namamc, namauser, namakasir As String
+    Protected no1, kdbr1, namabr1, no2, kdbr2, namabr2, no3, kdbr3, namabr3, no4, kdbr4, namabr4, no5, kdbr5, namabr5, no6, kdbr6, namabr6, no7, kdbr7, namabr7, no8, kdbr8, namabr8, no9, kdbr9, namabr9, no10, kdbr10, namabr10 As String
+    Protected tgl As Date
+    Protected jumlah1, jumlah2, jumlah3, jumlah4, jumlah5, jumlah6, jumlah7, jumlah8, jumlah9, jumlah10 As Double
+    Protected harga1, harga2, harga3, harga4, harga5, harga6, harga7, harga8, harga9, harga10 As Double
+    Protected subtot1, subtot2, subtot3, subtot4, subtot5, subtot6, subtot7, subtot8, subtot9, subtot10 As Double
+    Protected pv1, pv2, pv3, pv4, pv5, pv6, pv7, pv8, pv9, pv10 As Double
+    Protected totpv1, totpv2, totpv3, totpv4, totpv5, totpv6, totpv7, totpv8, totpv9, totpv10 As Double
+    Protected totjum, totpv, stot, tunai, debit, cc, vouc, jumbayar, kembalian, diskon, gtot As Double
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         mlOBJGS.Main()
