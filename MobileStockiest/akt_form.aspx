@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/pagesetting/MsPageMS.master" AutoEventWireup="false" CodeFile="akt_form_new.aspx.vb" Inherits="MobileStockiest_akt_form_new" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/pagesetting/MsPageMS.master" AutoEventWireup="false" CodeFile="akt_form.aspx.vb" Inherits="MobileStockiest_akt_form" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script type='text/javascript'>
@@ -66,6 +66,7 @@
     </script>
 
     <script type='text/javascript'>
+<!--
         function formCheck(form) {
             if (form.noseri.value == "")
             {
@@ -110,26 +111,27 @@
                 return false;
             }
         }
+// -->
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mpCONTENT" Runat="Server">
-     <section class="content-header" style="background-color:white;">
-         <div class="panel panel-default" style="margin: 10px 10px 10px 10px">
+    <section class="content-header" style="background-color:white;">
+        <div class="panel panel-default" style="margin: 10px 10px 10px 10px">
             <div class="panel-heading">
-                <h3 class="text-center panel-title">FORMULIR PENDAFTARAN</h3>
-            </div>
+                <h3 class="text-center panel-title"><strong>FORMULIR PENDAFTARAN</strong></h3>
+		    </div>
             <div class="panel-body">
-                <form name="theform" method="post" action="akt_verify_new.asp" onSubmit="return formCheck(this)">
+                <form name="theform" method="post" action="akt_verify.asp" onSubmit="return formCheck(this)">
                     <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI PAKET PENDAFTARAN</h3>
+                                <div class="panel-title"><strong>INFORMASI PAKET PENDAFTARAN</strong></div>
                             </div>
                             <div class="panel-body">
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nomor Distributor</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
-                                    <div class="col-md-7">
+							        <div class="col-md-1"><span>:</span></div>
+                                     <div class="col-md-7">
                                         <input type="hidden" name="noinvo" value="<%=noinvo%>">
                                         <%if noser <> "" then %>
                                         <input type="text" class="form-control" name="noseri" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=noser%>">
@@ -139,21 +141,38 @@
                                     <div class="col-md-2"><span><%=error1%></span></div>
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                    <div class="col-md-2">
-                                        <span>Tipe Paket Pendaftaran</span>
-                                    </div>
-                                    <div class="col-md-1"><span>:</span></div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-2"><span>Tipe Paket Pendaftaran</span></div>
+							        <div class="col-md-1"><span>:</span></div>
+                                     <div class="col-md-7">
                                         <%if noser <> "" Then%>
                                         <input type="text" class="form-control" name="paket" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=paket%>">
                                         <%else%>
+                                        <select class="form-control" name="paket" id="paket" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
+                                            <optgroup label="Paket Pendaftaran">
+                                                 <%
+                                                     pp = "PRG"
+                                                     minimal = 0
+                                                     mlQuery = "SELECT kode,nama FROM st_barang WHERE kode like '" & pp & "'"
+                                                     mlDR = mlOBJGS.DbRecordset(mlQuery, mpMODULEID, mlCOMPANYID)
+                                                     If mlDR.HasRows Then
+                                                         mlDT = New Data.DataTable
+                                                         mlDT.Load(mlDR)
+                                                         For aaaeqsK = 1 To mlDT.Rows.Count - 1
+                                                %>
+                                                        <option value="<%=mlDT.Rows(aaaeqsK)("kode")%>"><%=mlDT.Rows(aaaeqsK)("nama")%></option> 
+                                                <%
+                                                        Next
+                                                    End If
+                                                %>	
+                                            </optgroup>
+                                        </select>
 									    <%end if%>
                                     </div>
                                     <div class="col-md-2"><span><%=error2%></span></div>
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Jumlah Business Center</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="jumbc" id="jumbc" value="<%=jumbc%>">
                                     </div>
@@ -168,12 +187,12 @@
                     <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI DISTRIBUTOR</h3>
+                                <h3 class="panel-title"><strong>INFORMASI DISTRIBUTOR</strong></h3>
                             </div>
                             <div class="panel-body">
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nama Lengkap</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <%if noser <> "" then %>
                                         <input type="text" class="form-control" name="nama" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=nama%>">
@@ -187,7 +206,7 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>No. Identitas (KTP/SIM)</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="ktp" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="00000">
                                     </div>
@@ -195,7 +214,7 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Jenis Kelamin</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <select class="form-control" name="kelamin" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                             <optgroup label="Jenis Kelamin">
@@ -220,7 +239,7 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Tanggal Lahir</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-1">
                                         <select class="form-control" name="tgllahir" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                             <optgroup label="TANGGAL">
@@ -302,8 +321,8 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Alamat Lengkap</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
-                                    <div class="col-md-7">
+							        <div class="col-md-1"><span>:</span></div>
+                                     <div class="col-md-7">
                                         <textarea class="form-control" name="alamat"></textarea>
                                     </div>
                                     <div class="col-md-2">
@@ -312,8 +331,8 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Kota</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
-                                    <div class="col-md-7">
+							        <div class="col-md-1"><span>:</span></div>
+                                   <div class="col-md-7">
                                         <input type="text" class="form-control" name="kota" onKeyDown="if(event.keyCode==13) event.keyCode=9;" >
                                     </div>
                                     <div class="col-md-2">
@@ -321,8 +340,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                    <div class="col-md-2"><span>Propinsi</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+                                    <div class="col-md-2"><span>Propinsi </span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <select class="form-control" name="propinsi" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                             <optgroup label="Propinsi 1">
@@ -352,8 +371,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                    <div class="col-md-2"><span>Kodepos</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+                                    <div class="col-md-2"><span>Kode Pos </span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="kodepos" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                     </div>
@@ -363,8 +382,8 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Alamat Surat Menyurat</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
-                                    <div class="col-md-7">
+							        <div class="col-md-1"><span>:</span></div>
+                                     <div class="col-md-7">
                                         <textarea class="form-control" name="surat"></textarea>
                                     </div>
                                     <div class="col-md-2">
@@ -373,7 +392,7 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Kota</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="kotasurat" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                     </div>
@@ -383,7 +402,7 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Propinsi</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <select class="form-control" name="propinsisurat" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                             <optgroup label="propinsi surat">
@@ -408,13 +427,13 @@
                                             </optgroup>
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
+                                     <div class="col-md-2">
                                         <span><%=error16%></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                    <div class="col-md-2"><span>Kodepos</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+                                    <div class="col-md-2"><span>Kode Pos </span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="kodepossurat" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                     </div>
@@ -424,8 +443,8 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nomor Telepon</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
-                                    <div class="col-md-7">
+							        <div class="col-md-1"><span>:</span></div>
+                                   <div class="col-md-7">
                                         <input type="text" class="form-control" name="notelp" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                     </div>
                                     <div class="col-md-2">
@@ -433,8 +452,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                    <div class="col-md-2"><span>Nomor HP</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+                                    <div class="col-md-2"><span>No. Handphone</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="nohape" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                     </div>
@@ -444,7 +463,7 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nama Suami / Istri</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="pasangan" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                     </div>
@@ -454,8 +473,8 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nama Ahli Waris</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
-                                    <div class="col-md-7">
+							        <div class="col-md-1"><span>:</span></div>
+                                   <div class="col-md-7">
                                         <input type="text" class="form-control" name="ahliwaris" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                         <input type="hidden" name="menu_id" value="<%=session("menu_id")%>">
                                     </div>
@@ -465,7 +484,7 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Hubungan</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <select class="form-control" name="hubwaris" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                             <optgroup label="hubungan waris">
@@ -494,7 +513,7 @@
                                         <span><%=error22%></span>
                                     </div>
                                 </div>
-						        <div class="col-md-12" style="padding: 5px 0px 5px 0px">
+                                <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Alamat Email</span></div>
                                     <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
@@ -511,12 +530,12 @@
                     <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI SPONSOR</h3>
+                                <h3 class="panel-title"><strong>INFORMASI SPONSOR</strong></h3>
                             </div>
                             <div class="panel-body">
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>No. Id Distributor Sponsor</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" readonly name="direk" id="direk" onChange="javascript:cari2(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=direk%>">
                                     </div>
@@ -526,7 +545,7 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nama Distributor Sponsor</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" readonly name="namadirek" id="namadirek" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=namadirek%>">
                                     </div>
@@ -535,8 +554,8 @@
                                     </div>
                                 </div>
 						        <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                    <div class="col-md-2"><span>No Telp</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+                                    <div class="col-md-2"><span>No. Telepon</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" readonly name="telpdirek" id="notelp" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=telpdirek%>">
                                     </div>
@@ -551,20 +570,22 @@
                     <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI PENEMPATAN</h3>
+                                <h3 class="panel-title"><strong>INFORMASI PENEMPATAN</strong></h3>
                             </div>
                             <div class="panel-body">
                                 <%if direk = alok then %>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-12">
                                         <div class="radio">
-                                            <label><input type="radio" value="direk" name="tempat" checked>Penempatan Otomatis dibawah Sponsor</label>
+                                            <label>
+                                                <input type="radio">Penempatan Otomatis dibawah Sponsor
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
-						        <div class="col-md-12" style="padding: 5px 0px 5px 0px">
+                                <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Kaki</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" readonly name="kakidireke" value="<%=kaki%>">
                                         <input type="hidden" name="kakidirek" value="<%=kakiku%>">
@@ -581,7 +602,7 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>No. Id Distributor Upline</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" readonly name="upline" id="upline" onchange="javascript:cari3(this)" onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=aloc%>">
                                     </div>
@@ -589,9 +610,9 @@
                                         <span><%=error26%></span>
                                     </div>
                                 </div>
-                                <div>
+						        <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nama Distributor Upline</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="namaupline" id="namaupline" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=namaalo%>">
                                     </div>
@@ -599,9 +620,9 @@
                                         <span><%=error27%></span>
                                     </div>
                                 </div>
-						        <div>
+                                <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>No. Telepon</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="telpupline" id="telpupline" readonly onKeyDown="if(event.keyCode==13) event.keyCode=9;" value="<%=notelpalo%>">
                                     </div>
@@ -611,7 +632,7 @@
                                 </div>
 						        <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Kaki</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control"  readonly name="kakiuplinee" value="<%=kaki%>">
                                         <input type="hidden" name="kakiupline" value="<%=kakiku%>">
@@ -630,12 +651,12 @@
                     <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">INFORMASI DATA BANK DAN NPWP</h3>
+                                <h3 class="panel-title"><strong>INFORMASI DATA BANK</strong></h3>
                             </div>
                             <div class="panel-body">
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nama Lengkap Nasabah</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="namarek"  onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                     </div>
@@ -645,10 +666,10 @@
                                 </div>
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nama Bank Anda</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
-                                        <select class="form-control" name="namabank" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
-                                            <optgroup label="Nama Bank">
+                                        <select class="form-control">
+                                            <optgroup label="">
                                                 <%
                                                     pp = "bnk"
                                                     mlQuery = "SELECT * FROM tabdesc WHERE grp like '" & pp & "' order by deskripsi"
@@ -674,9 +695,9 @@
                                         <span><%=error31%></span>
                                     </div>
                                 </div>
-						        <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                    <div class="col-md-2"><span>Nomer Rekening</span></div>
-                                    <div class="col-md-1"><span>:</span></div>
+                                <div class="col-md-12" style="padding: 5px 0px 5px 0px">
+                                    <div class="col-md-2"><span>Nomor Rekening</span></div>
+							        <div class="col-md-1"><span>:</span></div>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" name="norek" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                     </div>
@@ -684,160 +705,10 @@
                                         <span><%=error32%></span>
                                     </div>
                                 </div>
-                                <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                    <div class="col-md-2"><span>Nomor Pokok Wajib Pajak</span></div>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" name="npwp" onKeyDown="if(event.keyCode==13) event.keyCode=9;" maxlength=15>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label style="color:red;">*Fax/Emailkan/kirim copy kartu NPWP ke kantor pusat</label>
-                                    </div>
-                                    <div class="col-md-3">
-								        <label style="color:red;">*isi dengan 15 angka</label>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <span><%=error33%></span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-			
-                    <div>
-                        <div class="panel panel-default">
-                            <% 
-                                mlQuery = "SELECT * FROM st_tipe_paket_new where kode like '" & paket & "' and (tipe like 'MS' or tipe like 'newms')"
-                                mlDR = mlOBJGS.DbRecordset(mlQuery, mpMODULEID, mlCOMPANYID)
-                                mlDR.Read()
-                                If mlDR.HasRows Then
-                            %>
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">INFORMASI DATA MOBILE STOCKIEST</h3>
-                                </div>
-                                
-                                <div class="panel-body">
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>DC Asal</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" readonly name="dc_asal" value="<%=ucase(mypos)%>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>User name</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="nama_user" id="nama_user" value="<%=namamu%>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>Alamat mobile Stockiest</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9">
-                                            <textarea class="form-control" name="alamatdis" id="alamatdis"><%=alamatdis%></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>Kota Alamat</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="kotadis" id="kotadis" value="<%=kotadis%>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>Kode Pos</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="kodeposdis" id="kodeposdis" value="<%=kodeposdis%>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>Propinsi</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9 form-control">
-                                            <select class="form-control" name="propinsidis" id="propinsidis" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
-                                                <optgroup label="Propinsi 2">
-                                                <%
-                                                    pp = "prp"
-                                                    mlQuery2 = "SELECT * FROM tabdesc WHERE grp like '" & pp & "' order by deskripsi"
-                                                    mlDR2 = mlOBJGS.DbRecordset(mlQuery2, mpMODULEID, mlCOMPANYID)
-                                                    If mlDR2.HasRows Then
-                                                        mlDT = New Data.DataTable
-                                                        mlDT.Load(mlDR2)
-                                                        For aaaeqsK = 1 To mlDT.Rows.Count - 1
-                                                 %>
-                                                            <%if prop_dc = mlDT.Rows(aaaeqsK)("deskripsi") Then %>
-                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>" selected><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
-                                                            <%Else%>
-                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>"><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
-                                                            <%End If%> 
-                                                <%
-                                                        Next
-                                                    End If
-                                                    mlDR2.Close()
-                                                %>		
-                                                </optgroup>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>No. Telepon / HP</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="telpdis" id="telpdis" value="<%=telpdis%>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>No Fax</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="faxdis" id="faxdis" value="<%=faxdis%>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>Alamat Email</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="emaildis" id="emaildis" value="<%=emaildis%>">
-                                            <input type="hidden" name="cara">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="padding: 5px 0px 5px 0px">
-                                        <div class="col-md-2"><span>Zona / Area M.S</span></div>
-                                        <div class="col-md-1"><span>:</span></div>
-                                        <div class="col-md-9">
-                                            <select class="form-control" name="zona" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
-                                                <optgroup label="This is a group">
-                                                <%
-                                                    pp = "zno"
-                                                    mlQuery2 = "SELECT * FROM tabdesc WHERE grp like '" & pp & "' order by deskripsi"
-                                                    mlDR2 = mlOBJGS.DbRecordset(mlQuery2, mpMODULEID, mlCOMPANYID)
-                                                    If mlDR2.HasRows Then
-                                                        mlDT = New Data.DataTable
-                                                        mlDT.Load(mlDR2)
-                                                        For aaaeqsK = 1 To mlDT.Rows.Count - 1
-                                                 %>
-                                                            <%if prop_dc = mlDT.Rows(aaaeqsK)("deskripsi") Then %>
-                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>" selected><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
-                                                            <%Else%>
-                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>"><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
-                                                            <%End If%> 
-                                                <%
-                                                        Next
-                                                    End If
-                                                    mlDR2.Close()
-                                                %>		
-                                                </optgroup>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            <%
-                                End If
-                                mlDR.Close()
-							%>
-                        </div>
-                    </div>
+
                     <div>
                         <input class="btn btn-default" type="submit" name="btsb" value="Konfirmasi Data">
                     </div>
@@ -849,6 +720,6 @@
                 <label></label>
             </div>
         </div>  
-     </section>
+    </section>
 </asp:Content>
 

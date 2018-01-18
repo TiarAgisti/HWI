@@ -1,7 +1,7 @@
 ﻿Imports System
 Imports System.Data
 Imports System.Data.OleDb
-Partial Class MobileStockiest_akt_form_new
+Partial Class MobileStockiest_akt_form
     Inherits System.Web.UI.Page
     Dim mlOBJGF As New IASClass.ucmGeneralFunction
     Dim mlREADER As OleDb.OleDbDataReader
@@ -19,7 +19,7 @@ Partial Class MobileStockiest_akt_form_new
     Protected noinvo, noser, error1, paket, error2, error3, nama, error6, error7, pp, error8, error9, error10, error11, prop_dc, error12, error13, error14, direk, namadirek As String
     Protected error15, error16, error17, error18, error19, error20, error21, error22, error23, error24, error25, error26, error27, error28, error29, error30, error31, error32, error33 As String
     Protected jumbc As Double
-    Protected blnskr, kl, thnskr As Integer
+    Protected blnskr, kl, thnskr, minimal As Integer
     Protected telpdirek, kakiku, kaki, alok, aloc, namaalo, notelpalo, mypos, namamu, alamatdis, kotadis, kodeposdis, telpdis, faxdis, emaildis As String
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -114,7 +114,8 @@ Partial Class MobileStockiest_akt_form_new
             notelpalo = mlREADER("telp")
             error25 = ""
             l25 = "Ter25"
-            uprane = mlREADER("upme")
+            'uprane = rs("upme")
+            uprane = "F"
             ada = "T"
         End If
         mlREADER.Close()
