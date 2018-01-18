@@ -3,7 +3,6 @@ Imports System.Data
 Imports System.Data.OleDb
 Partial Class MobileStockiest_sale_cetak_list_rekapharian
     Inherits System.Web.UI.Page
-    Dim mlOBJGF As New IASClass.ucmGeneralFunction
     Dim mlREADER As OleDb.OleDbDataReader
     Dim mlSQL As String
 
@@ -101,7 +100,7 @@ Partial Class MobileStockiest_sale_cetak_list_rekapharian
             totprod1 = mlREADER("vproduk")
             tottot1 = mlREADER("vtotal")
         End If
-        rs.Close
+        mlREADER.Close()
 
         If IsDBNull(totstart) = True Then
             totstart1 = 0
