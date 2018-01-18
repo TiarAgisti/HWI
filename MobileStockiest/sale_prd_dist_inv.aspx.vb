@@ -39,47 +39,47 @@ Partial Class MobileStockiest_sale_prd_dist_inv
     Protected totpv1, totpv2, totpv3, totpv4, totpv5, totpv6, totpv7, harga1, harga2, harga3, harga4, harga5, harga6, harga7, subtot1, subtot2, subtot3, subtot4, subtot5, subtot6, subtot7 As Double
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'mlOBJGS.Main()
+        mlOBJGS.Main()
 
-        'Response.Buffer = True
-        'Response.CacheControl = "no-cache"
-        'Response.AddHeader("Pragma", "no-cache")
-        'Response.Expires = -1
-        'Response.ExpiresAbsolute = Now.AddDays(-1)
+        Response.Buffer = True
+        Response.CacheControl = "no-cache"
+        Response.AddHeader("Pragma", "no-cache")
+        Response.Expires = -1
+        Response.ExpiresAbsolute = Now.AddDays(-1)
 
-        'Session("tema") = "home"
-        'Session("menu_id") = Request("menu_id")
+        Session("tema") = "home"
+        Session("menu_id") = Request("menu_id")
 
-        'pos_area = Session("pos_area")
-        'mypos = Session("motok")
-        'loguser = Session("kowe")
-        'tipe = Request("tipe")
-        'kelasdc = Session.Contents("kelasdc")
-        'indukdc = Session.Contents("indukdc")
-        'indukmc = Session.Contents("indukmc")
-        'If Session("motok") = "" Or Session("kowe") = "" Then
-        '    Session("out") = "Session login anda sudah expired, silahkan login kembali"
-        '    Response.Redirect("login.aspx")
-        'Else
-        '    Session("motok") = mypos
-        '    Session("kowe") = loguser
-        '    Session.Contents("kelasdc") = kelasdc
-        '    Session.Contents("indukdc") = indukdc
-        '    Session.Contents("indukmc") = indukmc
-        'End If
+        pos_area = Session("pos_area")
+        mypos = Session("motok")
+        loguser = Session("kowe")
+        tipe = Request("tipe")
+        kelasdc = Session.Contents("kelasdc")
+        indukdc = Session.Contents("indukdc")
+        indukmc = Session.Contents("indukmc")
+        If Session("motok") = "" Or Session("kowe") = "" Then
+            Session("out") = "Session login anda sudah expired, silahkan login kembali"
+            Response.Redirect("login.aspx")
+        Else
+            Session("motok") = mypos
+            Session("kowe") = loguser
+            Session.Contents("kelasdc") = kelasdc
+            Session.Contents("indukdc") = indukdc
+            Session.Contents("indukmc") = indukmc
+        End If
 
 
-        'Session("nosesi") = ""
-        'noinvo = Session("noinvoice")
-        'mupis = Session("mypus")
-        'novi = Session("noinvoice")
-        'Session("noinvoice") = noinvo
-        'autoupe = Session("autoupe")
-        'Session("autoupe") = ""
+        Session("nosesi") = ""
+        noinvo = Session("noinvoice")
+        mupis = Session("mypus")
+        novi = Session("noinvoice")
+        Session("noinvoice") = noinvo
+        autoupe = Session("autoupe")
+        Session("autoupe") = ""
 
-        'PrepareData()
-        'KeteranganExtraPV()
-        'NomorUndian()
+        PrepareData()
+        KeteranganExtraPV()
+        NomorUndian()
     End Sub
 
     Sub PrepareData()
