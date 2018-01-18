@@ -14,7 +14,7 @@ Partial Class MobileStockiest_sale_prd_dist_inv
     Dim pos_area, mypos, loguser, tipe, kelasdc, indukdc, indukmc, mupis, novi, autoupe, namadist, nodist, nokode, nama As String
 
     Dim lanjut, nopos, nokon1, namadist1, nodist1, kta, noslip, judul, kdd1, kdd2, undi, ss As String
-    Dim subtot, PV, bv, totbruto, subtote, kepiro As Double
+    Dim subtot, PV, bv, totbruto, kepiro As Double
     Dim jumbr1, jumbr2, jumbr3, jumbr4, jumbr5, jumbr6, jumbr7 As Double
     Dim bv1, bv2, bv3, bv4, bv5, bv6, bv7 As Double
     Dim totbv1, totbv2, totbv3, totbv4, totbv5, totbv6, totbv7 As Double
@@ -31,7 +31,7 @@ Partial Class MobileStockiest_sale_prd_dist_inv
     Protected tgundi61, tgundi62, tgundi63, tgundi64, tgundi65, tgundi66, tgundi67, tgundi68, tgundi69, tgundi70, tgundi71, tgundi72, tgundi73, tgundi74, tgundi75, tgundi76, tgundi77, tgundi78, tgundi79, tgundi80, tgundi81 As Long
 
     Protected perush_dc, nama_dc, no_dc, alamat_dc, alamat_dc2, telp_dc, emel_dc, web_dc, nopajak, noinvo, nokon, namakon, noalok, namalok, tpe, namakasir, ketxtra, autoupgrade, adanomor, adanomortg As String
-    Protected alokbulan, aloktahun, totjum, totpv, pvmbah, gtot, jumdisk, tunai, debit, cc, vouc, jumbayar, kembalian As Double
+    Protected alokbulan, aloktahun, totjum, totpv, pvmbah, gtot, jumdisk, tunai, debit, cc, vouc, jumbayar, kembalian, subtote As Double
     Protected tglnya, tgl As Date
     Protected no1, no2, no3, no4, no5, no6, no7 As String
     Protected kdbr1, kdbr2, kdbr3, kdbr4, kdbr5, kdbr6, kdbr7, namabr1, namabr2, namabr3, namabr4, namabr5, namabr6, namabr7 As String

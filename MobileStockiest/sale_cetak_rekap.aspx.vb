@@ -6,7 +6,7 @@ Partial Class MobileStockiest_sale_cetak_rekap
     Dim mlOBJGF As New IASClass.ucmGeneralFunction
     Dim mlOBJGS As New IASClass.ucmGeneralSystem
     Dim mlREADER As OleDb.OleDbDataReader
-    Dim mlSQL, mlSQL2 As String
+    Dim mlSQL As String
     Dim mlCOMPANYID As String = "ALL"
     Dim mpMODULEID As String = "PB"
     Dim mlDATATABLE As DataTable
