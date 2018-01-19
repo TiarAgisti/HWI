@@ -313,6 +313,16 @@
                 </div>
             </div>
         </div>
+        <div style="padding: 20px 20px 20px 20px">
+            <div class="col-md-6">
+                <label></label>
+            </div>
+        </div>
+        <div style="padding: 20px 20px 20px 20px">
+            <div class="col-md-6">
+                <label></label>
+            </div>
+        </div>
     </section>
 </asp:Content>
 
