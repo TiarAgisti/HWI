@@ -9,21 +9,54 @@
                 <h3 class="panel-title text-center">KARTU STOCK</h3>
             </div>
             <div class="panel-body">
-                <div class="col-md-2">
-                    <label>Silahkan Pilih Produk :</label>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <form name="acts" method="post">
+                                    <table>
+		                                <tr>
+			                                <td><label>Silahkan Pilih Produk</label></td>
+			                                <td><label>&nbsp;:&nbsp;</label></td>
+			                                <td>
+				                                <select class="form-control" name="sort" style="width:250px;">
+											        <option value="Bulan" selected>Bulan</option>																																												
+											        <option value="tanggal">Tanggal</option>
+				                                </select>
+			                                </td>
+			                                <td>&nbsp;</td>
+			                                <td><input type="submit" name="btsb2" value="Tampilkan" class="btn"></td>
+		                                </tr>	
+	                                </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <select class="form-control">
-                        <optgroup label="This is a group">
-                            <option value="12" selected="">This is item 1</option>
-                            <option value="13">This is item 2</option>
-                            <option value="14">This is item 3</option>
-                        </optgroup>
-                    </select>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p style="text-align:left;">
+                            <b style="color:#FF0000">Ditemukan transaksi pada kartu stock&nbsp;&nbsp;&nbsp;</b>
+                        </p>
+                        <form name="view" method="post">
+                             <table>
+		                        <tr>
+			                        <td><label>Tampilkan Halaman</label></td>
+			                        <td><label>&nbsp;:&nbsp;</label></td>
+			                        <td>
+				                        <select class="form-control" name="page" style="width:250px;">
+					                        <option value="Bulan" selected>Bulan</option>
+				                        </select>
+			                        </td>
+			                        <td>&nbsp;</td>
+			                        <td><input type="submit" name="btsb1" value="Tampilkan" class="btn"></td>
+		                        </tr>	
+	                        </table>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-md-7">
-                    <button class="btn btn-default" type="button">Tampilkan</button>
-                </div>
+                
+                
                 <div class="col-md-12">
                     <table style="width:100%;" border="0">
 				        <tr>
@@ -35,24 +68,7 @@
 		        <div class="col-md-6">
 			        <label>Aksi : Simpan ke Excel</label>
 		        </div>
-		        <div class="col-md-6 text-right">
-			        <label>Ditemukan transaksi pada kartu stock</label>
-		        </div>
-		        <div class="col-md-2">
-			        <label>Tampilkan Halaman :</label>
-		        </div>
-		        <div class="col-md-4">
-			        <select class="form-control">
-				        <optgroup label="This is a group">
-					        <option value="12" selected="">This is item 1</option>
-					        <option value="13">This is item 2</option>
-					        <option value="14">This is item 3</option>
-				        </optgroup>
-			        </select>
-		        </div>
-		        <div class="col-md-6">
-			        <button class="btn btn-default" type="button">Tampikan</button>
-		        </div>
+		       
                 <div style="padding-top: 20px" class="col-md-12">
                     <div class="table-responsive">
                         <table class="table table-bordered table-condensed" style="width:100%;" border="1">
@@ -83,6 +99,16 @@
 				        </table>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div style="padding: 20px 20px 20px 20px">
+            <div class="col-md-6">
+                <label></label>
+            </div>
+        </div>
+        <div style="padding: 20px 20px 20px 20px">
+            <div class="col-md-6">
+                <label></label>
             </div>
         </div>
     </section>
