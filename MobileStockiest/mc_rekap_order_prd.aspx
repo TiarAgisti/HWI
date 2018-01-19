@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="mpCONTENT" runat="Server">
     <section class="content-header" style="background-color: white;">
         <div class="panel panel-default" style="margin: 5px">
-             <div class="panel-heading">
+            <div class="panel-heading">
                 <h3 class="text-center panel-title"><strong>DAFTAR INVOICE PENJUALAN PRODUK KE MOBILE CENTER</strong></h3>
             </div>
             <div class="panel-body">
