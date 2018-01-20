@@ -3,8 +3,8 @@ Imports System.Data
 Imports System.Data.OleDb
 Partial Class MobileStockiest_list_stater
     Inherits System.Web.UI.Page
-    Public mlOBJGS As New IASClass.ucmGeneralSystem
-    Public mlOBJGF As New IASClass.ucmGeneralFunction
+    Protected mlOBJGS As New IASClass.ucmGeneralSystem
+    Protected mlOBJGF As New IASClass.ucmGeneralFunction
 
     Dim mlREADER As OleDb.OleDbDataReader
     Dim mlSQL As String
@@ -13,19 +13,19 @@ Partial Class MobileStockiest_list_stater
     Dim mlDATATABLE As DataTable
     Dim mlFUNCT As FunctionHWI
 
-    Public mlCOMPANYID As String = "ALL"
-    Public mpMODULEID As String = "PB"
-    Public mlDT As DataTable
+    Protected mlCOMPANYID As String = "ALL"
+    Protected mpMODULEID As String = "PB"
+    Protected mlDT As DataTable
 
     Dim pos_area, loguser, kelasdc, indukdc, indukmc, g1b, g2b As String
     Dim g1, g2, g3, g1a, g2a, g3a As Integer
     Dim lumpat, pgview, pgas, tothal, totrec, z, halskr, tujuan, sisa, pgcunt As Integer
-    Public gtottunai, gtotkartu, gtotdebit, gtotall, gtotbalik, gtotbg As Double
+    Protected gtottunai, gtotkartu, gtotdebit, gtotall, gtotbalik, gtotbg As Double
 
-    Public pg, bg, x, aax, kl, pgct, kemana, StartKemana As Integer
-    Public kasir, tgl1, tgl2, pos, mlQuery, mypos, sort, pak, tg1, tg2, tpe, bgcol As String
-    Public mlDR As OleDb.OleDbDataReader
-    Public totnom, tottunai, totdebit, totcc, totbg As Double
+    Protected pg, bg, x, aax, kl, pgct, kemana, StartKemana As Integer
+    Protected kasir, tgl1, tgl2, pos, mlQuery, mypos, sort, pak, tg1, tg2, tpe, bgcol As String
+    Protected mlDR As OleDb.OleDbDataReader
+    Protected totnom, tottunai, totdebit, totcc, totbg As Double
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         mlOBJGS.Main()
