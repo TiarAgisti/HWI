@@ -53,6 +53,8 @@ Partial Class MobileStockiest_kartustock
 
         namatabel = "st_kartustock_ms"
         namatabel2 = "st_barang_ms"
+
+        PrepareData()
     End Sub
 
     Function roundup(x As Integer) As Integer
