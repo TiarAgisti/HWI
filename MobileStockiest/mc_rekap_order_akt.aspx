@@ -11,21 +11,46 @@
             <div class="panel-body">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form>
+                        <form name="mc_involist_akt.aspx">
+                            <input type="hidden" name="menu_id" value="<%=session("menu_id")%>">
+							<input type="hidden" name="pgview" value="<%=bg%>">	
+							<input type="hidden" name="page" value="<%=pg+1%>">
                             <table>
 		                        <tr>
 			                        <td><label>Tanggal</label></td>
 			                        <td><label>&nbsp;:&nbsp;</label></td>
-			                        <td><input type="text" name="nama" class="form-control" style="width:250px;"></td>
+			                        <td><input type="text" name="tgl1" class="form-control" style="width:250px;" value="<%=Now.Date%>"></td>
 			                        <td><label>&nbsp;s/d&nbsp;</label></td>
-			                        <td><input type="text" name="nama" class="form-control" style="width:250px;"></td>
+			                        <td><input type="text" name="tgl2" class="form-control" style="width:250px;" value="<%=Now.Date%>"></td>
 		                        </tr>
 		                        <tr>
 			                        <td><label>Kasir</label></td>
 			                        <td><label>&nbsp;:&nbsp;</label></td>
 			                        <td>
 				                        <select class="form-control" name="kasir" style="width:250px;">
-					                        <option value="semua">--ALL--</option>
+					                        <optgroup label="Group Kasir">
+                                                <option value="semua">--ALL--</option>
+                                                <%
+                                                    pos = "pos"
+                                                    pos2 = "pst"
+                                                    mlQuery = "SELECT kta FROM tabdesc_stockist_user where nopos like '" & mypos & "' and ((kat like '" & pos & "') or (kat like '" & pos2 & "')) order by kta"
+                                                    mlDR = mlOBJGS.DbRecordset(mlQuery, mpMODULEID, mlCOMPANYID)
+                                                    If mlDR.HasRows Then
+                                                        mlDT = New Data.DataTable
+                                                        mlDT.Load(mlDR)
+                                                        For aaaeqsK = 1 To mlDT.Rows.Count - 1
+                                               %>
+                                                        <%if ucase(kasir) = UCase(mlDT.Rows(aaaeqsK)("kta")) Then %>
+                                                        <option value="<%=mlDT.Rows(aaaeqsK)("kta")%>" selected><%=UCase(mlDT.Rows(aaaeqsK)("kta"))%></option>
+                                                        <%Else%>
+                                                        <option value="<%=mlDT.Rows(aaaeqsK)("kta")%>"><%=UCase(mlDT.Rows(aaaeqsK)("kta"))%></option>
+                                                        <%End If%>
+                                                <%
+                                                        Next
+                                                    End If
+                                                    mlDR.Close()
+                                                %>
+                                            </optgroup>	
 				                        </select>
 			                        </td>
 		                        </tr>
@@ -34,16 +59,32 @@
                                     <td><label>&nbsp;:&nbsp;</label></td>
                                     <td style="width:170px;">
                                         <select class="form-control">
-                                            <optgroup label="This is a group">
-                                                <option value="12" selected="">This is item 1</option>
-                                                <option value="13">This is item 2</option>
-                                                <option value="14">This is item 3</option>
+                                             <optgroup label="Group Id MC">
+                                                <option value="semua">--ALL--</option>
+                                                <%
+                                                    mlQuery = "SELECT nopos FROM tabdesc_stockist where indukmc like '" & mypos & "' order by nopos"
+                                                    mlDR = mlOBJGS.DbRecordset(mlQuery, mpMODULEID, mlCOMPANYID)
+                                                    If mlDR.HasRows Then
+                                                        mlDT = New Data.DataTable
+                                                        mlDT.Load(mlDR)
+                                                        For aaaeqsK = 1 To mlDT.Rows.Count - 1
+                                                %>
+                                                        <%if ucase(nomc) = ucase(mlDT.Rows(aaaeqsK)("nopos")) Then %>
+                                                        <option value="<%=mlDT.Rows(aaaeqsK)("nopos")%>" selected><%=UCase(mlDT.Rows(aaaeqsK)("nopos"))%></option>
+                                                        <%Else%>
+                                                        <option value="<%=mlDT.Rows(aaaeqsK)("nopos")%>"><%=UCase(mlDT.Rows(aaaeqsK)("nopos"))%></option>
+                                                        <%End If%> 
+                                                <%
+                                                        Next
+                                                    End If
+                                                    mlDR.Close()
+                                                %>	
                                             </optgroup>
                                         </select>
                                     </td>
                                     <td>&nbsp;</td>
                                     <td style="width:190px;">
-                                        <button class="btn btn-default" type="button">Tampilkan</button>
+                                        <input type="submit" name="btsb4" value="Tampilkan"  class="btn btn-default"><%=kondisi%>
                                     </td>
                                     <td>&nbsp;</td>     													
                                 </tr>	
@@ -53,19 +94,36 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form name="acts" method="post">
+                        <form name="acts" method="post" action="mc_involist_akt.aspx">
+                            <input type="hidden" name="menu_id" value="<%=session("menu_id")%>">
+							<input type="hidden" name="pgview" value="<%=bg%>">	
+							<input type="hidden" name="kasir" value="<%=kasir%>">
+							<input type="hidden" name="nomc" value="<%=nomc%>">	
+							<input type="hidden" name="page" value="<%=pg+1%>">		
+							<input type="hidden" name="tgl1" value="<%=tgl1%>">
+							<input type="hidden" name="tgl2" value="<%=tgl2%>">
                             <table>
 		                        <tr>
 			                        <td><label style="width:120px;">Urut Berdasarkan</label></td>
 			                        <td><label>&nbsp;:&nbsp;</label></td>
 			                        <td>
 				                        <select class="form-control" name="sort" style="width:250px;">
+											<%if sort = "bulan" then %>	
 											<option value="Bulan" selected>Bulan</option>																																												
 											<option value="tanggal">Tanggal</option>
+											<%else%>
+											    <%if sort = "tanggal" then %>
+												<option value="Bulan">Bulan</option>																																												
+												<option value="tanggal" selected>Tanggal</option>		
+												<%else%>
+												<option value="Bulan">Bulan</option>																																												
+												<option value="tanggal" selected>Tanggal</option>																													
+												<%end if%>
+											<%end if%>
 				                        </select>
 			                        </td>
 			                        <td>&nbsp;</td>
-			                        <td><input type="submit" name="btsb2" value="OK" class="btn"></td>
+			                        <td><input type="submit" name="btsb2" value="Ok" class="btn"></td>
 		                        </tr>	
 	                        </table>
                         </form>
@@ -74,16 +132,43 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <p style="text-align:left;">
-                            <b style="color:#FF0000">Ditemukan 0 transaksi&nbsp;&nbsp;&nbsp;</b>
+                            <b style="color:#FF0000">Ditemukan <%=FormatNumber(x, 0)%> transaksi&nbsp;&nbsp;&nbsp;</b>
                         </p>
-                        <form name="view" method="post">
+                        <form name="view" method="post" action="mc_involist_akt.aspx">
+                            <input type="hidden" name="menu_id" value="<%=session("menu_id")%>">
+							<input type="hidden" name="sort" value="<%=sort%>">	
+							<input type="hidden" name="kasir" value="<%=kasir%>">	
+							<input type="hidden" name="pgview" value="<%=bg%>">	
+							<input type="hidden" name="nomc" value="<%=nomc%>">	
+							<input type="hidden" name="tgl1" value="<%=tgl1%>">
+							<input type="hidden" name="tgl2" value="<%=tgl2%>">
                              <table>
 		                        <tr>
 			                        <td><label>Tampilkan Halaman</label></td>
 			                        <td><label>&nbsp;:&nbsp;</label></td>
 			                        <td>
 				                        <select class="form-control" name="page" style="width:250px;">
-					                        <option value="Bulan" selected>Bulan</option>
+					                         <optgroup label="Group Halaman">
+                                                <option value="0" selected>0</option>
+					                            <%
+                                                    aax = 1
+                                                    kl = 0
+                                                    For aax = 1 To pgct * 2
+                                                        kl = kl + 1
+                                                %>
+                                                        <%if kl = pg + 1 Then %>												
+											                <option value="<%=kl%>" selected><%=kl%></option>
+												        <%  Else%>
+													        <option value="<%=kl%>"><%=kl%></option>
+												        <%  End If%>
+                                                <%
+                                                        If aax > pgct * 2 Then
+                                                            Exit For
+                                                        End If
+                                                        aax = aax + 1
+                                                    Next
+                                                %>	
+                                            </optgroup>
 				                        </select>
 			                        </td>
 			                        <td>&nbsp;</td>
@@ -103,8 +188,10 @@
                 <div class="col-lg-offset-0 col-md-2">
                     <img src="../pos/images/print_version.gif">
                     <label>
+                        &nbsp;&nbsp;
                         <a href="#">
-                            <span>
+                            <span onClick="javascript:window.open('mc_cetak_list_akt.aspx?sort=<%=sort%>&menu_id=<%=session("menu_id")%>&kasir=<%=kasir%>&tgl1=<%=tgl1%>&tgl2=<%=tgl2%>&page=<%=pg+1%>&pgview=<%=bg%>&nomc=<%=nomc%>'
+                                , 'HelpWindow','scrollbars=yes, resizable=yes, height=600, width=980')" style="text-decoration: none">
                                 Print Report
                             </span>
                         </a>
@@ -157,29 +244,163 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table table-bordered">
-                                    <tr>
-                                        <td colspan="11" class="table-bordered">&nbsp;</td>
-                                    </tr>
-                                    <tr class="table-bordered">
-                                        <td style="text-align:right;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:right;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:right;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:right;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:right;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:center;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:right;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:right;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:right;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:right;" class="table-bordered">&nbsp;</td>
-                                        <td style="text-align:right;" class="table-bordered">K</td>
-                                    </tr>
+                                    <%
+                                        totnom = 0
+                                        tottunai = 0
+                                        totdebit = 0
+                                        totcc = 0
+                                        totbg = 0
+                                        If tgl1 <> "" And tgl2 <> "" And kasir = "semua" And nomc = "semua" Then
+                                            If sort = "Bulan" Then
+                                                mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'  and ((convert(varchar(10),tgl,121) >= '" & tg1 & "')" & vbCrLf
+                                                mlQuery += "And (convert(varchar(10),tgl,121) <= '" & tg2 & "')) and (status = '" & oke & "' or status = '" & oke2 & "') order by month(tgl) DESC, year(tgl) DESC"
+                                            Else
+                                                If sort = "tanggal" Then
+                                                    mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                    mlQuery += "And ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                    mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                Else
+                                                    mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                    mlQuery += "And ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                    mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                End If
+                                            End If
+                                        Else
+                                            If tgl1 <> "" And tgl2 <> "" And kasir <> "semua" And nomc = "semua" Then
+                                                If sort = "Bulan" Then
+                                                    mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                    mlQuery += "And kta Like '" & kasir & "' and ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                    mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by month(tgl) DESC, year(tgl) DESC"
+                                                Else
+                                                    If sort = "tanggal" Then
+                                                        mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                        mlQuery += "And kta Like '" & kasir & "' and ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                        mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                    Else
+                                                        mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                        mlQuery += "And kta Like '" & kasir & "' and ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                        mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                    End If
+                                                End If
+                                            Else
+                                                If tgl1 <> "" And tgl2 <> "" And kasir = "semua" And nomc <> "semua" Then
+                                                    If sort = "Bulan" Then
+                                                        mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                        mlQuery += "And ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                        mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by month(tgl) DESC, year(tgl) DESC"
+                                                    Else
+                                                        If sort = "tanggal" Then
+                                                            mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                            mlQuery += "And ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                            mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                        Else
+                                                            mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                            mlQuery += "And ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                            mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                        End If
+                                                    End If
+                                                Else
+                                                    If tgl1 <> "" And tgl2 <> "" And kasir <> "semua" And nomc <> "semua" Then
+                                                        If sort = "Bulan" Then
+                                                            mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                            mlQuery += "And kta Like '" & kasir & "' and ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                            mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by month(tgl) DESC, year(tgl) DESC"
+                                                        Else
+                                                            If sort = "tanggal" Then
+                                                                mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                                mlQuery += "And kta Like '" & kasir & "' and ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                                mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                            Else
+                                                                mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                                mlQuery += "And kta Like '" & kasir & "' and ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "'))" & vbCrLf
+                                                                mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                            End If
+                                                        End If
+                                                    Else
+                                                        If sort = "Bulan" Then
+                                                            mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                            mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by month(tgl) DESC, year(tgl) DESC"
+                                                        Else
+                                                            If sort = "tanggal" Then
+                                                                mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                                mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                            Else
+                                                                mlQuery = "SELECT TOP " & lim & " * FROM fax_order_mc_head where (kat like '" & kti & "' or kat like '" & ktm & "') and nomc like '" & mypos & "'" & vbCrLf
+                                                                mlQuery += "And (status = '" & oke & "' or status = '" & oke2 & "') order by tgl DESC"
+                                                            End If
+                                                        End If
+                                                    End If
+                                                End If
+                                            End If
+                                        End If
+
+                                        mlDR = mlOBJGS.DbRecordset(mlQuery, mpMODULEID, mlCOMPANYID)
+                                        If Not mlDR.HasRows Then
+                                        %>
+                                        <tr>
+                                            <td colspan="11" class="table-bordered">Tidak ada transaksi penjualan paket pendaftaran ke mobile center</td>
+                                        </tr>
+                                        <%
+                                            End If
+
+                                            If mlDR.HasRows Then
+                                                mlDT = New Data.DataTable
+                                                mlDT.Load(mlDR)
+                                                For aaaeqSSS = 1 To lumpat
+                                                    totnom = totnom + mlDT.Rows(aaaeqSSS)("gtot")
+                                                    tottunai = tottunai + (mlDT.Rows(aaaeqSSS)("tunai") - mlDT.Rows(aaaeqSSS)("kembalian"))
+                                                    totdebit = totdebit + mlDT.Rows(aaaeqSSS)("debit")
+                                                    totcc = totcc + mlDT.Rows(aaaeqSSS)("cc")
+                                                    totbg = totbg + mlDT.Rows(aaaeqSSS)("cek")
+
+                                                    noinv = mlDT.Rows(aaaeqSSS)("noinvo")
+                                                    nomc = mlDT.Rows(aaaeqSSS)("nomc")
+                                                    mlQuery2 = "SELECT paket FROM fax_order_mc_paket_head where noinvo like '" & noinv & "' and nomc like '" & nomc & "'"
+                                                    mlDR2 = mlOBJGS.DbRecordset(mlQuery2, mpMODULEID, mlCOMPANYID)
+                                                    mlDR2.Read()
+                                                    If Not mlDR2.HasRows Then
+                                                        paket = "UNKNOWN"
+                                                    Else
+                                                        paket = mlDR2("paket")
+                                                    End If
+                                        %>
+                                        <tr class="table-bordered">
+                                            <td style="text-align:center;" class="table-bordered"><%=mlDT.Rows(aaaeqSSS)("tgl")%></td>
+                                            <td style="text-align:center;" class="table-bordered">
+                                                <a href="#">
+                                                    <span onClick="javascript:window.open('mc_cetak_invoice_akt.asp?noinvoice=<%=mlDT.Rows(aaaeqSSS)("noinvo")%>&menu_id=<%=session("menu_id")%>&asal=<%=sels%>'
+                                                    , 'HelpWindow','scrollbars=yes, resizable=yes, height=550, width=900')" style="text-decoration: none"><%=mlDT.Rows(aaaeqSSS)("noinvo")%></span>
+                                                </a>
+                                            </td>
+                                            <td style="text-align:center;" class="table-bordered">
+                                                <a href="#"><span onClick="javascript:window.open('mc_cetak_invoice_akt.asp?noinvoice=<%=mlDT.Rows(aaaeqSSS)("noinvo")%>&menu_id=<%=session("menu_id")%>&asal=<%=sels%>'
+                                                    , 'HelpWindow','scrollbars=yes, resizable=yes, height=550, width=900')" style="text-decoration: none"><%=mlDT.Rows(aaaeqSSS)("nopajak")%></span>
+                                                </a>
+                                            </td>
+                                            <td style="text-align:center;" class="table-bordered"><%=UCase(mlDT.Rows(aaaeqSSS)("kta"))%></td>
+                                            <td style="text-align:center;" class="table-bordered">&nbsp;&nbsp;<%=mlDT.Rows(aaaeqSSS)("nomc")%></td>
+                                            <td style="text-align:center;" class="table-bordered"><%=paket%></td>
+                                            <td style="text-align:right;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("gtot"), 0)%>&nbsp;&nbsp;</td>
+                                            <td style="text-align:right;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("tunai") - mlDT.Rows(aaaeqSSS)("kembalian"), 0)%>&nbsp;&nbsp;</td>
+                                            <td style="text-align:right;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("debit"), 0)%>&nbsp;&nbsp;</td>
+                                            <td style="text-align:right;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("cc"), 0)%>&nbsp;&nbsp;</td>
+                                            <td style="text-align:right;" class="table-bordered"><%=FormatNumber(mlDT.Rows(aaaeqSSS)("cek"), 0)%>&nbsp;&nbsp;</td>
+                                        </tr>
+                                        <%
+                                                Next
+                                            End If
+                                            mlDR.Close()
+
+                                        %>
+                                   
+                                   
                                     <tr class="table-bordered">
                                         <td colspan="6" style="text-align:right;" class="table-bordered"><strong>Grand Total</strong></td>
-                                        <td style="text-align:right;" class="table-bordered">0</td>
-                                        <td style="text-align:right;" class="table-bordered">0</td>
-                                        <td style="text-align:right;" class="table-bordered">0</td>
-                                        <td style="text-align:right;" class="table-bordered">0</td>
-                                        <td style="text-align:right;" class="table-bordered">0</td>
+                                        <td style="text-align:right;" class="table-bordered"><%=FormatNumber(totnom, 0)%>&nbsp;&nbsp;</td>
+                                        <td style="text-align:right;" class="table-bordered"><%=FormatNumber(tottunai, 0)%>&nbsp;&nbsp;</td>
+                                        <td style="text-align:right;" class="table-bordered"><%=FormatNumber(totdebit, 0)%>&nbsp;&nbsp;</td>
+                                        <td style="text-align:right;" class="table-bordered"><%=FormatNumber(totcc, 0)%>&nbsp;&nbsp;</td>
+                                        <td style="text-align:right;" class="table-bordered"><%=FormatNumber(totbg, 0)%>&nbsp;&nbsp;</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -202,32 +423,32 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td colspan="3"><u><span class="style3"><strong>GRAND TOTAL DARI TANGGAL s/d</strong></span></u></td>
+                                                            <td colspan="3"><u><span class="style3"><strong>GRAND TOTAL DARI TANGGAL <%=FormatDateTime(tg1, 1)%> s/d <%=FormatDateTime(tg2, 1)%></strong></span></u></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="width:20%;"><span class="style3">Tunai</span></td>
-                                                            <td style="width:8%;"><span class="style3">:</span></td>
-                                                            <td style="width:72%;"><span class="style3">Rp,-</span></td>
+                                                            <td style="width:8%;"><span class="style3">:&nbsp;</span></td>
+                                                            <td style="width:72%;"><span class="style3">Rp <%=FormatNumber(gtottunai, 0)%>,-</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td><span class="style3">Debit Card</span></td>
-                                                            <td><span class="style3">:</span></td>
-                                                            <td><span class="style3">Rp,-</span></td>
+                                                            <td><span class="style3">:&nbsp;</span></td>
+                                                            <td><span class="style3">Rp <%=FormatNumber(gtotdebit, 0)%>,-</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td><span class="style3">Kredi Card</span></td>
-                                                            <td><span class="style3">:</span></td>
-                                                            <td><span class="style3">Rp,-</span></td>
+                                                            <td><span class="style3">:&nbsp;</span></td>
+                                                            <td><span class="style3">Rp <%=FormatNumber(gtotkartu, 0)%>,-</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td><span class="style3">Transfer</span></td>
-                                                            <td><span class="style3">:</span></td>
-                                                            <td><span class="style3">Rp,-</span></td>
+                                                            <td><span class="style3">:&nbsp;</span></td>
+                                                            <td><span class="style3">Rp <%=FormatNumber(gtotbg, 0)%>,-</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td><span class="style3"><strong>TOTAL</strong></span></td>
-                                                            <td><span class="style3"><strong>:</strong></span></td>
-                                                            <td><span class="style3"><strong>Rp,-</strong></span></td>
+                                                            <td><span class="style3"><strong>:&nbsp;</strong></span></td>
+                                                            <td><span class="style3"><strong><b>Rp <%=FormatNumber(gtottunai + gtotdebit + gtotkartu + gtotbg, 0)%>,-</b></strong></span></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
