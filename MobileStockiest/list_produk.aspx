@@ -213,29 +213,29 @@
                                         totbg = 0
                                         If tgl1 <> "" And tgl2 <> "" And kasir = "semua" Then
                                             If sort = "Bulan" Then
-                                                mlQuery = "SELECT * FROM st_sale_prd_head where nopos like '" & mypos & "'  and ((date(tgl) >= '" & tg1 & "')" & vbCrLf
-                                                mlQuery += "And (date(tgl) <= '" & tg2 & "')) order by month(tgl) DESC, year(tgl) DESC"
+                                                mlQuery = "SELECT * FROM st_sale_prd_head where nopos like '" & mypos & "'  and ((convert(varchar(10),tgl,121) >= '" & tg1 & "')" & vbCrLf
+                                                mlQuery += "And (convert(varchar(10),tgl,121) <= '" & tg2 & "')) order by month(tgl) DESC, year(tgl) DESC"
                                             Else
                                                 If sort = "tanggal" Then
-                                                    mlQuery = "SELECT * FROM st_sale_prd_head where nopos like '" & mypos & "'  and ((date(tgl) >= '" & tg1 & "')" & vbCrLf
-                                                    mlQuery += "And (date(tgl) <= '" & tg2 & "')) order by tgl DESC"
+                                                    mlQuery = "SELECT * FROM st_sale_prd_head where nopos like '" & mypos & "'  and ((convert(varchar(10),tgl,121) >= '" & tg1 & "')" & vbCrLf
+                                                    mlQuery += "And (convert(varchar(10),tgl,121) <= '" & tg2 & "')) order by tgl DESC"
                                                 Else
-                                                    mlQuery = "SELECT * FROM st_sale_prd_head where nopos like '" & mypos & "'  and ((date(tgl) >= '" & tg1 & "')" & vbCrLf
-                                                    mlQuery += "And (date(tgl) <= '" & tg2 & "')) order by tgl DESC"
+                                                    mlQuery = "SELECT * FROM st_sale_prd_head where nopos like '" & mypos & "'  and ((convert(varchar(10),tgl,121) >= '" & tg1 & "')" & vbCrLf
+                                                    mlQuery += "And (convert(varchar(10),tgl,121) <= '" & tg2 & "')) order by tgl DESC"
                                                 End If
                                             End If
                                         Else
                                             If tgl1 <> "" And tgl2 <> "" And kasir <> "semua" Then
                                                 If sort = "Bulan" Then
                                                     mlQuery = "SELECT * FROM st_sale_prd_head where nopos like '" & mypos & "'  and kta like '" & kasir & "'" & vbCrLf
-                                                    mlQuery += "And ((date(tgl) >= '" & tg1 & "') and (date(tgl) <= '" & tg2 & "')) order by month(tgl) DESC, year(tgl) DESC"
+                                                    mlQuery += "And ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "')) order by month(tgl) DESC, year(tgl) DESC"
                                                 Else
                                                     If sort = "tanggal" Then
                                                         mlQuery = "SELECT * FROM st_sale_prd_head where nopos like '" & mypos & "'  and kta like '" & kasir & "'" & vbCrLf
-                                                        mlQuery += "And ((date(tgl) >= '" & tg1 & "') and (date(tgl) <= '" & tg2 & "')) order by tgl DESC"
+                                                        mlQuery += "And ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "')) order by tgl DESC"
                                                     Else
                                                         mlQuery = "SELECT * FROM st_sale_prd_head where nopos like '" & mypos & "' and kta like '" & kasir & "'" & vbCrLf
-                                                        mlQuery += "And ((date(tgl) >= '" & tg1 & "') and (date(tgl) <= '" & tg2 & "')) order by tgl DESC"
+                                                        mlQuery += "And ((convert(varchar(10),tgl,121) >= '" & tg1 & "') and (convert(varchar(10),tgl,121) <= '" & tg2 & "')) order by tgl DESC"
                                                     End If
                                                 End If
                                             Else
