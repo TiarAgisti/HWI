@@ -38,6 +38,7 @@
                                                     <%
                                                             Next
                                                         End If
+                                                        mlDR.Close()
                                                     %>		
 				                                </select>
 			                                </td>
@@ -248,6 +249,7 @@
                             <%
                                     Next
                                 End If
+                                mlDR.Close()
                             %>
 				        </table>
                     </div>

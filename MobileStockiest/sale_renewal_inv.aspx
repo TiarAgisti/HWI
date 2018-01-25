@@ -35,6 +35,7 @@
                 <h3 class="text-center panel-title"><strong>INVOICE RENEWAL</strong></h3>
             </div>
             <div class="panel-body">
+                <%if lanjut = "T" Then %>
 			    <div class="row">
                     <div class="row">
                         <div style="padding: 20px 20px 5px 20px" class="col-xs-0">
@@ -43,7 +44,6 @@
                                     <img src="../assets/img/logo.jpg" width="143" height="100">
                                 </div>
                             </div>
-                            <%if lanjut = "T" then %>
                             <div class="col-md-1">
                                <strong><%=perush_dc%></strong><br>
 						        <%=nama_dc%> [<%=no_dc%>]<br>
@@ -99,6 +99,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -128,13 +129,13 @@
 															<tr>
 															    <td>
 																    <table border="0" style="padding:0;border-spacing:0;width:100%;">
-																    <%if produk1 <> "-" then %>
+																    <%if produk1 <> "-" Then %>
 																	    <tr>
 																		    <td style="width:16%;text-align:center;"><label style="color:#000000;">-</label></td>
 																		    <td><label style="color:#000000;"><%=produk1%></label></td>
 																	    </tr>
-																    <%end if%>	
-																    <%if produk2 <> "-" then %>
+																    <%end If%>	
+																    <%if produk2 <> "-" Then %>
 																	    <tr>
 																		    <td style="width:16%;text-align:center;"><label style="color:#000000;">-</label></td>
 																		    <td><label style="color:#000000;"><%=produk2%></label></td>
@@ -187,8 +188,8 @@
 																		    <td style="width:16%;text-align:center;"><label style="color:#000000;">-</label></td>
 																		    <td><label style="color:#000000;"><%=produk10%></label></td>
 																	    </tr>
-																    <%end if%>		
-																    <%if produk11 <> "-" then %>
+																    <%end If%>		
+																    <%if produk11 <> "-" Then %>
 																	    <tr>
 																		    <td style="width:16%;text-align:center;"><label style="color:#000000;">-</label></td>
 																		    <td><label style="color:#000000;"><%=produk11%></label></td>
@@ -199,7 +200,7 @@
 																		    <td style="width:16%;text-align:center;"><label style="color:#000000;">-</label></td>
 																		    <td><label style="color:#000000;"><%=produk12%></label></td>
 																	    </tr>
-																    <%end if%>																																																																																																																																																																																																				
+																    <%end If%>																																																																																																																																																																																																				
 																    </table>
 																</td>
 															</tr>
@@ -279,6 +280,7 @@
                         </a>
                     </label>
                 </div>
+                <% End If %>
             </div>
         </div>
         <div style="padding: 10px 20px 20px 10px">
