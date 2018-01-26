@@ -14,7 +14,7 @@ Partial Class MobileStockiest_kartustock
     Protected mlDT As DataTable
     Protected mlOBJGS As New IASClass.ucmGeneralSystem
 
-    Protected sort, pos_area, mypos, loguser, paket, kelasdc, indukmc, indukdc, namatabel, namatabel2, pgas, nama, foto, info, lanjut, ket As String
+    Protected sort, pos_area, mypos, loguser, paket, kelasdc, indukmc, indukdc, namatabel, namatabel2, pgas, nama, foto, info, lanjut, ket, dcpusat As String
     Protected x, pg, bg, z, tothal, totrec, halskr, tujuan, sisa, lumpat, kemana, pgcunt, pgct, aax, kl As Integer
     Protected bv, pv, minimal, masuk, awal, keluar, akhir As Double
     Protected tgl1, tgl2, tgl As Date
