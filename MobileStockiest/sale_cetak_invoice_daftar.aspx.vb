@@ -20,10 +20,10 @@ Partial Class MobileStockiest_sale_cetak_invoice_daftar
     Dim jumlah1, jumlah2, jumlah3, jumlah4, jumlah5, jumlah6, jumlah7, jumlah8, jumlah9, jumlah10, jumlah11, jumlah12 As Double
     Dim bv, jumbayar As Double
 
-    Public lanjut, perush_dc, nama_dc, no_dc, alamat_dc, alamat_dc2, telp_dc, emel_dc, web_dc, nopajak, noinvo, noseri, namakon, loguser, namapaket, paket As String
-    Public produk1, produk2, produk3, produk4, produk5, produk6, produk7, produk8, produk9, produk10, produk11, produk12 As String
-    Public alokbulan, aloktahun, harga, PV, tunai, debit, cc, vouc, kembalian As Double
-    Public tgl As Date
+    Protected lanjut, perush_dc, nama_dc, no_dc, alamat_dc, alamat_dc2, telp_dc, emel_dc, web_dc, nopajak, noinvo, noseri, namakon, loguser, namapaket, paket As String
+    Protected produk1, produk2, produk3, produk4, produk5, produk6, produk7, produk8, produk9, produk10, produk11, produk12 As String
+    Protected alokbulan, aloktahun, harga, PV, tunai, debit, cc, vouc, kembalian As Double
+    Protected tgl As Date
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         mlOBJGS.Main()
