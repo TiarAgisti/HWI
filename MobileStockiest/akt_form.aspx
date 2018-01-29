@@ -163,6 +163,7 @@
                                                 <%
                                                         Next
                                                     End If
+                                                    mlDR.Close()
                                                 %>	
                                             </optgroup>
                                         </select>
@@ -231,6 +232,7 @@
                                                 <%
                                                         Next
                                                     End If
+                                                    mlDR.Close()
                                                 %>	
                                             </optgroup>
                                         </select>
@@ -332,7 +334,7 @@
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Kota</span></div>
 							        <div class="col-md-1"><span>:</span></div>
-                                   <div class="col-md-7">
+                                    <div class="col-md-7">
                                         <input type="text" class="form-control" name="kota" onKeyDown="if(event.keyCode==13) event.keyCode=9;" >
                                     </div>
                                     <div class="col-md-2">
@@ -360,8 +362,9 @@
                                                             <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>"><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
                                                             <%End If%> 
                                                  <%
-                                                        Next
-                                                    End If
+                                                         Next
+                                                     End If
+                                                     mlDR.Close()
                                                 %>		
                                             </optgroup>
                                         </select>
@@ -407,13 +410,13 @@
                                         <select class="form-control" name="propinsisurat" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                             <optgroup label="propinsi surat">
                                                <%
-                                                    pp = "prp"
-                                                    mlQuery = "SELECT * FROM tabdesc WHERE grp like '" & pp & "' order by deskripsi"
-                                                    mlDR = mlOBJGS.DbRecordset(mlQuery, mpMODULEID, mlCOMPANYID)
-                                                    If mlDR.HasRows Then
-                                                        mlDT = New Data.DataTable
-                                                        mlDT.Load(mlDR)
-                                                        For aaaeqsK = 1 To mlDT.Rows.Count - 1
+                                                   pp = "prp"
+                                                   mlQuery = "SELECT * FROM tabdesc WHERE grp like '" & pp & "' order by deskripsi"
+                                                   mlDR = mlOBJGS.DbRecordset(mlQuery, mpMODULEID, mlCOMPANYID)
+                                                   If mlDR.HasRows Then
+                                                       mlDT = New Data.DataTable
+                                                       mlDT.Load(mlDR)
+                                                       For aaaeqsK = 1 To mlDT.Rows.Count - 1
                                                  %>
                                                             <%if prop_dc = mlDT.Rows(aaaeqsK)("deskripsi") Then %>
                                                             <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>" selected><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
@@ -421,8 +424,9 @@
                                                             <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>"><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
                                                             <%End If%> 
                                                  <%
-                                                        Next
-                                                    End If
+                                                         Next
+                                                     End If
+                                                     mlDR.Close()
                                                 %>		
                                             </optgroup>
                                         </select>
@@ -444,7 +448,7 @@
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nomor Telepon</span></div>
 							        <div class="col-md-1"><span>:</span></div>
-                                   <div class="col-md-7">
+                                    <div class="col-md-7">
                                         <input type="text" class="form-control" name="notelp" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                     </div>
                                     <div class="col-md-2">
@@ -474,7 +478,7 @@
                                 <div class="col-md-12" style="padding: 5px 0px 5px 0px">
                                     <div class="col-md-2"><span>Nama Ahli Waris</span></div>
 							        <div class="col-md-1"><span>:</span></div>
-                                   <div class="col-md-7">
+                                    <div class="col-md-7">
                                         <input type="text" class="form-control" name="ahliwaris" onKeyDown="if(event.keyCode==13) event.keyCode=9;">
                                         <input type="hidden" name="menu_id" value="<%=session("menu_id")%>">
                                     </div>
@@ -497,14 +501,11 @@
                                                         mlDT.Load(mlDR)
                                                         For aaaeqsK = 1 To mlDT.Rows.Count - 1
                                                  %>
-                                                            <%if prop_dc = mlDT.Rows(aaaeqsK)("deskripsi") Then %>
-                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>" selected><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
-                                                            <%Else%>
-                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>"><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
-                                                            <%End If%> 
+                                                        <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>"><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option> 
                                                  <%
-                                                        Next
-                                                    End If
+                                                         Next
+                                                     End If
+                                                     mlDR.Close()
                                                 %>		
                                             </optgroup>
                                         </select>
@@ -679,14 +680,15 @@
                                                         mlDT.Load(mlDR)
                                                         For aaaeqsK = 1 To mlDT.Rows.Count - 1
                                                  %>
-                                                            <%if prop_dc = mlDT.Rows(aaaeqsK)("deskripsi") Then %>
-                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>" selected><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
-                                                            <%Else%>
-                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>"><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option>
-                                                            <%End If%> 
+                                                            <%if mlDT.Rows(aaaeqsK)("deskripsi") = "BCA" Then %>
+                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>" selected><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option> 
+                                                            <% Else%>
+                                                            <option value="<%=mlDT.Rows(aaaeqsK)("deskripsi")%>"><%=mlDT.Rows(aaaeqsK)("deskripsi")%></option> 
+                                                            <%End If%>  
                                                  <%
-                                                        Next
-                                                    End If
+                                                         Next
+                                                     End If
+                                                     mlDR.Close()
                                                 %>		
                                             </optgroup>
                                         </select>
