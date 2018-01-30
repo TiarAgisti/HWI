@@ -500,7 +500,7 @@ Partial Class MobileStockiest_rekap_harian
         mlREADER.Close()
 
 
-        mlSQL = "SELECT count(id) as vid FROM sum_rekap_harian_kasir where nopos like '" & mypos & "' and (day(tgl) = '" & g 1&"' and month(tgl) = '" & g2 &"' and year(tgl) = '" & g3 &"')"
+        mlSQL = "SELECT count(id) as vid FROM sum_rekap_harian_kasir where nopos like '" & mypos & "' and (day(tgl) = '" & g1 & "' and month(tgl) = '" & g2 & "' and year(tgl) = '" & g3 & "')"
         mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
         mlREADER.Read()
         If Not mlREADER.HasRows Then

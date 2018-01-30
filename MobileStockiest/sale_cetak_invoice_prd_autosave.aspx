@@ -38,7 +38,7 @@
           		            <div class="panel-body"><img src="../assets/img/logo.jpg" width="143" height="100"></div>
         	            </div>
 			            <div class="col-md-1">
-				           <strong><%=perush_dc%></strong><br/>
+				            <strong><%=perush_dc%></strong><br/>
 						    <%=nama_dc%> [<%=no_dc%>]<br/>
 						    <%=alamat_dc%><br/>
 						    <%=alamat_dc2%><br/>
