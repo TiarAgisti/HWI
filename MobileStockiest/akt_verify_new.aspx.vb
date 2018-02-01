@@ -18,11 +18,12 @@ Partial Class MobileStockiest_akt_verify_new
     Protected tahunlahir, alamat, kota, propinsi, kodepos, surat, kotasurat, propinsisurat, kodepossurat, notelp, nohape As String
     Protected pasangan, ahliwaris, hubwaris, eml, bnk, nrk, namarek, npwp, kdposna, namamu, nofax, emel, diskon, zona As String
     Protected l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, l16, l17, l18, l19, l20, l21, l22, l22a, l23, l24, l25, l26, l27, l28, l29, l30, l31, l32, l33 As String
-    Dim jumbc, strDayes, bcdirek, bcupline, subalo, muter, aax As Double
+    Dim strDayes, bcdirek, bcupline, subalo, muter, aax As Double
     Protected direk, namadirek, notelpdirek, tempat, kakidirek, kakiupline, idupline, notelpalo, psa, uprane, terusane, kedua As String
     Dim nocross, aloce, sopokui As String
 
     Protected noinvo As String
+    Protected jumbc As Double
     Protected error2, error3, error4, error5, error6, error7, error8, error9, error10, error11, error12, error13, error14, error15, error16, error17, error18, error19, error20 As String
     Protected error21, error22, error22a, error23, error24, error25, error26, error27, error28, error29, error30, error31, error32, error33 As String
 
