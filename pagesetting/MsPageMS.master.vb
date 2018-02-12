@@ -190,18 +190,18 @@ Partial Class pagesetting_MsPageMS
             Session("kowe") = loguser
         End If
 
-        If menu_id.ToString() <> "" Then
-            mlSQL = "SELECT * FROM  menu_akses_pos where id_menu='" & menu_id & "' and kta like '" & loguser & "' and bag like '" & menu_bagpos & "' and pos like '" & mypos & "'"
-            mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
+        'If menu_id.ToString() <> "" Then
+        '    mlSQL = "SELECT * FROM  menu_akses_pos where id_menu='" & menu_id & "' and kta like '" & loguser & "' and bag like '" & menu_bagpos & "' and pos like '" & mypos & "'"
+        '    mlREADER = mlOBJGS.DbRecordset(mlSQL, mpMODULEID, mlCOMPANYID)
 
-            If Not mlREADER.HasRows Then
-                mlREADER.Close()
-                Session("error") = "Anda tidak memiliki hak akses untuk mengakses menu : " & menu_id
-                Response.Redirect("error1.aspx")
-            Else
-            End If
-            mlREADER.Close()
-        End If
+        '    If Not mlREADER.HasRows Then
+        '        mlREADER.Close()
+        '        Session("error") = "Anda tidak memiliki hak akses untuk mengakses menu : " & menu_id
+        '        Response.Redirect("error1.aspx")
+        '    Else
+        '    End If
+        '    mlREADER.Close()
+        'End If
 
     End Sub
 

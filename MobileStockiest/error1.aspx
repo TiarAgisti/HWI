@@ -10,9 +10,9 @@
     <form id="form1" runat="server">
         <div>
             <p style="text-align:center">
-                Sistem tidak dapat melanjutkan rikues anda yang terakhir<br>
-			    Silahkan perbaiki kesalahan seperti yang tertulis dibawah ini.<br>
-			    Apabila kesalahan masih berlanjut, silahkan menghubungi kantor pusat.<br>
+                Sistem tidak dapat melanjutkan rikues anda yang terakhir<br />
+			    Silahkan perbaiki kesalahan seperti yang tertulis dibawah ini.<br />
+			    Apabila kesalahan masih berlanjut, silahkan menghubungi kantor pusat.<br />
             </p>
         </div>
         <div>

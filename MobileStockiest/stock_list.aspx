@@ -259,7 +259,7 @@
                                                     If mlDR.HasRows Then
                                                         mlDT = New Data.DataTable
                                                         mlDT.Load(mlDR)
-                                                        For aaaeqSSS = 1 To lumpat
+                                                        For aaaeqSSS As Integer = 1 To lumpat
                                                             PV = mlDT.Rows(aaaeqSSS)("pv")
                                                             bv = mlDT.Rows(aaaeqSSS)("bv")
                                                             jumlah = mlDT.Rows(aaaeqSSS)("jumlah")
@@ -663,11 +663,11 @@
 														<%End If%>						
 							                        </td>
 							                        <td class="table-bordered text-right">
-                                                        <%if gg = "PRD" then %>
-														<a href="kartustock.aspx?id=<%=mlDT.Rows(aaaeqSSS)("kode")%>&menu_id=<%=session("menu_id")%>"><%=FormatNumber(jumlah - jumbutuhakt, 0)%></a>&nbsp;&nbsp;
-														<%else%>
-														<a href="kartustock.aspx?id=<%=mlDT.Rows(aaaeqSSS)("kode")%>&menu_id=<%=session("menu_id")%>"><%=jumlah%></a>&nbsp;&nbsp;
-														<%end if%>
+                                                        <%if gg = "PRD" Then %>
+														<a href="kartustock.aspx?id=<%=mlDT.Rows(aaaeqSSS)("kode")%>&menu_id=<%=Session("menu_id")%>"><%=FormatNumber(jumlah - jumbutuhakt, 0)%></a>&nbsp;&nbsp;
+														<%    Else%>
+														<a href="kartustock.aspx?id=<%=mlDT.Rows(aaaeqSSS)("kode")%>&menu_id=<%=Session("menu_id")%>"><%=jumlah%></a>&nbsp;&nbsp;
+														<%    End If%>
 							                        </td>
 							                        <td class="table-bordered text-right"><%=FormatNumber(PV, 2)%>&nbsp;&nbsp;</td>
 							                        <td class="table-bordered text-right">
