@@ -45,7 +45,7 @@
                                     </div>
 				                    <div class="col-md-6">
 					                    <div class="panel-body">
-						                   <strong><%=perush_dc%></strong><br/>
+						                    <strong><%=perush_dc%></strong><br/>
 						                    <%=nama_dc%> [<%=no_dc%>]<br/>
 						                    <%=alamat_dc%><br/>
 						                    <%=alamat_dc2%><br/>
@@ -87,7 +87,7 @@
 					                    <tbody class="table table-bordered">
 						                    <tr>
 							                    <td class="table-bordered text-left">
-                                                     <%=namapaket%> (<%=paket%>) <br />
+                                                    <%=namapaket%> (<%=paket%>) <br />
                                                     <%if produk1 <> "-" Then %>
                                                         <%=produk1%> <br />
                                                     <%end If%>

@@ -11,8 +11,7 @@
 	<link rel="stylesheet" href="../Scripts/Bootstrap/dist/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/styles.css">
- <asp:ContentPlaceHolder id="head" runat="server" >
-    </asp:ContentPlaceHolder>
+ <asp:ContentPlaceHolder id="head" runat="server" ></asp:ContentPlaceHolder>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
